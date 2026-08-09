@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.env
+*.log
+assets/video/*.mp4
+!assets/video/.gitkeep
+
