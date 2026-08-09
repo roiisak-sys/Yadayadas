@@ -1,0 +1,74 @@
+[
+  {
+    "id": "roi-isak",
+    "role": "core",
+    "age": 47,
+    "nameHe": "רועי איסק",
+    "nameEn": "Roi Isak",
+    "instrumentHe": "שירה וכלי הקשה",
+    "instrumentEn": "Lead Vocals & Percussion",
+    "photo": "/assets/photos/photo_05.jpg",
+    "bioHe": "רועי איסק מגיע ל-YADAYADAS עם שנים של עשייה מוזיקלית ועם חיבור עמוק לקצב ולמוזיקה ממסורות שונות. בעבר היה חבר בלהקת עלילה, הרכב מוזיקת עולם שיצר שילוב בין מוזיקה מערבית, אפריקאית, מרוקאית, תימנית, הודית ויפנית. באלבום אצל איסק מ-2010 הוא השתתף כנגן כלי הקשה וקולות, עם דרבוקה, דהולה, ג'מבה ואודו. ב-YADAYADAS הוא מביא את אותה יכולת קצבית ואינטואיטיבית אל תוך המוזיקה של בואי.",
+    "bioEn": "Roi Isak brings years of musical work and a deep connection to rhythm and music from diverse traditions. He was previously a member of Alila, a world-music ensemble blending Western, African, Moroccan, Yemenite, Indian, and Japanese music. On the 2010 album Etzel Isak he performed percussion and vocals — darbuka, dohola, djembe, and oud. In YADAYADAS he brings that same rhythmic, intuitive sensibility into Bowie's music."
+  },
+  {
+    "id": "guy-wittenberg",
+    "role": "core",
+    "age": 50,
+    "nameHe": "גיא ויטנברג",
+    "nameEn": "Guy Wittenberg",
+    "instrumentHe": "סקסופון, כינור וקולות",
+    "instrumentEn": "Saxophone, Violin & Vocals",
+    "photo": "/assets/photos/photo_09.jpg",
+    "bioHe": "גיא ויטנברג הוא רב-נגן שמתמחה בסקסופון ובכינור, עם כ-15 שנות פעילות מקצועית ומאות הופעות בארץ ובחו\"ל. לצד פעילותו העצמאית והפקה של הרכבים מוזיקליים, גיא היה חלק מלהקת פורטרט — אחת מלהקות הפופ-פאנק הבולטות בישראל, שהוקמה ב-1989 והפכה לאבן דרך בסצנת המוזיקה הישראלית של שנות ה-90. גיא השתתף בהרכב המחודש של הלהקה וניגן בחטיבת כלי הנשיפה.",
+    "bioEn": "Guy Wittenberg is a multi-instrumentalist specializing in saxophone and violin, with roughly 15 years of professional activity and hundreds of shows in Israel and abroad. Alongside his independent work and production for various ensembles, Guy was part of Portrait, one of Israel's leading pop-punk bands, founded in 1989 and a landmark of the Israeli music scene of the 1990s. He played in the band's reunited lineup, in the horn section."
+  },
+  {
+    "id": "gil-idan",
+    "role": "core",
+    "age": 47,
+    "nameHe": "גיל \"אגרול\" אידן",
+    "nameEn": "Gil \"Agrol\" Idan",
+    "instrumentHe": "תופים",
+    "instrumentEn": "Drums",
+    "photo": "/assets/photos/photo_01.jpg",
+    "bioHe": "גיל אידן, המכונה \"אגרול\", הוא מתופף עם היסטוריה ארוכה ברוק הישראלי. הוא היה חבר וממייסדי אגרול (Eggroll), הרכב שהחל עוד בתקופת התיכון, ובהמשך ניגן בלהקת סוסיתא. סוסיתא הגדירה את הסגנון שלה כ\"רוק כנעני\" — שילוב של מוזיקה ישראלית שורשית, רוק מתקדם ושירי רועים. גיל השתתף גם באלבום של הלהקה מ-2005 ואף היה שותף לעיבודים.",
+    "bioEn": "Gil Idan, known as \"Agrol,\" is a drummer with a long history in Israeli rock. He was a member and co-founder of Eggroll, a band that started back in high school, and later played in Susita, a group that defined its style as \"Canaanite rock\" — a blend of rooted Israeli music, progressive rock, and shepherd songs. Gil played on the band's 2005 album and also contributed to arrangements."
+  },
+  {
+    "id": "dedi-kovetz",
+    "role": "core",
+    "age": 46,
+    "nameHe": "דדי קובץ'",
+    "nameEn": "Dedi Kovetz",
+    "instrumentHe": "קלידים וקולות",
+    "instrumentEn": "Keyboards & Vocals",
+    "photo": "/assets/photos/photo_01.jpg",
+    "bioHe": "דדי קובץ' הוא הקלידן של YADAYADAS, ומחזיק בחלק מרכזי בעיצוב הצבע והאווירה של המופע — מרקמי הסינתיסייזרים, הפסנתרים והצלילים שמלווים את העולמות השונים שבואי עבר בהם לאורך הקריירה. גם במקרה שלו, לא מצאנו כרגע מקורות ציבוריים מספקים שמאפשרים לבנות ביוגרפיה מוזיקלית מדויקת מעבר לפעילותו בהרכב.",
+    "bioEn": "Dedi Kovetz is YADAYADAS's keyboardist, holding a central role in shaping the show's color and atmosphere — the synth textures, piano lines, and sounds that carry the different worlds Bowie moved through over his career. As with a couple of the other members, we haven't found sufficient public sources to build an accurate musical biography beyond his work with the band."
+  },
+  {
+    "id": "ofer-pal",
+    "role": "core",
+    "age": 47,
+    "nameHe": "עופר פל",
+    "nameEn": "Ofer Pal",
+    "instrumentHe": "בס",
+    "instrumentEn": "Bass",
+    "photo": "/assets/photos/photo_01.jpg",
+    "bioHe": "עופר פל הוא הבסיסט של YADAYADAS, ומהווה את העוגן שעליו נשען הגרוב של ההרכב. מעבר לפעילותו עם הלהקה, לא מצאנו כרגע מספיק מידע ציבורי אמין על הרקע המוזיקלי הקודם שלו כדי לכתוב עליו ביוגרפיה מלאה — ולכן אנחנו מעדיפים לתת למוזיקה לדבר, ולא להמציא סיפור שלא קיים במקורות.",
+    "bioEn": "Ofer Pal is YADAYADAS's bassist, the anchor the band's groove leans on. Beyond his work with the band, we haven't found enough reliable public information about his earlier musical background to write a full biography — so we'd rather let the music speak than invent a story that isn't in the record."
+  },
+  {
+    "id": "itzik-galanti",
+    "role": "core",
+    "age": 50,
+    "nameHe": "איציק גלנטי",
+    "nameEn": "Itzik Galanti",
+    "instrumentHe": "גיטרות",
+    "instrumentEn": "Guitars",
+    "photo": "/assets/photos/photo_21.jpg",
+    "bioHe": "איציק גלנטי חי בשני עולמות: ביום-יום הוא עוסק בהייטק, ובמקביל המוזיקה והגיטרה מלוות אותו מילדות. הוא מנגן בגיטרה חשמלית ואקוסטית, והחיבור שלו למוזיקה התחיל כבר בילדות — הרבה לפני שהפך לעיסוק מקצועי. כיום הוא משלב את הקריירה המקצועית עם פעילות מוזיקלית, כולל הופעות עם YADAYADAS.",
+    "bioEn": "Itzik Galanti lives in two worlds: by day he works in high-tech, while music and guitar have been with him since childhood. He plays both electric and acoustic guitar, and his connection to music began long before it became a side pursuit — today he combines his professional career with musical activity, including performing with YADAYADAS."
+  }
+]

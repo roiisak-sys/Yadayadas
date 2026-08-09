@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "YADAYADAS — A David Bowie Live Experience",
+    "description": "YADAYADAS is a six-piece Israeli live band performing a David Bowie tribute show that isn't a costume act — it's a discovery. The music is the vehicle. The man is the mystery."
+  },
+  "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
+  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "tagline": "A LIVE EXPERIENCE" },
+  "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
+  "bowies": {
+    "eras": [
+      { "name": "ZIGGY", "line": "Color. Energy. Theatricality." },
+      { "name": "THE THIN WHITE DUKE", "line": "ZIGGY HAD TO DIE." },
+      { "name": "BERLIN", "line": "THE THIN WHITE DUKE HAD TO DISAPPEAR." },
+      { "name": "LET'S DANCE", "line": "Color. Movement. Pop." },
+      { "name": "BLACKSTAR", "line": "Mystery. Mortality. Art." }
+    ]
+  },
+  "musicStarts": { "label": "Then the music starts" },
+  "band": {
+    "heading": "SIX MUSICIANS.",
+    "subheading": "ONE STRANGE JOURNEY.",
+    "intro": "YADAYADAS is a meeting of six musicians from very different backgrounds — world music, progressive rock, pop-punk, live performance, production, high-tech, and a lot of hours on stage.\n\nAnd that might be exactly what makes the show interesting: not an attempt to imitate David Bowie, but six musicians bringing themselves into his music."
+  },
+  "sound": { "words": ["ROCK'N'ROLL", "SAX", "VIOLIN", "GUITAR", "BALLADS", "LOUD", "QUIET", "BOWIE"] },
+  "story": { "heading": "THE THIN WHITE DUKE" },
+  "quotes": { "primary": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?" },
+  "events": { "heading": "DATES", "empty": "More dates coming soon.", "ticketsCta": "Get Tickets" },
+  "final": { "line1": "DAVID BOWIE WAS NEVER JUST ONE PERSON.", "line2": "NEITHER ARE WE.", "cta": "SEE YADAYADAS LIVE" },
+  "languageToggle": { "label": "EN" }
+}

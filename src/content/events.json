@@ -1,0 +1,32 @@
+[
+  {
+    "id": "the-zone-2026-08-08",
+    "status": "past",
+    "dateISO": "2026-08-08",
+    "venueHe": "האיזור",
+    "venueEn": "The Zone",
+    "cityHe": "תל אביב",
+    "cityEn": "Tel Aviv",
+    "ticketUrl": ""
+  },
+  {
+    "id": "bella-ciao-2026-07-24",
+    "status": "past",
+    "dateISO": "2026-07-24",
+    "venueHe": "Bella Ciao Bar",
+    "venueEn": "Bella Ciao Bar",
+    "cityHe": "ראשון לציון",
+    "cityEn": "Rishon LeZion",
+    "ticketUrl": ""
+  },
+  {
+    "id": "bar-giyora-2025-12-13",
+    "status": "past",
+    "dateISO": "2025-12-13",
+    "venueHe": "בר גיורא",
+    "venueEn": "Bar Giyora",
+    "cityHe": "תל אביב",
+    "cityEn": "Tel Aviv",
+    "ticketUrl": ""
+  }
+]
