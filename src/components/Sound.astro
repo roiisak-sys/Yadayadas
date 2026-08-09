@@ -13,6 +13,7 @@ const { words } = Astro.props;
     loop
     playsinline
     poster="/assets/photos/photo_09.jpg"
+    aria-hidden="true"
   >
     <source src="/assets/video/under-pressure.mp4" type="video/mp4" />
   </video>
@@ -58,13 +59,13 @@ const { words } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
   }
 
   .sound__word {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: var(--size-display-lg);
+    font-size: var(--size-display-md);
     opacity: 0;
   }
 
@@ -101,5 +102,11 @@ const { words } = Astro.props;
         scrub: 1,
       },
     });
+
+    // Re-measure after web fonts finish loading — FOUT/FOIT swap can change the section's
+    // rendered height (and thus the ScrollTrigger start/end markers) after the first measurement.
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
   }
 </script>
