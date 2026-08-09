@@ -55,6 +55,15 @@ const introParagraphs = intro.split('\n\n');
   </div>
 </section>
 
+<noscript>
+  <style is:global>
+    #band .band__member {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
 <style>
   .transition {
     height: 60vh;
@@ -64,7 +73,7 @@ const introParagraphs = intro.split('\n\n');
     background: var(--color-charcoal);
   }
   .transition__label {
-    font-size: 1.2rem;
+    font-size: var(--size-body);
   }
 
   .band {
@@ -112,6 +121,13 @@ const introParagraphs = intro.split('\n\n');
     transform: translateY(24px);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .band__member {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .band__photo {
     width: 100%;
     aspect-ratio: 4 / 5;
@@ -122,13 +138,13 @@ const introParagraphs = intro.split('\n\n');
   .band__name {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: var(--size-body);
     margin: var(--space-sm) 0 0;
   }
 
   .band__bio {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: var(--size-body);
     line-height: 1.5;
     margin: var(--space-sm) 0 0;
     opacity: 0.85;
