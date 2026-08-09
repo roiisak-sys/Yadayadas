@@ -6,3 +6,4 @@ dist/
 assets/video/*.mp4
 !assets/video/.gitkeep
 
+.worktrees/
