@@ -5,8 +5,10 @@ import Hero from '../../components/Hero.astro';
 import QuestionAndBowies from '../../components/QuestionAndBowies.astro';
 import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
 import Sound from '../../components/Sound.astro';
+import Story from '../../components/Story.astro';
 import copy from '../../content/copy.en.json';
 import bandMembers from '../../content/band-members.json';
+import storyBeats from '../../content/story-beats.json';
 ---
 
 <BaseLayout locale="en" title={copy.meta.title} description={copy.meta.description}>
@@ -32,5 +34,6 @@ import bandMembers from '../../content/band-members.json';
       members={bandMembers.filter((m) => m.role === 'core')}
     />
     <Sound words={copy.sound.words} />
+    <Story locale="en" heading={copy.story.heading} beats={storyBeats} />
   </main>
 </BaseLayout>
