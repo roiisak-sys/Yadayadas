@@ -4,6 +4,7 @@ import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
 import QuestionAndBowies from '../../components/QuestionAndBowies.astro';
 import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
+import Sound from '../../components/Sound.astro';
 import copy from '../../content/copy.en.json';
 import bandMembers from '../../content/band-members.json';
 ---
@@ -30,5 +31,6 @@ import bandMembers from '../../content/band-members.json';
       intro={copy.band.intro}
       members={bandMembers.filter((m) => m.role === 'core')}
     />
+    <Sound words={copy.sound.words} />
   </main>
 </BaseLayout>
