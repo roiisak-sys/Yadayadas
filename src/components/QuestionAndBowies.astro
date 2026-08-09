@@ -100,7 +100,23 @@ const { heading, fragments, eras } = Astro.props;
 
   gsap.registerPlugin(ScrollTrigger);
 
+  let currentTween: gsap.core.Tween | null = null;
+
+  function teardown() {
+    if (currentTween) {
+      currentTween.scrollTrigger?.kill();
+      currentTween.kill();
+      currentTween = null;
+    }
+    const track = document.querySelector('#question-and-bowies [data-track]') as HTMLElement | null;
+    if (track) {
+      gsap.set(track, { clearProps: 'transform' });
+    }
+  }
+
   function setupHorizontalScroll() {
+    teardown();
+
     const section = document.getElementById('question-and-bowies');
     const track = section?.querySelector('[data-track]') as HTMLElement | null;
     if (!section || !track) return;
@@ -111,13 +127,13 @@ const { heading, fragments, eras } = Astro.props;
     const distance = track.scrollWidth - window.innerWidth;
     if (distance <= 0) return;
 
-    gsap.to(track, {
-      x: () => -distance,
+    currentTween = gsap.to(track, {
+      x: -distance,
       ease: 'none',
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: () => `+=${distance}`,
+        end: `+=${distance}`,
         scrub: 1,
         pin: true,
         invalidateOnRefresh: true,
@@ -126,5 +142,18 @@ const { heading, fragments, eras } = Astro.props;
   }
 
   setupHorizontalScroll();
-  window.addEventListener('resize', () => ScrollTrigger.refresh());
+
+  // Re-measure after web fonts finish loading — FOUT/FOIT swap can change scrollWidth
+  // after the first measurement.
+  if ('fonts' in document) {
+    document.fonts.ready.then(() => setupHorizontalScroll());
+  }
+
+  // Rebuild (not just refresh) on resize, debounced, so crossing the 900px breakpoint
+  // in either direction correctly creates/destroys the pin instead of leaving it stale.
+  let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => setupHorizontalScroll(), 200);
+  });
 </script>
