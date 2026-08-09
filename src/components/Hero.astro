@@ -16,6 +16,17 @@ const { question, title, subtitle, tagline } = Astro.props;
   <p class="hero__tagline label">{tagline}</p>
 </section>
 
+<noscript>
+  <style is:global>
+    #hero .hero__question,
+    #hero .hero__title,
+    #hero .hero__subtitle,
+    #hero .hero__tagline {
+      opacity: 1 !important;
+    }
+  </style>
+</noscript>
+
 <style>
   .hero {
     position: relative;
@@ -66,6 +77,22 @@ const { question, title, subtitle, tagline } = Astro.props;
     position: relative;
     z-index: 1;
     margin-top: var(--space-md);
+  }
+
+  .hero__question,
+  .hero__title,
+  .hero__subtitle,
+  .hero__tagline {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__question,
+    .hero__title,
+    .hero__subtitle,
+    .hero__tagline {
+      opacity: 1;
+    }
   }
 </style>
 
