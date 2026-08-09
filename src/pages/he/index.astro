@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import copy from '../../content/copy.he.json';
+---
+
+<BaseLayout locale="he" title={copy.meta.title} description={copy.meta.description}>
+  <LanguageToggle locale="he" label={copy.languageToggle.label} />
+  <main>
+    <p class="label" style="padding: 2rem;">YADAYADAS — HE build in progress</p>
+  </main>
+</BaseLayout>
