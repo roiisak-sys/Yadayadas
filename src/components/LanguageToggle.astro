@@ -2,11 +2,12 @@
 interface Props {
   locale: 'he' | 'en';
   label: string;
+  ariaLabel: string;
 }
-const { locale, label } = Astro.props;
+const { locale, label, ariaLabel } = Astro.props;
 ---
 
-<button id="lang-toggle" class="label" aria-label="Switch language" data-locale={locale}>
+<button id="lang-toggle" class="label" aria-label={ariaLabel} data-locale={locale}>
   {label}
 </button>
 
