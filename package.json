@@ -1,0 +1,26 @@
+{
+  "name": "yadayadas",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "astro": "^5.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "@fontsource-variable/rubik": "^5.1.0",
+    "@fontsource/assistant": "^5.1.0",
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "adm-zip": "^0.5.16"
+  }
+}
