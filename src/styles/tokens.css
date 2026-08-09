@@ -1,0 +1,78 @@
+:root {
+  /* Color — pulled from real stage lighting in the band's own photos, not an invented palette */
+  --color-black: #0a0a0a;
+  --color-off-white: #f2ede4;
+  --color-charcoal: #1a1a1a;
+  --color-accent-green: #4dff88;   /* red/green club rig */
+  --color-accent-red: #ff3b3b;     /* red/green club rig + Gypsy bar */
+  --color-accent-purple: #b24dff;  /* psychedelic-spiral venue */
+
+  /* Type */
+  --font-display: 'Rubik Variable', 'Rubik', system-ui, sans-serif;
+  --font-body: 'Assistant', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --size-display-xl: clamp(4rem, 16vw, 14rem);
+  --size-display-lg: clamp(2.5rem, 9vw, 7rem);
+  --size-display-md: clamp(1.75rem, 5vw, 3.5rem);
+  --size-body: clamp(1rem, 1.2vw, 1.15rem);
+  --size-label: 0.75rem;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-black);
+  color: var(--color-off-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+[dir='rtl'] {
+  font-family: var(--font-body);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.has-grain {
+  position: relative;
+}
+.has-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
