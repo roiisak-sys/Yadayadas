@@ -1,0 +1,171 @@
+---
+interface Member {
+  id: string;
+  nameHe: string;
+  nameEn: string;
+  instrumentHe: string;
+  instrumentEn: string;
+  age: number;
+  bioHe: string;
+  bioEn: string;
+  photo: string;
+}
+interface Props {
+  locale: 'he' | 'en';
+  label: string;
+  heading: string;
+  subheading: string;
+  intro: string;
+  members: Member[];
+}
+const { locale, label, heading, subheading, intro, members } = Astro.props;
+const introParagraphs = intro.split('\n\n');
+---
+
+<section id="music-starts" class="transition has-grain">
+  <p class="label transition__label">{label}</p>
+</section>
+
+<section id="band" class="band">
+  <h2 class="band__heading">{heading}</h2>
+  <p class="band__subheading">{subheading}</p>
+
+  <div class="band__intro">
+    {introParagraphs.map((p) => (
+      <p>{p}</p>
+    ))}
+  </div>
+
+  <div class="band__grid" data-band-grid>
+    {members.map((m) => (
+      <div class="band__member" data-band-member>
+        <img
+          src={m.photo}
+          alt={locale === 'he' ? `${m.nameHe} — ${m.instrumentHe}` : `${m.nameEn} — ${m.instrumentEn}`}
+          loading="lazy"
+          class="band__photo"
+        />
+        <p class="band__name">{locale === 'he' ? m.nameHe : m.nameEn}</p>
+        <p class="band__instrument label">
+          {locale === 'he' ? m.instrumentHe : m.instrumentEn} · {m.age}
+        </p>
+        <p class="band__bio">{locale === 'he' ? m.bioHe : m.bioEn}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .transition {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-charcoal);
+  }
+  .transition__label {
+    font-size: 1.2rem;
+  }
+
+  .band {
+    background: var(--color-off-white);
+    color: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .band__heading,
+  .band__subheading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0;
+  }
+
+  .band__intro {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-top: var(--space-md);
+    text-align: center;
+  }
+
+  .band__intro p {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.6;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .band__intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .band__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .band__member {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .band__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+  }
+
+  .band__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: var(--space-sm) 0 0;
+  }
+
+  .band__bio {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: var(--space-sm) 0 0;
+    opacity: 0.85;
+  }
+
+  @media (min-width: 700px) {
+    .band__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const members = gsap.utils.toArray('[data-band-member]') as HTMLElement[];
+
+  if (prefersReducedMotion()) {
+    members.forEach((m) => {
+      m.style.opacity = '1';
+      m.style.transform = 'none';
+    });
+  } else {
+    gsap.to(members, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '[data-band-grid]',
+        start: 'top 75%',
+      },
+    });
+  }
+</script>
