@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
+import QuestionAndBowies from '../../components/QuestionAndBowies.astro';
 import copy from '../../content/copy.he.json';
 ---
 
@@ -13,6 +14,11 @@ import copy from '../../content/copy.he.json';
       title={copy.hero.title}
       subtitle={copy.hero.subtitle}
       tagline={copy.hero.tagline}
+    />
+    <QuestionAndBowies
+      heading={copy.question.heading}
+      fragments={copy.question.fragments}
+      eras={copy.bowies.eras}
     />
   </main>
 </BaseLayout>

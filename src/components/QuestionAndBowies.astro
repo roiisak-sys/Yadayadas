@@ -1,0 +1,130 @@
+---
+interface Era {
+  name: string;
+  line: string;
+}
+interface Props {
+  heading: string;
+  fragments: string[];
+  eras: Era[];
+}
+const { heading, fragments, eras } = Astro.props;
+---
+
+<section id="question-and-bowies" class="qab">
+  <h2 class="qab__heading">{heading}</h2>
+
+  <div class="qab__track" data-track>
+    {fragments.map((f) => (
+      <div class="qab__panel qab__panel--fragment">
+        <span class="qab__word">{f}</span>
+      </div>
+    ))}
+    {eras.map((era) => (
+      <div class="qab__panel qab__panel--era">
+        <span class="qab__era-name">{era.name}</span>
+        <span class="qab__era-line">{era.line}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .qab {
+    background: var(--color-black);
+    padding-block: var(--space-xl);
+  }
+
+  .qab__heading {
+    font-family: var(--font-display);
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .qab__track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .qab__panel {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-md);
+  }
+
+  .qab__word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-lg);
+  }
+
+  .qab__era-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .qab__era-line {
+    font-family: var(--font-mono);
+    font-size: var(--size-body);
+    opacity: 0.8;
+  }
+
+  /* Desktop: pinned horizontal scroll */
+  @media (min-width: 900px) {
+    .qab__track {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: max-content;
+    }
+
+    .qab__panel {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function setupHorizontalScroll() {
+    const section = document.getElementById('question-and-bowies');
+    const track = section?.querySelector('[data-track]') as HTMLElement | null;
+    if (!section || !track) return;
+
+    const isDesktop = window.matchMedia('(min-width: 900px)').matches;
+    if (!isDesktop || prefersReducedMotion()) return;
+
+    const distance = track.scrollWidth - window.innerWidth;
+    if (distance <= 0) return;
+
+    gsap.to(track, {
+      x: () => -distance,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => `+=${distance}`,
+        scrub: 1,
+        pin: true,
+        invalidateOnRefresh: true,
+      },
+    });
+  }
+
+  setupHorizontalScroll();
+  window.addEventListener('resize', () => ScrollTrigger.refresh());
+</script>
