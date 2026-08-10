@@ -1,5 +1,7 @@
 # Redesign Phase 1 — Hero + Bowie Collage Implementation Plan
 
+> **Amendment (during Task 1 execution):** the image filenames/labels below (`bowie-diamond-dogs-*`, `bowie-deram-debut-1967.jpg`, `bowie-live-stage-guitar.jpg`, and the "1967"/"DIAMOND DOGS"/"THE THIN WHITE DUKE"-style era names) turned out to be based on a stale/incorrect visual read — a Read-tool image-caching bug served wrong content for 4 of the 8 `Downloads\bowie` files on repeat reads within the same long conversation (confirmed by re-reading each source through a fresh, never-before-seen temp file path, which produced different, verifiably-correct content). The actual shipped mapping, filenames, and era names differ from what's written in Tasks 1–2 below — see the Task 1 commit message and the final `copy.*.json` content for what was actually built. Left the original text in place rather than rewriting history; treat Tasks 1–2's code blocks as the *intent*, not the final output.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rebuild the Hero to make the YADAYADAS logo part of the composition and add the "A Live David Bowie Tribute Show" descriptor; replace `QuestionAndBowies.astro`'s horizontal-scroll era track with a new `BowieCollage.astro` — a vertical, no-side-scroll editorial photo grid using freshly-verified Bowie photography.
