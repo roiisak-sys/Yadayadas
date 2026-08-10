@@ -7,3 +7,4 @@ public/assets/video/*.mp4
 !public/assets/video/.gitkeep
 
 .worktrees/
+.superpowers/
