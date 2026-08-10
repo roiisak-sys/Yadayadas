@@ -6,6 +6,7 @@ const { quote } = Astro.props;
 ---
 
 <section id="editorial-quote" class="quote has-grain">
+  <div class="quote__accent" aria-hidden="true"></div>
   <p class="quote__text">{quote}</p>
 </section>
 
@@ -27,5 +28,12 @@ const { quote } = Astro.props;
     text-align: center;
     max-width: 60rem;
     margin: 0;
+  }
+
+  .quote__accent {
+    width: 4rem;
+    height: 3px;
+    background: var(--color-accent-red);
+    margin-bottom: var(--space-lg);
   }
 </style>
