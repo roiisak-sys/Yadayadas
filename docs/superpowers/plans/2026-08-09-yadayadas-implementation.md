@@ -57,13 +57,19 @@ C:\GIT\Yadayadas\
 │       └── tokens.css                  # design tokens (color, type, spacing, grain)
 ├── scripts/
 │   └── extract-fb-videos.mjs           # one-off Node script: pulls selected clips from the FB zip
-├── assets/
-│   ├── photos/photo_01.jpg … photo_30.jpg   (already present)
-│   └── video/                          (populated by extract-fb-videos.mjs)
-└── public/
-    ├── fonts/                          (served by @fontsource, copied at build)
+└── public/                             # Astro's default publicDir — copied verbatim into dist/
+    ├── assets/
+    │   ├── photos/photo_01.jpg … photo_30.jpg   (already present)
+    │   └── video/                      (populated by extract-fb-videos.mjs)
     └── favicon.svg
 ```
+
+Note: `assets/` lives *under* `public/`, not as a top-level sibling — Astro only copies
+`publicDir` (default `public/`) into `dist/` on build, so a top-level `assets/` would silently
+never reach the deployed site even though `src/` code references it via absolute paths like
+`/assets/photos/photo_09.jpg`. Fonts are not physically staged under `public/` — `@fontsource*`
+packages are imported directly as CSS in `BaseLayout.astro` and bundled by Vite into
+`dist/_astro/*.woff2` at build time, so no `public/fonts/` directory exists or is needed.
 
 ---
 
@@ -159,8 +165,8 @@ dist/
 .astro/
 .env
 *.log
-assets/video/*.mp4
-!assets/video/.gitkeep
+public/assets/video/*.mp4
+!public/assets/video/.gitkeep
 ```
 
 - [ ] **Step 7: Install dependencies**
@@ -1989,7 +1995,7 @@ git commit -m "Fix section ordering in page assembly"
 
 **Files:**
 - Create: `scripts/extract-fb-videos.mjs`
-- Create: `assets/video/.gitkeep`
+- Create: `public/assets/video/.gitkeep`
 - Test: `scripts/extract-fb-videos.test.mjs`
 
 The Facebook export zip is at `C:\Users\roiis\Downloads\facebook-YadayadasIL-09_08_2026-1ldiFay8.zip`
@@ -2048,7 +2054,7 @@ const DEFAULT_ZIP_PATH =
 
 const FB_PREFIX = "this_profile's_activity_across_facebook/posts/media/videos/";
 
-// Map of { <exact zip-internal source path> : <output filename in assets/video/> }.
+// Map of { <exact zip-internal source path> : <output filename in public/assets/video/> }.
 // REPLACE the numeric ID below with the real one identified by cross-referencing
 // posts/videos.html against the Aug 9, 2026 "Under pressure" post before running this for real.
 export const SELECTED_VIDEOS = {
@@ -2066,7 +2072,7 @@ function main() {
     process.exit(1);
   }
 
-  const outDir = join(PROJECT_ROOT, 'assets', 'video');
+  const outDir = join(PROJECT_ROOT, 'public', 'assets', 'video');
   mkdirSync(outDir, { recursive: true });
 
   const zip = new AdmZip(zipPath);
@@ -2100,7 +2106,7 @@ Run: `npx vitest run scripts/extract-fb-videos.test.mjs`
 Expected: PASS (tests only the pure `buildOutputFilename` mapping function, not the file-extraction
 side effects, so they pass without touching the real zip).
 
-- [ ] **Step 5: Create `assets/video/.gitkeep`**
+- [ ] **Step 5: Create `public/assets/video/.gitkeep`**
 
 ```
 ```
@@ -2126,8 +2132,8 @@ Then run:
 node scripts/extract-fb-videos.mjs
 ```
 
-Expected: `assets/video/under-pressure.mp4` exists and plays back correctly (spot-check by opening
-it in a media player).
+Expected: `public/assets/video/under-pressure.mp4` exists and plays back correctly (spot-check by
+opening it in a media player).
 
 - [ ] **Step 7: Verify Sound.astro now has a working video**
 
@@ -2138,13 +2144,13 @@ longer shows a 404 for the video source.
 - [ ] **Step 8: Commit**
 
 ```bash
-git add scripts/extract-fb-videos.mjs scripts/extract-fb-videos.test.mjs assets/video/.gitkeep
+git add scripts/extract-fb-videos.mjs scripts/extract-fb-videos.test.mjs public/assets/video/.gitkeep
 git commit -m "Add FB video extraction script and populate Sound section video"
 ```
 
 Note: the real `.mp4` file itself is gitignored (per Task 1's `.gitignore`) — it's a build input,
 not source-controlled. Document this for deployment: the deploy pipeline needs
-`assets/video/under-pressure.mp4` present at build time. Since the source zip is local-only, the
+`public/assets/video/under-pressure.mp4` present at build time. Since the source zip is local-only, the
 practical path is uploading the final compressed clip to the hosting provider's asset storage
 directly before first deploy — flag this as a deployment prerequisite, not something CI can
 reproduce from the zip.
