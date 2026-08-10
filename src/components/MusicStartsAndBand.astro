@@ -183,5 +183,11 @@ const introParagraphs = intro.split('\n\n');
         start: 'top 75%',
       },
     });
+
+    // Re-measure after web fonts finish loading — FOUT/FOIT swap can change the section's
+    // rendered height (and thus the ScrollTrigger start/end markers) after the first measurement.
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
   }
 </script>
