@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
-import QuestionAndBowies from '../../components/QuestionAndBowies.astro';
+import BowieCollage from '../../components/BowieCollage.astro';
 import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
 import Sound from '../../components/Sound.astro';
 import Story from '../../components/Story.astro';
@@ -27,9 +27,11 @@ const events = eventsData as ShowEvent[];
       question={copy.hero.question}
       title={copy.hero.title}
       subtitle={copy.hero.subtitle}
+      descriptor={copy.hero.descriptor}
       tagline={copy.hero.tagline}
     />
-    <QuestionAndBowies
+    <BowieCollage
+      locale="en"
       heading={copy.question.heading}
       fragments={copy.question.fragments}
       eras={copy.bowies.eras}

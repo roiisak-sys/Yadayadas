@@ -17,7 +17,7 @@ describe('band-members.json', () => {
       expect(m.nameEn).toBeTruthy();
       expect(m.instrumentHe).toBeTruthy();
       expect(m.instrumentEn).toBeTruthy();
-      expect(m.photo).toMatch(/^\/assets\/photos\/.+\.jpg$/);
+      expect(m.photo).toMatch(/^\/assets\/band\/.+\.jpg$/);
     }
   });
 
@@ -75,12 +75,13 @@ describe('copy.he.json / copy.en.json', () => {
     expect(heKeys).toEqual(enKeys);
   });
 
-  it('both locales define 5 Bowie eras with name and line', () => {
-    expect(copyHe.bowies.eras).toHaveLength(5);
-    expect(copyEn.bowies.eras).toHaveLength(5);
-    for (const era of [...copyHe.bowies.eras, ...copyEn.bowies.eras]) {
+  it('both locales define 8 Bowie eras with name, line, and image', () => {
+    expect(copyHe.bowies.eras).toHaveLength(8);
+    expect(copyEn.bowies.eras).toHaveLength(8);
+    for (const era of [...copyHe.bowies.eras, ...copyEn.bowies.eras] as any[]) {
       expect(era.name).toBeTruthy();
       expect(era.line).toBeTruthy();
+      expect(era.image).toMatch(/^\/assets\/bowie\/.+\.jpg$/);
     }
   });
 });

@@ -1,0 +1,174 @@
+---
+interface Era {
+  name: string;
+  line: string;
+  image: string;
+}
+interface Props {
+  locale: 'he' | 'en';
+  heading: string;
+  fragments: string[];
+  eras: Era[];
+}
+const { locale, heading, fragments, eras } = Astro.props;
+---
+
+<section id="bowie-collage" class="collage has-grain">
+  <h2 class="collage__heading">{heading}</h2>
+  <p class="collage__fragments">{fragments.join(' · ')}</p>
+
+  <div class="collage__grid" data-collage-grid>
+    {eras.map((era, i) => (
+      <div class={`collage__cell collage__cell--${i}`} data-collage-cell>
+        <img
+          src={era.image}
+          alt={locale === 'he' ? `דייויד בואי — ${era.name}` : `David Bowie — ${era.name}`}
+          loading="lazy"
+          class="collage__image"
+        />
+        <span class="collage__label label">{era.name}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<noscript>
+  <style is:global>
+    #bowie-collage .collage__cell {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .collage {
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .collage__heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .collage__fragments {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.6;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .collage__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 22vh;
+    gap: var(--space-sm);
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  .collage__cell {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .collage__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1);
+  }
+
+  .collage__label {
+    position: absolute;
+    bottom: var(--space-xs);
+    left: var(--space-xs);
+    color: var(--color-off-white);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Asymmetric placement, desktop: mixed spans so it reads as an editorial
+     grid rather than a uniform photo wall. Cell order matches the 8-entry
+     eras array in copy.{he,en}.json. */
+  @media (min-width: 700px) {
+    .collage__cell--0 { grid-column: span 2; grid-row: span 2; }
+    .collage__cell--1 { grid-column: span 2; grid-row: span 1; }
+    .collage__cell--2 { grid-column: span 1; grid-row: span 1; }
+    .collage__cell--3 { grid-column: span 1; grid-row: span 1; }
+    .collage__cell--4 { grid-column: span 2; grid-row: span 1; }
+    .collage__cell--5 { grid-column: span 2; grid-row: span 2; }
+    .collage__cell--6 { grid-column: span 1; grid-row: span 1; }
+    .collage__cell--7 { grid-column: span 1; grid-row: span 1; }
+  }
+
+  /* Mobile: two alternating widths so the asymmetry survives narrow
+     viewports instead of collapsing to a uniform single column. */
+  @media (max-width: 699px) {
+    .collage__grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 34vh;
+    }
+    .collage__cell--0,
+    .collage__cell--2,
+    .collage__cell--4,
+    .collage__cell--6 {
+      margin-inline-end: 12%;
+    }
+    .collage__cell--1,
+    .collage__cell--3,
+    .collage__cell--5,
+    .collage__cell--7 {
+      margin-inline-start: 12%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collage__cell {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cells = gsap.utils.toArray('[data-collage-cell]') as HTMLElement[];
+
+  if (prefersReducedMotion()) {
+    cells.forEach((c) => {
+      c.style.opacity = '1';
+      c.style.transform = 'none';
+    });
+  } else {
+    gsap.to(cells, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.08,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '[data-collage-grid]',
+        start: 'top 80%',
+      },
+    });
+
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  }
+</script>
