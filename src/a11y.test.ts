@@ -28,11 +28,11 @@ describe('accessibility structure — /he/', () => {
     expect(html()).toContain('<main');
   });
 
-  it('every <img> has a non-empty alt attribute', () => {
+  it('every <img> has an alt attribute (empty alt is valid for decorative images)', () => {
     const imgTags = html().match(/<img[^>]*>/g) ?? [];
     expect(imgTags.length).toBeGreaterThan(0);
     for (const tag of imgTags) {
-      expect(tag).toMatch(/alt="[^"]+"/);
+      expect(tag).toMatch(/alt="[^"]*"/);
     }
   });
 });
