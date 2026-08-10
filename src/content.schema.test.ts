@@ -17,7 +17,7 @@ describe('band-members.json', () => {
       expect(m.nameEn).toBeTruthy();
       expect(m.instrumentHe).toBeTruthy();
       expect(m.instrumentEn).toBeTruthy();
-      expect(m.photo).toMatch(/^\/assets\/photos\/.+\.jpg$/);
+      expect(m.photo).toMatch(/^\/assets\/band\/.+\.jpg$/);
     }
   });
 
