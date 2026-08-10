@@ -20,8 +20,8 @@ const { heading, fragments, eras } = Astro.props;
         <span class="qab__word">{f}</span>
       </div>
     ))}
-    {eras.map((era) => (
-      <div class="qab__panel qab__panel--era">
+    {eras.map((era, i) => (
+      <div class={`qab__panel qab__panel--era qab__panel--era-${i % 3}`}>
         <span class="qab__era-name">{era.name}</span>
         <span class="qab__era-line">{era.line}</span>
       </div>
@@ -75,6 +75,18 @@ const { heading, fragments, eras } = Astro.props;
     font-family: var(--font-mono);
     font-size: var(--size-body);
     opacity: 0.8;
+  }
+
+  .qab__panel--era-0 .qab__era-name {
+    color: var(--color-accent-green);
+  }
+
+  .qab__panel--era-1 .qab__era-name {
+    color: var(--color-accent-purple);
+  }
+
+  .qab__panel--era-2 .qab__era-name {
+    color: var(--color-accent-red);
   }
 
   /* Desktop: pinned horizontal scroll */

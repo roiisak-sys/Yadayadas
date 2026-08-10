@@ -13,7 +13,7 @@ const { locale, heading, beats } = Astro.props;
 const sorted = [...beats].sort((a, b) => a.order - b.order);
 ---
 
-<section id="story" class="story">
+<section id="story" class="story has-grain">
   <h2 class="story__heading label">{heading}</h2>
   <div class="story__beats">
     {sorted.map((b) => (

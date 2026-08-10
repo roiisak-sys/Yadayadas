@@ -69,6 +69,18 @@ const { words } = Astro.props;
     opacity: 0;
   }
 
+  .sound__word:nth-child(3n + 1) {
+    color: var(--color-accent-green);
+  }
+
+  .sound__word:nth-child(3n + 2) {
+    color: var(--color-accent-red);
+  }
+
+  .sound__word:nth-child(3n + 3) {
+    color: var(--color-accent-purple);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .sound__word {
       opacity: 1;
