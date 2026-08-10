@@ -7,9 +7,11 @@ import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
 import Sound from '../../components/Sound.astro';
 import Story from '../../components/Story.astro';
 import EditorialQuotes from '../../components/EditorialQuotes.astro';
+import Events from '../../components/Events.astro';
 import copy from '../../content/copy.he.json';
 import bandMembers from '../../content/band-members.json';
 import storyBeats from '../../content/story-beats.json';
+import events from '../../content/events.json';
 ---
 
 <BaseLayout locale="he" title={copy.meta.title} description={copy.meta.description}>
@@ -37,5 +39,12 @@ import storyBeats from '../../content/story-beats.json';
     <Sound words={copy.sound.words} />
     <Story locale="he" heading={copy.story.heading} beats={storyBeats} />
     <EditorialQuotes quote={copy.quotes.primary} />
+    <Events
+      locale="he"
+      heading={copy.events.heading}
+      emptyLabel={copy.events.empty}
+      ticketsCta={copy.events.ticketsCta}
+      events={events}
+    />
   </main>
 </BaseLayout>
