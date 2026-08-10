@@ -3,7 +3,7 @@ dist/
 .astro/
 .env
 *.log
-assets/video/*.mp4
-!assets/video/.gitkeep
+public/assets/video/*.mp4
+!public/assets/video/.gitkeep
 
 .worktrees/

@@ -1,0 +1,49 @@
+---
+interface Props {
+  locale: 'he' | 'en';
+  label: string;
+  ariaLabel: string;
+}
+const { locale, label, ariaLabel } = Astro.props;
+---
+
+<button id="lang-toggle" class="label" aria-label={ariaLabel} data-locale={locale}>
+  {label}
+</button>
+
+<style>
+  #lang-toggle {
+    position: fixed;
+    top: var(--space-sm);
+    inset-inline-end: var(--space-sm);
+    z-index: 100;
+    background: transparent;
+    border: 1px solid var(--color-off-white);
+    color: var(--color-off-white);
+    padding: var(--space-xs) var(--space-sm);
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('lang-toggle')!;
+  btn.addEventListener('click', () => {
+    const scrollFraction =
+      window.scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1);
+    sessionStorage.setItem('yy-scroll-fraction', String(scrollFraction));
+
+    const currentLocale = btn.getAttribute('data-locale');
+    const targetLocale = currentLocale === 'he' ? 'en' : 'he';
+    const path = window.location.pathname.replace(`/${currentLocale}/`, `/${targetLocale}/`);
+    window.location.href = path;
+  });
+
+  window.addEventListener('load', () => {
+    const stored = sessionStorage.getItem('yy-scroll-fraction');
+    if (stored) {
+      sessionStorage.removeItem('yy-scroll-fraction');
+      const fraction = parseFloat(stored);
+      window.scrollTo(0, fraction * (document.documentElement.scrollHeight - window.innerHeight));
+    }
+  });
+</script>

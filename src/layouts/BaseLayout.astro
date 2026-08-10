@@ -1,0 +1,42 @@
+---
+import '@fontsource-variable/rubik';
+import '@fontsource/assistant/400.css';
+import '@fontsource/assistant/600.css';
+import '@fontsource/assistant/800.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/tokens.css';
+
+interface Props {
+  locale: 'he' | 'en';
+  title: string;
+  description: string;
+}
+
+const { locale, title, description } = Astro.props;
+const dir = locale === 'he' ? 'rtl' : 'ltr';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://yadayadas.example').toString();
+---
+
+<!doctype html>
+<html lang={locale} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/smooth-scroll';
+    </script>
+  </body>
+</html>

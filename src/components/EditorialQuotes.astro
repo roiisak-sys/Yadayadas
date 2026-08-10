@@ -1,0 +1,31 @@
+---
+interface Props {
+  quote: string;
+}
+const { quote } = Astro.props;
+---
+
+<section id="editorial-quote" class="quote">
+  <p class="quote__text">{quote}</p>
+</section>
+
+<style>
+  .quote {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .quote__text {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-lg);
+    line-height: 1.05;
+    text-align: center;
+    max-width: 60rem;
+    margin: 0;
+  }
+</style>

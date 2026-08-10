@@ -1,0 +1,110 @@
+---
+interface Props {
+  question: string;
+  title: string;
+  subtitle: string;
+  tagline: string;
+}
+const { question, title, subtitle, tagline } = Astro.props;
+---
+
+<section id="hero" class="hero has-grain">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <p class="hero__question label">{question}</p>
+  <h1 class="hero__title">{title}</h1>
+  <p class="hero__subtitle">{subtitle}</p>
+  <p class="hero__tagline label">{tagline}</p>
+</section>
+
+<noscript>
+  <style is:global>
+    #hero .hero__question,
+    #hero .hero__title,
+    #hero .hero__subtitle,
+    #hero .hero__tagline {
+      opacity: 1 !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--color-black);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--color-charcoal) 0%, var(--color-black) 70%);
+    z-index: 0;
+  }
+
+  .hero__question {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-xl);
+    line-height: 0.9;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .hero__subtitle {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--size-display-md);
+    margin: var(--space-sm) 0 0;
+  }
+
+  .hero__tagline {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--space-md);
+  }
+
+  .hero__question,
+  .hero__title,
+  .hero__subtitle,
+  .hero__tagline {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__question,
+    .hero__title,
+    .hero__subtitle,
+    .hero__tagline {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  if (!prefersReducedMotion()) {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.from('.hero__question', { opacity: 0, y: 20, duration: 0.8 })
+      .from('.hero__title', { opacity: 0, scale: 0.85, duration: 1.1 }, '+=0.3')
+      .from('.hero__subtitle', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
+      .from('.hero__tagline', { opacity: 0, duration: 0.6 }, '-=0.2');
+  }
+</script>

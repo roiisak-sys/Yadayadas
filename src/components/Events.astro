@@ -1,0 +1,104 @@
+---
+export interface ShowEvent {
+  id: string;
+  status: 'past' | 'upcoming';
+  dateISO: string;
+  venueHe: string;
+  venueEn: string;
+  cityHe: string;
+  cityEn: string;
+  ticketUrl: string;
+}
+interface Props {
+  locale: 'he' | 'en';
+  heading: string;
+  emptyLabel: string;
+  ticketsCta: string;
+  events: ShowEvent[];
+}
+const { locale, heading, emptyLabel, ticketsCta, events } = Astro.props;
+const upcoming = events.filter((e) => e.status === 'upcoming');
+
+function formatDate(iso: string, locale: 'he' | 'en') {
+  return new Date(iso).toLocaleDateString(locale === 'he' ? 'he-IL' : 'en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+---
+
+<section id="events" class="events">
+  <h2 class="events__heading">{heading}</h2>
+
+  {upcoming.length === 0 ? (
+    <p class="events__empty label">{emptyLabel}</p>
+  ) : (
+    <ul class="events__list">
+      {upcoming.map((e) => (
+        <li class="events__row">
+          <span class="events__date label">{formatDate(e.dateISO, locale)}</span>
+          <span class="events__venue">{locale === 'he' ? e.venueHe : e.venueEn}</span>
+          <span class="events__city label">{locale === 'he' ? e.cityHe : e.cityEn}</span>
+          {e.ticketUrl && (
+            <a class="events__cta" href={e.ticketUrl} target="_blank" rel="noopener noreferrer">
+              {ticketsCta}
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
+<style>
+  .events {
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .events__heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .events__empty {
+    text-align: center;
+    font-size: var(--size-body);
+  }
+
+  .events__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 50rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .events__row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--space-sm);
+    border-bottom: 1px solid var(--color-charcoal);
+    padding-block: var(--space-sm);
+  }
+
+  .events__venue {
+    font-family: var(--font-display);
+    font-size: var(--size-body);
+  }
+
+  .events__cta {
+    grid-column: 1 / -1;
+    justify-self: start;
+    color: var(--color-accent-green);
+    text-decoration: underline;
+  }
+</style>

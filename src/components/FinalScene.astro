@@ -1,0 +1,97 @@
+---
+interface Props {
+  line1: string;
+  line2: string;
+  cta: string;
+}
+const { line1, line2, cta } = Astro.props;
+---
+
+<section id="final-scene" class="final">
+  <p class="final__line1" data-final-line>{line1}</p>
+  <p class="final__line2" data-final-line>{line2}</p>
+  <a class="final__cta" href="#events" data-final-cta>{cta}</a>
+
+  <noscript>
+    <style is:global>
+      #final-scene .final__line1,
+      #final-scene .final__line2,
+      #final-scene .final__cta {
+        opacity: 1 !important;
+      }
+    </style>
+  </noscript>
+</section>
+
+<style>
+  .final {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+  }
+
+  .final__line1,
+  .final__line2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    margin: 0;
+    opacity: 0;
+  }
+
+  .final__cta {
+    margin-top: var(--space-lg);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-black);
+    background: var(--color-accent-green);
+    padding: var(--space-sm) var(--space-lg);
+    text-decoration: none;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .final__line1,
+    .final__line2,
+    .final__cta {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const targets = [
+    ...(gsap.utils.toArray('[data-final-line]') as HTMLElement[]),
+    document.querySelector('[data-final-cta]') as HTMLElement,
+  ];
+
+  if (!prefersReducedMotion()) {
+    gsap.to(targets, {
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.4,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#final-scene',
+        start: 'top 60%',
+      },
+    });
+
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  }
+</script>
