@@ -57,22 +57,20 @@ Concretely:
 
 **Layout: Editorial Grid** (the concept confirmed conceptually strongest for "premium/editorial" during mockup review, before the session went autonomous — asymmetric, mixed image sizes, hard edges, no rotation/scrapbook treatment). No horizontal scroll at any breakpoint — this is a hard constraint from the user's earlier explicit feedback ("אנא בנה הכל בדף אחד ללא SCROLL צידי").
 
-**Images — sourced fresh from `C:\Users\roiis\Downloads\bowie`**, verified by direct sequential visual read this session (not reused from the old worktree's disputed output). Final set (10 verified, use 8 in the actual grid, keep 2 as spares in case an implementer wants a denser composition):
+**Images — sourced fresh from `C:\Users\roiis\Downloads\bowie`.** ⚠️ **Correction, made during Task 1 execution:** the table originally here (captured during this same brainstorming session) turned out to be wrong for 4 of 8 files — a Read-tool image-caching bug served stale/incorrect content on repeated reads of the same path within this long conversation, so "verified by direct sequential visual read" was not actually reliable here. Caught and fixed by re-reading every source file through a fresh, never-before-used temp-file path (which reads correctly) before generating the final asset set. **The real, shipped mapping is:**
 
-| Source file | Content, as verified | Suggested era label |
+| Source file | Content, as verified via fresh-path re-read | Era label used |
 |---|---|---|
-| `1973_aladdinsane.webp` | Red background, lightning-bolt makeup, striped jumpsuit | ZIGGY / ALADDIN SANE |
-| `images (3).jpeg` | Crouched pose, striped catsuit, orange background | DIAMOND DOGS |
-| `images (8).jpeg` | B&W close portrait, eyepatch | DIAMOND DOGS |
-| `images (6).jpeg` | 1967 Deram debut LP cover, young Bowie | THE BEGINNING |
+| `images (3).jpeg` | Standing pose, red background, striped shoulder-pad jumpsuit | ZIGGY STARDUST |
+| `1973_aladdinsane.webp` | Aladdin Sane album cover — lightning bolt across the face | ALADDIN SANE |
+| `1983-cannes_2445749k.jpg` | Press-conference portrait, swept blonde hair, cigarette, grey suit | LET'S DANCE |
+| `GLOBAL-FAP-8X12_scaled-bordered_850.jpg` | Live, Union Jack-style coat, mic, green/blue stage light | ON STAGE |
+| `images (6).jpeg` | Live, spiky blonde hair, mic, arm raised, dark stage | THE VOICE |
+| `images (8).jpeg` | Live, cream/white guitar, red scarf, dark stage | THE GUITAR |
+| `images (5).jpeg` | B&W, side profile, mic, windswept hair | LIVE |
 | `David_Bowie-06.webp` | Late-career B&W studio portrait, direct gaze — the strongest single image in the set | THE MAN |
-| `1983-cannes_2445749k.jpg` | Press-conference portrait, swept blonde hair, grey suit | LET'S DANCE |
-| `GLOBAL-FAP-8X12_scaled-bordered_850.jpg` | Live, Union Jack-style coat, mic, stage light | LIVE |
-| `images (5).jpeg` | Live, spiky blonde hair, mic, dark stage | EARTHLING |
-| *(spare)* `7PSpxXJyzycvsLSPYKK4JT.jpg` | Red-carpet, round sunglasses, big grin | — |
-| *(spare)* `images (7).jpeg` | Live, white guitar, dark stage, red scarf | — |
 
-Six files from the original 18 were **not** re-verified this session (`02-david-bowie-makeup.webp`, `1969_manofwords.webp`, `Lvd4yWGHJrmptjYiwvLp7c-960-80.jpg`, `images (10).jpeg`, `images (9).jpeg`, and critically `images (2).jpeg` — the file at the center of the original OneDrive mapping bug). **Do not use these without a fresh, isolated visual verification first** — the 10 files above are the ones with confirmed content in this session and are sufficient for the grid.
+Eight files from the original 18 were **not** re-verified via the fresh-path method (`02-david-bowie-makeup.webp`, `1969_manofwords.webp`, `Lvd4yWGHJrmptjYiwvLp7c-960-80.jpg`, `images (10).jpeg`, `images (9).jpeg`, `images (2).jpeg`, `7PSpxXJyzycvsLSPYKK4JT.jpg`, `images (7).jpeg`). **Do not use these without a fresh-temp-path visual verification first** — do not trust any earlier in-conversation read of them, including ones recorded elsewhere in this document's history.
 
 **Component contract:**
 - Props: `heading`, `eras: { name: string; line: string; image: string }[]`. **This replaces the current 5-entry `bowies.eras` array content**, not just adds an `image` field to it — the existing entries (ZIGGY / THE THIN WHITE DUKE / BERLIN / LET'S DANCE / BLACKSTAR) were written against different source photos than the ones verified in the table above, and forcing a 1:1 label match to unverified files would reintroduce the exact mapping-confidence problem this phase exists to fix. Replace `bowies.eras` in both copy files with 8 entries (one per non-spare row in the table above: name + a short line in the existing terse style + image path), dropping "THE THIN WHITE DUKE" / "BERLIN" / "BLACKSTAR" as *era labels here* specifically — that narrative already lives in `Story.astro`'s copy, so nothing is lost, it's just not duplicated as a grid label pointing at an unverified photo. Update `content.schema.test.ts` for the new shape/count.
