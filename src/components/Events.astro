@@ -1,5 +1,5 @@
 ---
-export interface Event {
+export interface ShowEvent {
   id: string;
   status: 'past' | 'upcoming';
   dateISO: string;
@@ -14,7 +14,7 @@ interface Props {
   heading: string;
   emptyLabel: string;
   ticketsCta: string;
-  events: Event[];
+  events: ShowEvent[];
 }
 const { locale, heading, emptyLabel, ticketsCta, events } = Astro.props;
 const upcoming = events.filter((e) => e.status === 'upcoming');

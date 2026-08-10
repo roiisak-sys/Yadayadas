@@ -8,14 +8,14 @@ import Sound from '../../components/Sound.astro';
 import Story from '../../components/Story.astro';
 import EditorialQuotes from '../../components/EditorialQuotes.astro';
 import Events from '../../components/Events.astro';
-import type { Event } from '../../components/Events.astro';
+import type { ShowEvent } from '../../components/Events.astro';
 import FinalScene from '../../components/FinalScene.astro';
 import copy from '../../content/copy.he.json';
 import bandMembers from '../../content/band-members.json';
 import storyBeats from '../../content/story-beats.json';
 import eventsData from '../../content/events.json';
 
-const events = eventsData as Event[];
+const events = eventsData as ShowEvent[];
 ---
 
 <BaseLayout locale="he" title={copy.meta.title} description={copy.meta.description}>
