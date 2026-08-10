@@ -9,7 +9,15 @@ const { question, title, subtitle, tagline } = Astro.props;
 ---
 
 <section id="hero" class="hero has-grain">
-  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__bg" aria-hidden="true">
+    <img
+      src="/assets/photos/photo_01.jpg"
+      alt=""
+      class="hero__bg-image"
+      data-hero-bg-image
+    />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
   <p class="hero__question label">{question}</p>
   <h1 class="hero__title">{title}</h1>
   <p class="hero__subtitle">{subtitle}</p>
@@ -21,8 +29,10 @@ const { question, title, subtitle, tagline } = Astro.props;
     #hero .hero__question,
     #hero .hero__title,
     #hero .hero__subtitle,
-    #hero .hero__tagline {
+    #hero .hero__tagline,
+    #hero .hero__bg-image {
       opacity: 1 !important;
+      transform: none !important;
     }
   </style>
 </noscript>
@@ -42,9 +52,29 @@ const { question, title, subtitle, tagline } = Astro.props;
 
   .hero__bg {
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, var(--color-charcoal) 0%, var(--color-black) 70%);
+    inset: -5%;
     z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: grayscale(0.3) contrast(1.1);
+    opacity: 0;
+    transform: scale(1.15);
+    will-change: transform;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.75) 55%, var(--color-black) 100%),
+      radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.4) 100%);
   }
 
   .hero__question {
@@ -90,8 +120,10 @@ const { question, title, subtitle, tagline } = Astro.props;
     .hero__question,
     .hero__title,
     .hero__subtitle,
-    .hero__tagline {
+    .hero__tagline,
+    .hero__bg-image {
       opacity: 1;
+      transform: none;
     }
   }
 </style>
@@ -101,8 +133,11 @@ const { question, title, subtitle, tagline } = Astro.props;
   import { prefersReducedMotion } from '../scripts/reduced-motion';
 
   if (!prefersReducedMotion()) {
+    const bgImage = document.querySelector('[data-hero-bg-image]') as HTMLElement | null;
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.from('.hero__question', { opacity: 0, y: 20, duration: 0.8 })
+      .to(bgImage, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' }, '<')
       .from('.hero__title', { opacity: 0, scale: 0.85, duration: 1.1 }, '+=0.3')
       .from('.hero__subtitle', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
       .from('.hero__tagline', { opacity: 0, duration: 0.6 }, '-=0.2');
