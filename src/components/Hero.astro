@@ -142,5 +142,29 @@ const { question, title, subtitle, tagline } = Astro.props;
       .from('.hero__title', { opacity: 0, scale: 0.85, duration: 1.1 }, '+=0.3')
       .from('.hero__subtitle', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
       .from('.hero__tagline', { opacity: 0, duration: 0.6 }, '-=0.2');
+
+    const supportsHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (supportsHoverParallax && bgImage) {
+      const hero = document.getElementById('hero');
+
+      hero?.addEventListener('mousemove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
+        const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(bgImage, {
+          x: relativeX * -20,
+          y: relativeY * -20,
+          duration: 0.8,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      });
+
+      hero?.addEventListener('mouseleave', () => {
+        gsap.to(bgImage, { x: 0, y: 0, duration: 0.6, ease: 'power2.out' });
+      });
+    }
   }
 </script>
