@@ -4,15 +4,18 @@
     "description": "YADAYADAS היא להקה ישראלית בת שישה נגנים המבצעת מופע מחווה לדייויד בואי שהוא לא מופע תחפושות — זו חוויית גילוי. המוזיקה היא כלי. האיש הוא התעלומה."
   },
   "nav": { "show": "המופע", "bowie": "בואי", "music": "מוזיקה", "band": "ההרכב", "dates": "תאריכים" },
-  "hero": { "question": "מי היה דייויד בואי?", "title": "BOWIE", "subtitle": "YADAYADAS", "tagline": "מופע חי" },
+  "hero": { "question": "מי היה דייויד בואי?", "title": "BOWIE", "subtitle": "YADAYADAS", "descriptor": "מופע מחווה חי לדיוויד בואי", "tagline": "מופע חי" },
   "question": { "heading": "מי היה דייויד בואי?", "fragments": ["הזיקית", "החריג", "כוכב הרוק", "השחקן", "האמן", "האיש"] },
   "bowies": {
     "eras": [
-      { "name": "זיגי", "line": "צבע. אנרגיה. תיאטרליות." },
-      { "name": "הדוכס הצנום הלבן", "line": "זיגי היה צריך למות." },
-      { "name": "ברלין", "line": "הדוכס הצנום הלבן היה צריך להיעלם." },
-      { "name": "LET'S DANCE", "line": "צבע. תנועה. פופ." },
-      { "name": "BLACKSTAR", "line": "מסתורין. תמותה. אמנות." }
+      { "name": "זיגי סטארדסט", "line": "צבע. תיאטרליות. המסכה הראשונה.", "image": "/assets/bowie/bowie-ziggy-stardust.jpg" },
+      { "name": "אלאדין סיין", "line": "המסכה נסדקה.", "image": "/assets/bowie/bowie-aladdin-sane.jpg" },
+      { "name": "LET'S DANCE", "line": "שנות הפופ.", "image": "/assets/bowie/bowie-lets-dance-era-portrait.jpg" },
+      { "name": "על הבמה", "line": "המעיל הפך לדגל.", "image": "/assets/bowie/bowie-live-union-jack-coat.jpg" },
+      { "name": "הקול", "line": "עדיין ממשיך קדימה.", "image": "/assets/bowie/bowie-live-earthling-era.jpg" },
+      { "name": "הגיטרה", "line": "אף פעם לא רק זמר.", "image": "/assets/bowie/bowie-live-guitar-scarf.jpg" },
+      { "name": "חי", "line": "המבצע, באמצע השיר.", "image": "/assets/bowie/bowie-live-bw-profile-mic.jpg" },
+      { "name": "האיש", "line": "מאחורי כל דמות, עדיין דייויד ג'ונס.", "image": "/assets/bowie/bowie-portrait-stark-bw.jpg" }
     ]
   },
   "musicStarts": { "label": "ואז המוזיקה מתחילה" },

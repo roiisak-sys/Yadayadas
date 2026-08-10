@@ -4,15 +4,18 @@
     "description": "YADAYADAS is a six-piece Israeli live band performing a David Bowie tribute show that isn't a costume act — it's a discovery. The music is the vehicle. The man is the mystery."
   },
   "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
-  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "tagline": "A LIVE EXPERIENCE" },
+  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "descriptor": "A Live David Bowie Tribute Show", "tagline": "A LIVE EXPERIENCE" },
   "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
   "bowies": {
     "eras": [
-      { "name": "ZIGGY", "line": "Color. Energy. Theatricality." },
-      { "name": "THE THIN WHITE DUKE", "line": "ZIGGY HAD TO DIE." },
-      { "name": "BERLIN", "line": "THE THIN WHITE DUKE HAD TO DISAPPEAR." },
-      { "name": "LET'S DANCE", "line": "Color. Movement. Pop." },
-      { "name": "BLACKSTAR", "line": "Mystery. Mortality. Art." }
+      { "name": "ZIGGY STARDUST", "line": "Color. Theatricality. The first mask.", "image": "/assets/bowie/bowie-ziggy-stardust.jpg" },
+      { "name": "ALADDIN SANE", "line": "The mask cracked open.", "image": "/assets/bowie/bowie-aladdin-sane.jpg" },
+      { "name": "LET'S DANCE", "line": "The pop years.", "image": "/assets/bowie/bowie-lets-dance-era-portrait.jpg" },
+      { "name": "ON STAGE", "line": "The coat became a flag.", "image": "/assets/bowie/bowie-live-union-jack-coat.jpg" },
+      { "name": "THE VOICE", "line": "Still moving forward.", "image": "/assets/bowie/bowie-live-earthling-era.jpg" },
+      { "name": "THE GUITAR", "line": "Never just a singer.", "image": "/assets/bowie/bowie-live-guitar-scarf.jpg" },
+      { "name": "LIVE", "line": "The performer, mid-song.", "image": "/assets/bowie/bowie-live-bw-profile-mic.jpg" },
+      { "name": "THE MAN", "line": "Behind every character, still David Jones.", "image": "/assets/bowie/bowie-portrait-stark-bw.jpg" }
     ]
   },
   "musicStarts": { "label": "Then the music starts" },
