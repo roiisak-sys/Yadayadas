@@ -163,7 +163,7 @@ const { question, title, subtitle, tagline } = Astro.props;
       });
 
       hero?.addEventListener('mouseleave', () => {
-        gsap.to(bgImage, { x: 0, y: 0, duration: 0.6, ease: 'power2.out' });
+        gsap.to(bgImage, { x: 0, y: 0, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
       });
     }
   }
