@@ -11,12 +11,19 @@ const { line1, line2, cta } = Astro.props;
   <p class="final__line1" data-final-line>{line1}</p>
   <p class="final__line2" data-final-line>{line2}</p>
   <a class="final__cta" href="#events" data-final-cta>{cta}</a>
+  <img
+    src="/assets/logo/yadayadas-logo.png"
+    alt="YADAYADAS"
+    class="final__logo"
+    data-final-line
+  />
 
   <noscript>
     <style is:global>
       #final-scene .final__line1,
       #final-scene .final__line2,
-      #final-scene .final__cta {
+      #final-scene .final__cta,
+      #final-scene .final__logo {
         opacity: 1 !important;
       }
     </style>
@@ -57,10 +64,18 @@ const { line1, line2, cta } = Astro.props;
     opacity: 0;
   }
 
+  .final__logo {
+    margin-top: var(--space-xl);
+    width: 160px;
+    height: auto;
+    opacity: 0;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .final__line1,
     .final__line2,
-    .final__cta {
+    .final__cta,
+    .final__logo {
       opacity: 1;
     }
   }

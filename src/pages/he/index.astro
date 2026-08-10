@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandMark from '../../components/BrandMark.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
 import QuestionAndBowies from '../../components/QuestionAndBowies.astro';
@@ -19,6 +20,7 @@ const events = eventsData as ShowEvent[];
 ---
 
 <BaseLayout locale="he" title={copy.meta.title} description={copy.meta.description}>
+  <BrandMark />
   <LanguageToggle locale="he" label={copy.languageToggle.label} ariaLabel={copy.languageToggle.ariaLabel} />
   <main>
     <Hero

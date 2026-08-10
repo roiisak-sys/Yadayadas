@@ -1,0 +1,31 @@
+---
+// Fixed brand mark, mirrors LanguageToggle's fixed corner placement on the
+// opposite side. Links back to the top of the page.
+---
+
+<a href="#hero" id="brand-mark" aria-label="YADAYADAS">
+  <img src="/assets/logo/yadayadas-logo.png" alt="YADAYADAS" />
+</a>
+
+<style>
+  #brand-mark {
+    position: fixed;
+    top: var(--space-sm);
+    inset-inline-start: var(--space-sm);
+    z-index: 100;
+    display: block;
+    line-height: 0;
+  }
+
+  #brand-mark img {
+    height: 22px;
+    width: auto;
+    display: block;
+  }
+
+  @media (min-width: 700px) {
+    #brand-mark img {
+      height: 28px;
+    }
+  }
+</style>

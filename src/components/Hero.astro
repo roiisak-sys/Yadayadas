@@ -11,7 +11,7 @@ const { question, title, subtitle, tagline } = Astro.props;
 <section id="hero" class="hero has-grain">
   <div class="hero__bg" aria-hidden="true">
     <img
-      src="/assets/photos/photo_01.jpg"
+      src="/assets/hero/hero-band-live.jpg"
       alt=""
       class="hero__bg-image"
       data-hero-bg-image
@@ -136,12 +136,17 @@ const { question, title, subtitle, tagline } = Astro.props;
   if (!prefersReducedMotion()) {
     const bgImage = document.querySelector('[data-hero-bg-image]') as HTMLElement | null;
 
+    // Use fromTo() rather than from() here: the CSS baseline for these elements is
+    // opacity:0 (the site's standard hidden-until-revealed pattern), and from() treats
+    // the element's current computed style as its implicit "to" state — which would
+    // resolve to opacity:0 and leave the reveal invisible. fromTo() makes the opacity:1
+    // destination explicit, matching the pattern used in Story.astro/FinalScene.astro.
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from('.hero__question', { opacity: 0, y: 20, duration: 0.8 })
+    tl.fromTo('.hero__question', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
       .to(bgImage, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' }, '<')
-      .from('.hero__title', { opacity: 0, scale: 0.85, duration: 1.1 }, '+=0.3')
-      .from('.hero__subtitle', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
-      .from('.hero__tagline', { opacity: 0, duration: 0.6 }, '-=0.2');
+      .fromTo('.hero__title', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.1 }, '+=0.3')
+      .fromTo('.hero__subtitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+      .fromTo('.hero__tagline', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.2');
 
     const supportsHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
