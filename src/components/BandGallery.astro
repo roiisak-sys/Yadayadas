@@ -42,6 +42,15 @@ const { locale } = Astro.props;
     <div class="gallery__cell" data-gallery-cell>
       <img src="/assets/gallery/gallery-band-10.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-11.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-12.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-13.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
   </div>
 </section>
 
@@ -111,7 +120,14 @@ const { locale } = Astro.props;
   @media (max-width: 699px) {
     .gallery__grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 20vh;
+      /* minmax(20vh, auto), not a fixed 20vh: a fixed row height works for
+         the supporting cells (their image has no intrinsic height, so the
+         row just sizes to the 20vh minimum), but the dominant cell's
+         height is driven by its own aspect-ratio below and varies with the
+         source photo. A fixed-height row silently clips/overflows whenever
+         that content is taller than one row track; minmax's auto upper
+         bound lets the row grow to fit instead. */
+      grid-auto-rows: minmax(20vh, auto);
     }
     .gallery__cell--dominant {
       /* Explicitly cancel the desktop rule's `grid-row: span 2` here: the

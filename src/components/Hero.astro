@@ -7,6 +7,12 @@ interface Props {
   tagline: string;
 }
 const { question, subtitle, descriptor } = Astro.props;
+
+// Lightweight inline-emphasis markup: **word** segments render as
+// accented spans (site's existing highlight color, already used for CTAs
+// elsewhere) so key words in the descriptor can be visually emphasized
+// without a rich-text/HTML field in copy.json.
+const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasis: i % 2 === 1 }));
 ---
 
 <section id="hero" class="hero has-grain">
@@ -29,7 +35,11 @@ const { question, subtitle, descriptor } = Astro.props;
       data-hero-logo
     />
   </h1>
-  <p class="hero__descriptor">{descriptor}</p>
+  <p class="hero__descriptor">
+    {descriptorParts.map((part) =>
+      part.emphasis ? <span class="hero__descriptor-emphasis">{part.text}</span> : part.text
+    )}
+  </p>
 </section>
 
 <noscript>
@@ -110,6 +120,10 @@ const { question, subtitle, descriptor } = Astro.props;
     font-weight: 600;
     font-size: var(--size-display-md);
     margin: 0;
+  }
+
+  .hero__descriptor-emphasis {
+    color: var(--color-accent-green);
   }
 
   .hero__question,
