@@ -45,7 +45,7 @@ const socialLinks = [
     <div class="final__social" data-final-line>
       {socialLinks.map((s) => (
         <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="final__social-link">
-          <SocialIcon name={s.icon} />
+          <SocialIcon name={s.icon} size={26} />
         </a>
       ))}
     </div>
@@ -117,20 +117,30 @@ const socialLinks = [
 
   .final__social {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: var(--space-lg);
     opacity: 0;
   }
 
+  /* Icon itself stays modest (26px) but the link meets the ~44px
+     touch-target minimum used elsewhere on the site (LanguageToggle,
+     BrandMark), so it's comfortable to tap without looking oversized or
+     dominant next to the WhatsApp CTA above it. */
   .final__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     color: var(--color-off-white);
     opacity: 0.7;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .final__social-link:hover,
   .final__social-link:focus-visible {
     opacity: 1;
+    transform: scale(1.08);
   }
 
   .final__logo {
