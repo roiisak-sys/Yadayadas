@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import bandMembers from './content/band-members.json';
 import events from './content/events.json';
-import storyBeats from './content/story-beats.json';
 import copyHe from './content/copy.he.json';
 import copyEn from './content/copy.en.json';
 
@@ -45,20 +44,6 @@ describe('events.json', () => {
       expect(e.venueEn).toBeTruthy();
       expect(['past', 'upcoming']).toContain(e.status);
     }
-  });
-});
-
-describe('story-beats.json', () => {
-  it('has at least 10 beats covering the Thin White Duke/Berlin arc', () => {
-    expect((storyBeats as any[]).length).toBeGreaterThanOrEqual(10);
-  });
-
-  it('every beat has bilingual text and an order index', () => {
-    (storyBeats as any[]).forEach((b, i) => {
-      expect(b.he).toBeTruthy();
-      expect(b.en).toBeTruthy();
-      expect(b.order).toBe(i);
-    });
   });
 });
 

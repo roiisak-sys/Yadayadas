@@ -18,20 +18,12 @@
       { "name": "THE MAN", "line": "Behind every character, still David Jones.", "image": "/assets/bowie/bowie-portrait-stark-bw.jpg" }
     ]
   },
-  "why": {
-    "line1": "David Bowie was never just a musician.",
-    "line2": "He built characters, sounds, entire worlds — and had the courage to leave each one behind before it calcified.",
-    "line3": "That's not a biography detail. It's the whole point.",
-    "line4": "YADAYADAS doesn't perform Bowie's songs so much as follow his instinct: to keep becoming something else."
-  },
   "musicStarts": { "label": "Then the music starts" },
   "band": {
     "heading": "SIX MUSICIANS.",
     "subheading": "ONE STRANGE JOURNEY.",
     "intro": "YADAYADAS is a meeting of six musicians from very different backgrounds — world music, progressive rock, pop-punk, live performance, production, high-tech, and a lot of hours on stage.\n\nAnd that might be exactly what makes the show interesting: not an attempt to imitate David Bowie, but six musicians bringing themselves into his music."
   },
-  "story": { "heading": "THE THIN WHITE DUKE" },
-  "quotes": { "primary": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?" },
   "events": { "heading": "DATES", "empty": "More dates coming soon.", "ticketsCta": "Get Tickets" },
   "final": { "line1": "DAVID BOWIE WAS NEVER JUST ONE PERSON.", "line2": "NEITHER ARE WE.", "cta": "SEE YADAYADAS LIVE" },
   "contact": {
