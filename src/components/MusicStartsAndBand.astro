@@ -47,7 +47,7 @@ const introParagraphs = intro.split('\n\n');
         />
         <p class="band__name">{locale === 'he' ? m.nameHe : m.nameEn}</p>
         <p class="band__instrument label">
-          {locale === 'he' ? m.instrumentHe : m.instrumentEn} · {m.age}
+          {locale === 'he' ? m.instrumentHe : m.instrumentEn}
         </p>
         <p class="band__bio">{locale === 'he' ? m.bioHe : m.bioEn}</p>
       </div>
@@ -135,10 +135,28 @@ const introParagraphs = intro.split('\n\n');
     display: block;
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .band__photo {
+      filter: grayscale(1);
+      transition: filter 0.4s ease;
+    }
+
+    .band__member:hover .band__photo,
+    .band__member:focus-within .band__photo {
+      filter: grayscale(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .band__photo {
+      transition: none;
+    }
+  }
+
   .band__name {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--size-body);
+    font-weight: 700;
+    font-size: var(--size-display-md);
     margin: var(--space-sm) 0 0;
   }
 
