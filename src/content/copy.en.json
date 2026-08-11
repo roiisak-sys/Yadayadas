@@ -18,6 +18,10 @@
       { "name": "THE MAN", "line": "Behind every character, still David Jones.", "image": "/assets/bowie/bowie-portrait-stark-bw.jpg" }
     ]
   },
+  "bowieStory": {
+    "paragraph": "Bowie was never just music. Never just the characters he built and discarded. He kept crossing lines — between sound, image, identity — and became something new each time. Our show doesn't retell his biography. It follows that same instinct: through the music, the characters, the reinvention, again and again.",
+    "pullQuote": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?"
+  },
   "musicStarts": { "label": "Then the music starts" },
   "band": {
     "heading": "SIX MUSICIANS.",

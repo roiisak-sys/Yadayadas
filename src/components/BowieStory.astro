@@ -1,0 +1,90 @@
+---
+interface Props {
+  paragraph: string;
+  pullQuote: string;
+}
+const { paragraph, pullQuote } = Astro.props;
+---
+
+<section id="bowie-story" class="bowie-story has-grain">
+  <p class="bowie-story__paragraph" data-story-line>{paragraph}</p>
+  <p class="bowie-story__quote label" data-story-line>{pullQuote}</p>
+</section>
+
+<noscript>
+  <style is:global>
+    #bowie-story .bowie-story__paragraph,
+    #bowie-story .bowie-story__quote {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .bowie-story {
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .bowie-story__paragraph {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--size-display-md);
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .bowie-story__quote {
+    margin-top: var(--space-lg);
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bowie-story__paragraph,
+    .bowie-story__quote {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const lines = gsap.utils.toArray('[data-story-line]') as HTMLElement[];
+
+  if (prefersReducedMotion()) {
+    lines.forEach((l) => {
+      l.style.opacity = '1';
+      l.style.transform = 'none';
+    });
+  } else {
+    gsap.to(lines, {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.35,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#bowie-story',
+        start: 'top 75%',
+      },
+    });
+
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  }
+</script>
