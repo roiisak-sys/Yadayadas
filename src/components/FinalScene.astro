@@ -1,16 +1,56 @@
 ---
+import SocialIcon from './SocialIcon.astro';
+
 interface Props {
   line1: string;
   line2: string;
-  cta: string;
+  contactHeading: string;
+  whatsappCta: string;
+  whatsappNumber: string;
+  whatsappMessage: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  youtubeUrl?: string;
 }
-const { line1, line2, cta } = Astro.props;
+const {
+  line1,
+  line2,
+  contactHeading,
+  whatsappCta,
+  whatsappNumber,
+  whatsappMessage,
+  instagramUrl,
+  facebookUrl,
+  youtubeUrl,
+} = Astro.props;
+
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const socialLinks = [
+  { url: instagramUrl, label: 'Instagram', icon: 'instagram' as const },
+  { url: facebookUrl, label: 'Facebook', icon: 'facebook' as const },
+  { url: youtubeUrl, label: 'YouTube', icon: 'youtube' as const },
+].filter((s) => s.url);
 ---
 
 <section id="final-scene" class="final has-grain">
   <p class="final__line1" data-final-line>{line1}</p>
   <p class="final__line2" data-final-line>{line2}</p>
-  <a class="final__cta" href="#events" data-final-cta>{cta}</a>
+
+  <h2 class="final__contact-heading" data-final-line>{contactHeading}</h2>
+  <a class="final__cta" href={whatsappHref} target="_blank" rel="noopener noreferrer" data-final-cta>
+    {whatsappCta}
+  </a>
+
+  {socialLinks.length > 0 && (
+    <div class="final__social" data-final-line>
+      {socialLinks.map((s) => (
+        <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="final__social-link">
+          <SocialIcon name={s.icon} />
+        </a>
+      ))}
+    </div>
+  )}
+
   <img
     src="/assets/logo/yadayadas-logo.png"
     alt="YADAYADAS"
@@ -22,7 +62,9 @@ const { line1, line2, cta } = Astro.props;
     <style is:global>
       #final-scene .final__line1,
       #final-scene .final__line2,
+      #final-scene .final__contact-heading,
       #final-scene .final__cta,
+      #final-scene .final__social,
       #final-scene .final__logo {
         opacity: 1 !important;
       }
@@ -52,9 +94,18 @@ const { line1, line2, cta } = Astro.props;
     opacity: 0;
   }
 
+  .final__contact-heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-lg);
+    margin: var(--space-xl) 0 0;
+    opacity: 0;
+  }
+
   .final__cta {
-    margin-top: var(--space-lg);
+    margin-top: var(--space-md);
     font-family: var(--font-mono);
+    font-size: var(--size-body);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-black);
@@ -62,6 +113,24 @@ const { line1, line2, cta } = Astro.props;
     padding: var(--space-sm) var(--space-lg);
     text-decoration: none;
     opacity: 0;
+  }
+
+  .final__social {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    opacity: 0;
+  }
+
+  .final__social-link {
+    color: var(--color-off-white);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .final__social-link:hover,
+  .final__social-link:focus-visible {
+    opacity: 1;
   }
 
   .final__logo {
@@ -74,9 +143,14 @@ const { line1, line2, cta } = Astro.props;
   @media (prefers-reduced-motion: reduce) {
     .final__line1,
     .final__line2,
+    .final__contact-heading,
     .final__cta,
+    .final__social,
     .final__logo {
       opacity: 1;
+    }
+    .final__social-link {
+      transition: none;
     }
   }
 </style>

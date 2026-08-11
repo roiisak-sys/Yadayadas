@@ -10,11 +10,19 @@
 <style>
   #brand-mark {
     position: fixed;
-    top: var(--space-sm);
-    inset-inline-start: var(--space-sm);
+    top: var(--space-xs);
+    inset-inline-start: var(--space-xs);
     z-index: 100;
-    display: block;
-    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Visual mark is small (22-28px), but the tap target needs to meet the
+       ~44px touch-target minimum — padding expands the hit area without
+       growing the logo itself. */
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--space-xs);
+    box-sizing: border-box;
   }
 
   #brand-mark img {

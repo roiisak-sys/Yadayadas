@@ -35,5 +35,14 @@
   "quotes": { "primary": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?" },
   "events": { "heading": "DATES", "empty": "More dates coming soon.", "ticketsCta": "Get Tickets" },
   "final": { "line1": "DAVID BOWIE WAS NEVER JUST ONE PERSON.", "line2": "NEITHER ARE WE.", "cta": "SEE YADAYADAS LIVE" },
+  "contact": {
+    "heading": "Book YADAYADAS",
+    "whatsappCta": "Talk to us on WhatsApp",
+    "whatsappNumber": "000000000000",
+    "whatsappMessage": "Hi! I'd like to book YADAYADAS for a show.",
+    "instagramUrl": "",
+    "facebookUrl": "",
+    "youtubeUrl": ""
+  },
   "languageToggle": { "label": "EN", "ariaLabel": "Switch language" }
 }
