@@ -123,7 +123,10 @@ const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasi
   }
 
   .hero__descriptor-emphasis {
-    color: var(--color-accent-red);
+    /* Matches the lightning bolt in the YADAYADAS logo (sampled: #f96949),
+       not an invented accent — ties the hero copy back to the brand mark. */
+    color: var(--color-accent-orange);
+    font-weight: 800;
   }
 
   .hero__question,

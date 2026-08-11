@@ -11,6 +11,7 @@ describe('design tokens', () => {
     '--color-accent-green',
     '--color-accent-red',
     '--color-accent-purple',
+    '--color-accent-orange',
     '--font-display',
     '--font-body',
     '--font-mono',

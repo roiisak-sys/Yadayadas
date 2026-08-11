@@ -6,6 +6,7 @@
   --color-accent-green: #4dff88;   /* red/green club rig */
   --color-accent-red: #ff3b3b;     /* red/green club rig + Gypsy bar */
   --color-accent-purple: #b24dff;  /* psychedelic-spiral venue */
+  --color-accent-orange: #f96949;  /* sampled from the logo's lightning bolt */
 
   /* Type */
   --font-display: 'Rubik Variable', 'Rubik', system-ui, sans-serif;
