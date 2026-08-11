@@ -1,0 +1,203 @@
+---
+export interface Show {
+  id: string;
+  status: 'past' | 'upcoming';
+  dateISO: string;
+  venueHe: string;
+  venueEn: string;
+  cityHe: string;
+  cityEn: string;
+  posterImage: string;
+  eventUrl: string;
+  ticketUrl: string;
+}
+interface Props {
+  locale: 'he' | 'en';
+  heading: string;
+  emptyLine: string;
+  emptyCta: string;
+  ticketsCta: string;
+  viewEventCta: string;
+  whatsappNumber: string;
+  whatsappMessage: string;
+  shows: Show[];
+}
+const {
+  locale,
+  heading,
+  emptyLine,
+  emptyCta,
+  ticketsCta,
+  viewEventCta,
+  whatsappNumber,
+  whatsappMessage,
+  shows,
+} = Astro.props;
+
+const upcoming = shows.filter((s) => s.status === 'upcoming');
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+function formatDate(iso: string, locale: 'he' | 'en') {
+  return new Date(iso).toLocaleDateString(locale === 'he' ? 'he-IL' : 'en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+---
+
+<section id="upcoming-shows" class="upcoming has-grain">
+  <h2 class="upcoming__heading">{heading}</h2>
+
+  {upcoming.length === 0 ? (
+    <div class="upcoming__empty">
+      <p class="upcoming__empty-line">{emptyLine}</p>
+      <a class="upcoming__empty-cta" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+        {emptyCta}
+      </a>
+    </div>
+  ) : (
+    <div class="upcoming__grid">
+      {upcoming.map((s) => (
+        <div class="upcoming__card">
+          {s.posterImage ? (
+            <img src={s.posterImage} alt="" loading="lazy" class="upcoming__poster" />
+          ) : (
+            <div class="upcoming__poster upcoming__poster--fallback" aria-hidden="true">
+              <span class="upcoming__fallback-date">{formatDate(s.dateISO, locale)}</span>
+            </div>
+          )}
+          <p class="upcoming__date">{formatDate(s.dateISO, locale)}</p>
+          <p class="upcoming__venue">{locale === 'he' ? s.venueHe : s.venueEn}</p>
+          <p class="upcoming__city label">{locale === 'he' ? s.cityHe : s.cityEn}</p>
+          {s.ticketUrl ? (
+            <a class="upcoming__cta" href={s.ticketUrl} target="_blank" rel="noopener noreferrer">
+              {ticketsCta}
+            </a>
+          ) : s.eventUrl ? (
+            <a class="upcoming__cta upcoming__cta--secondary" href={s.eventUrl} target="_blank" rel="noopener noreferrer">
+              {viewEventCta}
+            </a>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  )}
+</section>
+
+<style>
+  .upcoming {
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .upcoming__heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-lg);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .upcoming__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .upcoming__empty-line {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--size-display-md);
+    margin: 0;
+    opacity: 0.7;
+  }
+
+  .upcoming__empty-cta {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--size-body);
+    color: var(--color-black);
+    background: var(--color-accent-green);
+    padding: var(--space-sm) var(--space-lg);
+    text-decoration: none;
+  }
+
+  .upcoming__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--space-lg);
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  .upcoming__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .upcoming__poster {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: var(--color-charcoal);
+  }
+
+  .upcoming__poster--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--color-charcoal) 0%, var(--color-black) 100%);
+  }
+
+  .upcoming__fallback-date {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    color: var(--color-accent-green);
+  }
+
+  .upcoming__date {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: var(--space-sm) 0 0;
+    opacity: 0.7;
+  }
+
+  .upcoming__venue {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--size-display-md);
+    margin: var(--space-xs) 0 0;
+  }
+
+  .upcoming__city {
+    margin: var(--space-xs) 0 0;
+    opacity: 0.6;
+  }
+
+  .upcoming__cta {
+    margin-top: var(--space-sm);
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--size-label);
+    color: var(--color-black);
+    background: var(--color-accent-green);
+    padding: var(--space-xs) var(--space-md);
+    text-decoration: none;
+  }
+
+  .upcoming__cta--secondary {
+    color: var(--color-off-white);
+    background: transparent;
+    border: 1px solid var(--color-off-white);
+  }
+</style>

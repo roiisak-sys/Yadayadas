@@ -8,14 +8,15 @@ import BowieStory from '../../components/BowieStory.astro';
 import MusicTransition from '../../components/MusicTransition.astro';
 import BandGallery from '../../components/BandGallery.astro';
 import BandMembers from '../../components/BandMembers.astro';
-import Events from '../../components/Events.astro';
-import type { ShowEvent } from '../../components/Events.astro';
+import UpcomingShows from '../../components/UpcomingShows.astro';
+import type { Show } from '../../components/UpcomingShows.astro';
+import PastShows from '../../components/PastShows.astro';
 import FinalScene from '../../components/FinalScene.astro';
 import copy from '../../content/copy.en.json';
 import bandMembers from '../../content/band-members.json';
-import eventsData from '../../content/events.json';
+import showsData from '../../content/shows.json';
 
-const events = eventsData as ShowEvent[];
+const shows = showsData as Show[];
 ---
 
 <BaseLayout locale="en" title={copy.meta.title} description={copy.meta.description}>
@@ -48,12 +49,22 @@ const events = eventsData as ShowEvent[];
       intro={copy.band.intro}
       members={bandMembers.filter((m) => m.role === 'core')}
     />
-    <Events
+    <UpcomingShows
       locale="en"
-      heading={copy.events.heading}
-      emptyLabel={copy.events.empty}
-      ticketsCta={copy.events.ticketsCta}
-      events={events}
+      heading={copy.upcomingShows.heading}
+      emptyLine={copy.upcomingShows.emptyLine}
+      emptyCta={copy.upcomingShows.emptyCta}
+      ticketsCta={copy.upcomingShows.ticketsCta}
+      viewEventCta={copy.upcomingShows.viewEventCta}
+      whatsappNumber={copy.contact.whatsappNumber}
+      whatsappMessage={copy.contact.whatsappMessage}
+      shows={shows}
+    />
+    <PastShows
+      locale="en"
+      heading={copy.pastShows.heading}
+      viewEventCta={copy.pastShows.viewEventCta}
+      shows={shows}
     />
     <FinalScene
       line1={copy.final.line1}
