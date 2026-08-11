@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "YADAYADAS — A David Bowie Live Experience",
-    "description": "YADAYADAS is a six-piece Israeli live band performing a David Bowie tribute show that isn't a costume act — it's a discovery. The music is the vehicle. The man is the mystery."
+    "description": "YADAYADAS is a live musical and cultural journey through David Bowie's music and personas — six Israeli musicians performing his songs and telling the story behind them, in their own voice."
   },
   "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
-  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "descriptor": "A Live David Bowie Tribute Show", "tagline": "A LIVE EXPERIENCE" },
+  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "descriptor": "A live musical and cultural journey through David Bowie's music and personas", "tagline": "A LIVE EXPERIENCE" },
   "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
   "bowies": {
     "eras": [
@@ -24,9 +24,9 @@
   },
   "musicStarts": { "label": "Then the music starts" },
   "band": {
-    "heading": "SIX MUSICIANS.",
-    "subheading": "ONE STRANGE JOURNEY.",
-    "intro": "YADAYADAS is a meeting of six musicians from very different backgrounds — world music, progressive rock, pop-punk, live performance, production, high-tech, and a lot of hours on stage.\n\nAnd that might be exactly what makes the show interesting: not an attempt to imitate David Bowie, but six musicians bringing themselves into his music."
+    "heading": "MORE THAN A TRIBUTE.",
+    "subheading": "THE MUSIC. THE MAN. THE STORY.",
+    "intro": "YADAYADAS is six Israeli musicians who found a common language in David Bowie's music — powerful live rock, built on strong vocals, guitar interplay, solos, and arrangements that hit as hard live as they do on record.\n\nBut we're not here to imitate. Through the songs, we trace the man behind them — the characters he built, the worlds he moved through, the constant reinvention that made him impossible to pin down. You won't just hear Bowie's music. You'll leave knowing why it mattered."
   },
   "upcomingShows": {
     "heading": "UPCOMING SHOWS",

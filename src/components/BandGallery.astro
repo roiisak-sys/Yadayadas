@@ -9,23 +9,38 @@ const { locale } = Astro.props;
   <div class="gallery__grid" data-gallery-grid>
     <div class="gallery__cell gallery__cell--dominant" data-gallery-cell>
       <img
-        src="/assets/gallery/gallery-full-band-01.jpg"
+        src="/assets/gallery/gallery-band-01.jpg"
         alt={locale === 'he' ? 'YADAYADAS על הבמה' : 'YADAYADAS live on stage'}
         loading="lazy"
         class="gallery__image"
       />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img src="/assets/gallery/gallery-full-band-02.jpg" alt="" loading="lazy" class="gallery__image" />
+      <img src="/assets/gallery/gallery-band-02.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img src="/assets/gallery/gallery-full-band-03.jpg" alt="" loading="lazy" class="gallery__image" />
+      <img src="/assets/gallery/gallery-band-03.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img src="/assets/gallery/gallery-full-band-04.jpg" alt="" loading="lazy" class="gallery__image" />
+      <img src="/assets/gallery/gallery-band-04.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img src="/assets/gallery/gallery-full-band-05.jpg" alt="" loading="lazy" class="gallery__image" />
+      <img src="/assets/gallery/gallery-band-05.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-06.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-07.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-08.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-09.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-band-10.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
   </div>
 </section>
@@ -99,8 +114,14 @@ const { locale } = Astro.props;
       grid-auto-rows: 20vh;
     }
     .gallery__cell--dominant {
+      /* Explicitly cancel the desktop rule's `grid-row: span 2` here: the
+         cell's mobile height is driven entirely by aspect-ratio below, so
+         spanning fixed 20vh rows on top of that reserved more grid height
+         than the image actually filled and left a dead gap before the next
+         row. Without this override the base (non-media-query) rule still
+         applies at every viewport width. */
       grid-column: 1 / -1;
-      grid-row: span 2;
+      grid-row: auto;
       aspect-ratio: 4 / 3;
       height: auto;
     }
