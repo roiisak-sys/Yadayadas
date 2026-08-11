@@ -9,35 +9,23 @@ const { locale } = Astro.props;
   <div class="gallery__grid" data-gallery-grid>
     <div class="gallery__cell gallery__cell--dominant" data-gallery-cell>
       <img
-        src="/assets/gallery/gallery-dominant-full-band.jpg"
+        src="/assets/gallery/gallery-full-band-01.jpg"
         alt={locale === 'he' ? 'YADAYADAS על הבמה' : 'YADAYADAS live on stage'}
         loading="lazy"
         class="gallery__image"
       />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img
-        src="/assets/gallery/gallery-roi-isak-crop.jpg"
-        alt=""
-        loading="lazy"
-        class="gallery__image"
-      />
+      <img src="/assets/gallery/gallery-full-band-02.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img
-        src="/assets/gallery/gallery-itzik-galanti-crop.jpg"
-        alt=""
-        loading="lazy"
-        class="gallery__image"
-      />
+      <img src="/assets/gallery/gallery-full-band-03.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
     <div class="gallery__cell" data-gallery-cell>
-      <img
-        src="/assets/gallery/gallery-gil-idan-crop.jpg"
-        alt=""
-        loading="lazy"
-        class="gallery__image"
-      />
+      <img src="/assets/gallery/gallery-full-band-04.jpg" alt="" loading="lazy" class="gallery__image" />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img src="/assets/gallery/gallery-full-band-05.jpg" alt="" loading="lazy" class="gallery__image" />
     </div>
   </div>
 </section>
@@ -54,14 +42,15 @@ const { locale } = Astro.props;
 <style>
   .gallery {
     background: var(--color-black);
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-md);
   }
 
   .gallery__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 24vh;
-    gap: var(--space-sm);
+    grid-auto-rows: 20vh;
+    grid-auto-flow: dense;
+    gap: var(--space-xs);
     max-width: 64rem;
     margin-inline: auto;
   }
@@ -103,11 +92,11 @@ const { locale } = Astro.props;
   }
 
   /* Mobile: dominant image stays full-width and tall; supporting images
-     become a 3-across strip beneath it, rather than a naive uniform stack. */
+     become a 2-across grid beneath it, rather than a naive uniform stack. */
   @media (max-width: 699px) {
     .gallery__grid {
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 16vh;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 20vh;
     }
     .gallery__cell--dominant {
       grid-column: 1 / -1;
