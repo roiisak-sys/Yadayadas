@@ -35,5 +35,14 @@
   "quotes": { "primary": "מי אני עכשיו? מה קורה אם אני הופך לדמות הזו? מתי אני צריך לנטוש אותה? ומי אני הופך להיות אחר כך?" },
   "events": { "heading": "תאריכים", "empty": "תאריכים נוספים יפורסמו בקרוב.", "ticketsCta": "לכרטיסים" },
   "final": { "line1": "דייויד בואי מעולם לא היה רק אדם אחד.", "line2": "גם אנחנו לא.", "cta": "בואו לראות את YADAYADAS חיים" },
+  "contact": {
+    "heading": "דברו איתנו",
+    "whatsappCta": "דברו איתנו בוואטסאפ",
+    "whatsappNumber": "000000000000",
+    "whatsappMessage": "היי! אני רוצה להזמין את YADAYADAS למופע.",
+    "instagramUrl": "",
+    "facebookUrl": "",
+    "youtubeUrl": ""
+  },
   "languageToggle": { "label": "HE", "ariaLabel": "החלף שפה" }
 }
