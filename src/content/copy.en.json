@@ -4,7 +4,7 @@
     "description": "YADAYADAS is a live musical and cultural journey through David Bowie's music and personas — six Israeli musicians performing his songs and telling the story behind them, in their own voice."
   },
   "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
-  "hero": { "question": "WHO WAS DAVID BOWIE?", "title": "BOWIE", "subtitle": "YADAYADAS", "descriptor": "A **musical** and **cultural** journey through **David Bowie's** music and **legacy**.", "tagline": "A LIVE EXPERIENCE" },
+  "hero": { "subtitle": "YADAYADAS", "tribute": "DAVID BOWIE TRIBUTE", "descriptor": "A Live David Bowie Tribute Show" },
   "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
   "bowies": {
     "eras": [
@@ -26,7 +26,8 @@
   "band": {
     "heading": "MORE THAN A TRIBUTE.",
     "subheading": "THE MUSIC. THE MAN. THE STORY.",
-    "intro": "YADAYADAS is six Israeli musicians who found a common language in David Bowie's music — powerful live rock, built on strong vocals, guitar interplay, solos, and arrangements that hit as hard live as they do on record.\n\nBut we're not here to imitate. Through the songs, we trace the man behind them — the characters he built, the worlds he moved through, the constant reinvention that made him impossible to pin down. You won't just hear Bowie's music. You'll leave knowing why it mattered."
+    "introParagraph": "YADAYADAS is six Israeli musicians who found a common language in David Bowie's music — powerful live rock, built on strong vocals, guitar interplay, solos, and arrangements that hit as hard live as they do on record.",
+    "statement": "But we're not here to imitate. Through the songs, we trace the man behind them — the characters he built, the worlds he moved through, the constant reinvention that made him impossible to pin down. You won't just hear Bowie's music. You'll leave knowing why it mattered."
   },
   "upcomingShows": {
     "heading": "UPCOMING SHOWS",

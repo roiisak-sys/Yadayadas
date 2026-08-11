@@ -30,11 +30,21 @@ const shows = showsData as Show[];
   />
   <main>
     <Hero
-      question={copy.hero.question}
-      title={copy.hero.title}
       subtitle={copy.hero.subtitle}
+      tribute={copy.hero.tribute}
       descriptor={copy.hero.descriptor}
-      tagline={copy.hero.tagline}
+    />
+    <MusicTransition label={copy.musicStarts.label} />
+    <BandGallery
+      locale="he"
+      heading={copy.band.heading}
+      subheading={copy.band.subheading}
+      introParagraph={copy.band.introParagraph}
+    />
+    <BandMembers
+      locale="he"
+      statement={copy.band.statement}
+      members={bandMembers.filter((m) => m.role === 'core')}
     />
     <BowieCollage
       locale="he"
@@ -45,15 +55,6 @@ const shows = showsData as Show[];
     <BowieStory
       paragraph={copy.bowieStory.paragraph}
       pullQuote={copy.bowieStory.pullQuote}
-    />
-    <MusicTransition label={copy.musicStarts.label} />
-    <BandGallery locale="he" />
-    <BandMembers
-      locale="he"
-      heading={copy.band.heading}
-      subheading={copy.band.subheading}
-      intro={copy.band.intro}
-      members={bandMembers.filter((m) => m.role === 'core')}
     />
     <UpcomingShows
       locale="he"

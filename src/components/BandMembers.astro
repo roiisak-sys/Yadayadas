@@ -12,24 +12,14 @@ interface Member {
 }
 interface Props {
   locale: 'he' | 'en';
-  heading: string;
-  subheading: string;
-  intro: string;
+  statement: string;
   members: Member[];
 }
-const { locale, heading, subheading, intro, members } = Astro.props;
-const introParagraphs = intro.split('\n\n');
+const { locale, statement, members } = Astro.props;
 ---
 
 <section id="band" class="band has-grain">
-  <h2 class="band__heading">{heading}</h2>
-  <p class="band__subheading">{subheading}</p>
-
-  <div class="band__intro">
-    {introParagraphs.map((p) => (
-      <p>{p}</p>
-    ))}
-  </div>
+  <p class="band__statement">{statement}</p>
 
   <div class="band__grid" data-band-grid>
     {members.map((m) => (
@@ -66,38 +56,19 @@ const introParagraphs = intro.split('\n\n');
     padding: var(--space-xl) var(--space-md);
   }
 
-  .band__heading,
-  .band__subheading {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: var(--size-display-md);
-    text-align: center;
-    margin: 0;
-  }
-
-  .band__intro {
+  .band__statement {
     max-width: 42rem;
-    margin-inline: auto;
-    margin-top: var(--space-md);
+    margin: 0 auto var(--space-lg);
     text-align: center;
-  }
-
-  .band__intro p {
     font-family: var(--font-body);
     font-size: var(--size-body);
     line-height: 1.6;
-    margin: 0 0 var(--space-sm);
-  }
-
-  .band__intro p:last-child {
-    margin-bottom: 0;
   }
 
   .band__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-md);
-    margin-top: var(--space-lg);
   }
 
   .band__member {

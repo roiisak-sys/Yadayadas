@@ -1,11 +1,18 @@
 ---
 interface Props {
   locale: 'he' | 'en';
+  heading: string;
+  subheading: string;
+  introParagraph: string;
 }
-const { locale } = Astro.props;
+const { locale, heading, subheading, introParagraph } = Astro.props;
 ---
 
 <section id="band-gallery" class="gallery has-grain">
+  <h2 class="gallery__heading">{heading}</h2>
+  <p class="gallery__subheading">{subheading}</p>
+  <p class="gallery__intro">{introParagraph}</p>
+
   <div class="gallery__grid" data-gallery-grid>
     <div class="gallery__cell gallery__cell--dominant" data-gallery-cell>
       <img
@@ -63,7 +70,26 @@ const { locale } = Astro.props;
 <style>
   .gallery {
     background: var(--color-black);
-    padding: var(--space-md);
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+  }
+
+  .gallery__heading,
+  .gallery__subheading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0;
+  }
+
+  .gallery__intro {
+    max-width: 42rem;
+    margin: var(--space-md) auto var(--space-lg);
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.6;
+    color: var(--color-off-white);
   }
 
   .gallery__grid {

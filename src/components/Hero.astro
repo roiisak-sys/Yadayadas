@@ -1,18 +1,10 @@
 ---
 interface Props {
-  question: string;
-  title: string;
   subtitle: string;
+  tribute: string;
   descriptor: string;
-  tagline: string;
 }
-const { question, subtitle, descriptor } = Astro.props;
-
-// Lightweight inline-emphasis markup: **word** segments render as
-// accented spans (site's existing highlight color, already used for CTAs
-// elsewhere) so key words in the descriptor can be visually emphasized
-// without a rich-text/HTML field in copy.json.
-const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasis: i % 2 === 1 }));
+const { subtitle, tribute, descriptor } = Astro.props;
 ---
 
 <section id="hero" class="hero has-grain">
@@ -26,7 +18,6 @@ const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasi
     />
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
-  <p class="hero__question label">{question}</p>
   <h1 class="hero__logo-wrap">
     <img
       src="/assets/logo/yadayadas-logo.png"
@@ -35,17 +26,14 @@ const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasi
       data-hero-logo
     />
   </h1>
-  <p class="hero__descriptor">
-    {descriptorParts.map((part) =>
-      part.emphasis ? <span class="hero__descriptor-emphasis">{part.text}</span> : part.text
-    )}
-  </p>
+  <p class="hero__tribute" data-hero-tribute>{tribute}</p>
+  <p class="hero__descriptor" data-hero-descriptor>{descriptor}</p>
 </section>
 
 <noscript>
   <style is:global>
-    #hero .hero__question,
     #hero .hero__logo,
+    #hero .hero__tribute,
     #hero .hero__descriptor,
     #hero .hero__bg-image {
       opacity: 1 !important;
@@ -94,54 +82,68 @@ const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasi
       radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.4) 100%);
   }
 
-  .hero__question {
-    position: relative;
-    z-index: 1;
-    margin-bottom: var(--space-md);
-  }
-
   .hero__logo-wrap {
     position: relative;
     z-index: 1;
-    margin: var(--space-md) 0;
+    margin: 0 0 var(--space-md);
     line-height: 0;
   }
 
+  /* Significantly larger than before (was min(70vw, 420px)) — the logo is
+     now the dominant branded element in the hero, per "who are we" being
+     the opening screen's whole job. */
   .hero__logo {
-    width: min(70vw, 420px);
+    width: min(88vw, 640px);
     height: auto;
     display: block;
   }
 
-  .hero__descriptor {
+  /* Tier 2: the identity-clarifying line. Bold and tracked, in the same
+     accent-orange as the logo's own lightning bolt — deliberately NOT a
+     small footnote-style label, since its whole job is telling a
+     first-time visitor "this is a David Bowie tribute band" before
+     anything else on the page does. */
+  .hero__tribute {
     position: relative;
     z-index: 1;
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 800;
     font-size: var(--size-display-md);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-accent-orange);
     margin: 0;
   }
 
-  .hero__descriptor-emphasis {
-    /* Matches the lightning bolt in the YADAYADAS logo (sampled: #f96949),
-       not an invented accent — ties the hero copy back to the brand mark. */
-    color: var(--color-accent-orange);
-    font-weight: 800;
+  /* Tier 3: the fuller hero statement — clearly legible but subordinate to
+     the tribute line above it. */
+  .hero__descriptor {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+    color: var(--color-off-white);
+    opacity: 0.85;
+    margin: var(--space-sm) 0 0;
   }
 
-  .hero__question,
   .hero__logo,
+  .hero__tribute,
   .hero__descriptor {
     opacity: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__question,
     .hero__logo,
+    .hero__tribute,
     .hero__descriptor,
     .hero__bg-image {
       opacity: 1;
       transform: none;
+    }
+    .hero__descriptor {
+      opacity: 0.85;
     }
   }
 </style>
@@ -159,10 +161,15 @@ const descriptorParts = descriptor.split('**').map((text, i) => ({ text, emphasi
     // resolve to opacity:0 and leave the reveal invisible. fromTo() makes the opacity:1
     // destination explicit, matching the pattern used in Story.astro/FinalScene.astro.
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.fromTo('.hero__question', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
-      .to(bgImage, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' }, '<')
-      .fromTo('.hero__logo', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.1 }, '+=0.3')
-      .fromTo('.hero__descriptor', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
+    tl.to(bgImage, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' })
+      .fromTo('.hero__logo', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.1 }, '-=1.2')
+      .fromTo('.hero__tribute', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+      .fromTo(
+        '.hero__descriptor',
+        { opacity: 0, y: 16 },
+        { opacity: 0.85, y: 0, duration: 0.6 },
+        '-=0.3'
+      );
 
     const supportsHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
