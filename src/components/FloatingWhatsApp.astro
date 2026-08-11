@@ -1,0 +1,64 @@
+---
+// Fixed WhatsApp button, visible across the whole page regardless of scroll
+// position — mirrors the fixed-corner pattern already used by BrandMark
+// and LanguageToggle, but on the opposite (bottom) edge so it doesn't
+// collide with either.
+import SocialIcon from './SocialIcon.astro';
+
+interface Props {
+  whatsappNumber: string;
+  whatsappMessage: string;
+  ariaLabel: string;
+}
+const { whatsappNumber, whatsappMessage, ariaLabel } = Astro.props;
+const href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  id="floating-whatsapp"
+  aria-label={ariaLabel}
+>
+  <SocialIcon name="whatsapp" size={28} />
+</a>
+
+<style>
+  #floating-whatsapp {
+    position: fixed;
+    bottom: var(--space-md);
+    inset-inline-end: var(--space-md);
+    z-index: 150;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent-green);
+    color: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    transition: transform 0.2s ease;
+  }
+
+  #floating-whatsapp:hover,
+  #floating-whatsapp:focus-visible {
+    transform: scale(1.08);
+  }
+
+  @media (max-width: 480px) {
+    #floating-whatsapp {
+      width: 48px;
+      height: 48px;
+      bottom: var(--space-sm);
+      inset-inline-end: var(--space-sm);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #floating-whatsapp {
+      transition: none;
+    }
+  }
+</style>

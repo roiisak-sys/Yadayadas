@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
+import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro';
 import Hero from '../../components/Hero.astro';
 import BowieCollage from '../../components/BowieCollage.astro';
 import BowieStory from '../../components/BowieStory.astro';
@@ -22,6 +23,11 @@ const shows = showsData as Show[];
 <BaseLayout locale="he" title={copy.meta.title} description={copy.meta.description}>
   <BrandMark />
   <LanguageToggle locale="he" label={copy.languageToggle.label} ariaLabel={copy.languageToggle.ariaLabel} />
+  <FloatingWhatsApp
+    whatsappNumber={copy.contact.whatsappNumber}
+    whatsappMessage={copy.contact.whatsappMessage}
+    ariaLabel={copy.contact.whatsappCta}
+  />
   <main>
     <Hero
       question={copy.hero.question}
@@ -72,6 +78,9 @@ const shows = showsData as Show[];
       whatsappCta={copy.contact.whatsappCta}
       whatsappNumber={copy.contact.whatsappNumber}
       whatsappMessage={copy.contact.whatsappMessage}
+      callCta={copy.contact.callCta}
+      phoneDisplay={copy.contact.phoneDisplay}
+      copyright={copy.contact.copyright}
       instagramUrl={copy.contact.instagramUrl}
       facebookUrl={copy.contact.facebookUrl}
       youtubeUrl={copy.contact.youtubeUrl}

@@ -5,12 +5,21 @@
 // UPDATE (4th pass): "use all of them, and remove what's no longer there."
 // The user replaced/removed several source photos since the last pass and
 // added 2 new ones. This pass re-scanned both source folders and uses
-// every genuine band photo currently present (13 total) — excluding only
-// (a) event poster images (the Facebook-CDN-style `NNNNN..._n.jpg` files,
-// already used as concert posters elsewhere, not band photos) and (b)
-// pure David Bowie archival/reference photos (used for the Hero/Collage
-// sections, not photos of YADAYADAS). Verified each candidate individually
-// (fresh reads) before including it.
+// every genuine band photo currently present — excluding only (a) event
+// poster images (the Facebook-CDN-style `NNNNN..._n.jpg` files, already
+// used as concert posters elsewhere, not band photos) and (b) pure David
+// Bowie archival/reference photos (used for the Hero/Collage sections, not
+// photos of YADAYADAS). Verified each candidate individually (fresh reads)
+// before including it.
+//
+// UPDATE (5th pass): "the gallery layout should be fully rectangular — if
+// one photo needs to go for the proportions, drop it." 13 photos (1
+// dominant spanning 2x2 + 12 singles... i.e. 4 + 9 = 13 grid units) doesn't
+// divide evenly into either the desktop 3-column or mobile 2-column grid,
+// leaving a ragged last row. Dropped the elevator-selfie shot (weakest
+// composition of the set — casual close selfie angle vs. the others' more
+// deliberate framing) to bring it to 12 units (4 + 8), which divides
+// perfectly into 4 rows x 3 cols (desktop) and 4 rows x 2 cols (mobile).
 //
 // IMG_5348.heic needed a one-time pre-conversion: the installed sharp/
 // libvips build can read this file's metadata but has no HEVC decode
@@ -76,41 +85,35 @@ const IMAGES = [
     dest: 'gallery-band-07.jpg',
     width: 1600,
   },
-  // Full band, candid selfie in an elevator after a show — personality.
-  {
-    src: 'C:/Users/roiis/Downloads/bowie/IMG_1648.JPG',
-    dest: 'gallery-band-08.jpg',
-    width: 1600,
-  },
   // Trio, live: two singers + guitarist mid-song — connection/performance.
   {
     src: 'C:/Users/roiis/Downloads/bowie/b14b71d8-048c-4366-acef-3faa35d30b80.jpg',
-    dest: 'gallery-band-09.jpg',
+    dest: 'gallery-band-08.jpg',
     width: 1600,
   },
   // Duo: bassist + singer in full Bowie face paint — ties directly into the
   // site's personas theme, strong "visual identity" shot.
   {
     src: 'C:/Users/roiis/Downloads/bowie/IMG_9334.JPG',
-    dest: 'gallery-band-10.jpg',
+    dest: 'gallery-band-09.jpg',
     width: 1600,
   },
   // Duo, live: violinist + singer close performance moment — musicianship.
   {
     src: 'C:/Users/roiis/Downloads/bowie/IMG_1215.JPG',
-    dest: 'gallery-band-11.jpg',
+    dest: 'gallery-band-10.jpg',
     width: 1600,
   },
   // Duo, live: acoustic guitarist + singer.
   {
     src: 'C:/Users/roiis/Downloads/bowie/f0c046ad-4d2c-4e2d-bb50-a4f38f937011.jpg',
-    dest: 'gallery-band-12.jpg',
+    dest: 'gallery-band-11.jpg',
     width: 1600,
   },
   // Solo, live: dramatic performance shot (YDH Photography).
   {
     src: 'C:/Users/roiis/Downloads/bowie/c32006a7-0ad7-4b2d-8ba1-710c57062899.jpg',
-    dest: 'gallery-band-13.jpg',
+    dest: 'gallery-band-12.jpg',
     width: 1600,
   },
 ];

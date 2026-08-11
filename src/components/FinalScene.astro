@@ -8,6 +8,9 @@ interface Props {
   whatsappCta: string;
   whatsappNumber: string;
   whatsappMessage: string;
+  callCta: string;
+  phoneDisplay: string;
+  copyright: string;
   instagramUrl?: string;
   facebookUrl?: string;
   youtubeUrl?: string;
@@ -19,12 +22,16 @@ const {
   whatsappCta,
   whatsappNumber,
   whatsappMessage,
+  callCta,
+  phoneDisplay,
+  copyright,
   instagramUrl,
   facebookUrl,
   youtubeUrl,
 } = Astro.props;
 
 const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const telHref = `tel:+${whatsappNumber}`;
 const socialLinks = [
   { url: instagramUrl, label: 'Instagram', icon: 'instagram' as const },
   { url: facebookUrl, label: 'Facebook', icon: 'facebook' as const },
@@ -37,15 +44,20 @@ const socialLinks = [
   <p class="final__line2" data-final-line>{line2}</p>
 
   <h2 class="final__contact-heading" data-final-line>{contactHeading}</h2>
-  <a class="final__cta" href={whatsappHref} target="_blank" rel="noopener noreferrer" data-final-cta>
-    {whatsappCta}
-  </a>
+  <div class="final__ctas">
+    <a class="final__cta" href={whatsappHref} target="_blank" rel="noopener noreferrer" data-final-cta>
+      {whatsappCta}
+    </a>
+    <a class="final__cta final__cta--secondary" href={telHref} data-final-cta>
+      {callCta} · {phoneDisplay}
+    </a>
+  </div>
 
   {socialLinks.length > 0 && (
     <div class="final__social" data-final-line>
       {socialLinks.map((s) => (
         <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="final__social-link">
-          <SocialIcon name={s.icon} size={26} />
+          <SocialIcon name={s.icon} size={32} />
         </a>
       ))}
     </div>
@@ -58,14 +70,17 @@ const socialLinks = [
     data-final-line
   />
 
+  <p class="final__copyright" data-final-line>{copyright}</p>
+
   <noscript>
     <style is:global>
       #final-scene .final__line1,
       #final-scene .final__line2,
       #final-scene .final__contact-heading,
-      #final-scene .final__cta,
+      #final-scene .final__ctas,
       #final-scene .final__social,
-      #final-scene .final__logo {
+      #final-scene .final__logo,
+      #final-scene .final__copyright {
         opacity: 1 !important;
       }
     </style>
@@ -102,8 +117,16 @@ const socialLinks = [
     opacity: 0;
   }
 
-  .final__cta {
+  .final__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
     margin-top: var(--space-md);
+  }
+
+  .final__cta {
     font-family: var(--font-mono);
     font-size: var(--size-body);
     text-transform: uppercase;
@@ -115,6 +138,14 @@ const socialLinks = [
     opacity: 0;
   }
 
+  /* Call CTA reads as secondary next to WhatsApp: outline instead of a
+     filled block, so it doesn't compete with the primary action. */
+  .final__cta--secondary {
+    color: var(--color-off-white);
+    background: transparent;
+    border: 1px solid var(--color-off-white);
+  }
+
   .final__social {
     display: flex;
     gap: var(--space-sm);
@@ -122,16 +153,14 @@ const socialLinks = [
     opacity: 0;
   }
 
-  /* Icon itself stays modest (26px) but the link meets the ~44px
-     touch-target minimum used elsewhere on the site (LanguageToggle,
-     BrandMark), so it's comfortable to tap without looking oversized or
-     dominant next to the WhatsApp CTA above it. */
+  /* Icon bumped to 32px (up from 26px) and the touch target to 48px to
+     match, per follow-up request to make the footer icons more visible. */
   .final__social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 48px;
+    min-height: 48px;
     color: var(--color-off-white);
     opacity: 0.7;
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -150,13 +179,23 @@ const socialLinks = [
     opacity: 0;
   }
 
+  .final__copyright {
+    margin-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.04em;
+    color: var(--color-off-white);
+    opacity: 0;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .final__line1,
     .final__line2,
     .final__contact-heading,
     .final__cta,
     .final__social,
-    .final__logo {
+    .final__logo,
+    .final__copyright {
       opacity: 1;
     }
     .final__social-link {
@@ -174,7 +213,7 @@ const socialLinks = [
 
   const targets = [
     ...(gsap.utils.toArray('[data-final-line]') as HTMLElement[]),
-    document.querySelector('[data-final-cta]') as HTMLElement,
+    ...(gsap.utils.toArray('[data-final-cta]') as HTMLElement[]),
   ];
 
   if (!prefersReducedMotion()) {

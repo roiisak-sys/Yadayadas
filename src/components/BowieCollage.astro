@@ -49,7 +49,10 @@ const { locale, heading, fragments, eras } = Astro.props;
 <style>
   .collage {
     background: var(--color-black);
-    padding: var(--space-xl) var(--space-md);
+    /* Top padding intentionally smaller than the bottom: the wordmark is
+       the very first thing after the full-height Hero, and --space-xl
+       there read as a big dead gap between the hero and the BOWIE logo. */
+    padding: var(--space-md) var(--space-md) var(--space-xl);
   }
 
   .collage__wordmark {
@@ -121,6 +124,30 @@ const { locale, heading, fragments, eras } = Astro.props;
     .collage__cell--5 { grid-column: span 2; grid-row: span 2; }
     .collage__cell--6 { grid-column: span 1; grid-row: span 1; }
     .collage__cell--7 { grid-column: span 1; grid-row: span 1; }
+  }
+
+  /* object-fit: cover's default center crop cuts heads off in several
+     cells, since these grid spans are much wider/shorter than the source
+     photos (e.g. a 3.23:1 cell holding a square portrait). Verified each
+     source image individually: all 8 are well-composed with the head near
+     the top of the frame, so a top-biased crop keeps the head intact and
+     trims from the body/background instead. cell--3 (Union Jack coat, a
+     tall portrait source in a much wider cell) was the worst case: the
+     default center crop lost the head entirely. cell--1's face sits more
+     centrally, so it gets a partial (not full) upward bias to keep both
+     the hair and the face in frame. cell--6 is close enough to its
+     source's native ratio that the default center crop needs no change. */
+  .collage__cell--0 .collage__image,
+  .collage__cell--2 .collage__image,
+  .collage__cell--3 .collage__image,
+  .collage__cell--4 .collage__image,
+  .collage__cell--5 .collage__image,
+  .collage__cell--7 .collage__image {
+    object-position: center top;
+  }
+
+  .collage__cell--1 .collage__image {
+    object-position: 50% 25%;
   }
 
   /* Mobile: two alternating widths so the asymmetry survives narrow
