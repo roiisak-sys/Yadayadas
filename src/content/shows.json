@@ -1,0 +1,98 @@
+[
+  {
+    "id": "the-zone-2026-08-08",
+    "status": "past",
+    "dateISO": "2026-08-08",
+    "venueHe": "האיזור",
+    "venueEn": "The Zone",
+    "cityHe": "תל אביב - יפו",
+    "cityEn": "Tel Aviv-Jaffa",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1057673123384226/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "bella-ciao-2026-07-24",
+    "status": "past",
+    "dateISO": "2026-07-24",
+    "venueHe": "בלה צ'או",
+    "venueEn": "Bella Ciao",
+    "cityHe": "ראשון לציון",
+    "cityEn": "Rishon LeZion",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1325279466384272/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "babity-pub-2026-02-14",
+    "status": "past",
+    "dateISO": "2026-02-14",
+    "venueHe": "Babity Pub",
+    "venueEn": "Babity Pub",
+    "cityHe": "כפר סבא",
+    "cityEn": "Kfar Saba",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1211094990996739/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "bar-giyora-2025-12-13",
+    "status": "past",
+    "dateISO": "2025-12-13",
+    "venueHe": "בר גיורא",
+    "venueEn": "Bar Giyora",
+    "cityHe": "תל אביב - יפו",
+    "cityEn": "Tel Aviv-Jaffa",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/694054259991399/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "beit-hamarzeach-2025-10-08",
+    "status": "past",
+    "dateISO": "2025-10-08",
+    "venueHe": "בית המרזח",
+    "venueEn": "Beit HaMarzeach",
+    "cityHe": "רמת ישי",
+    "cityEn": "Ramat Yishai",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/800502319614615/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "mishmarot-2025-09-11",
+    "status": "past",
+    "dateISO": "2025-09-11",
+    "venueHe": "קיבוץ משמרות",
+    "venueEn": "Kibbutz Mishmarot",
+    "cityHe": "משמרות",
+    "cityEn": "Mishmarot",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1461370331766305/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "hobbit-bar-2025-09-02",
+    "status": "past",
+    "dateISO": "2025-09-02",
+    "venueHe": "ההוביט",
+    "venueEn": "The Hobbit",
+    "cityHe": "זכרון יעקב",
+    "cityEn": "Zichron Yaakov",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1752663002009712/",
+    "ticketUrl": ""
+  },
+  {
+    "id": "tassa-2025-02-19",
+    "status": "past",
+    "dateISO": "2025-02-19",
+    "venueHe": "Tassa",
+    "venueEn": "Tassa",
+    "cityHe": "תל אביב - יפו",
+    "cityEn": "Tel Aviv-Jaffa",
+    "posterImage": "",
+    "eventUrl": "https://www.facebook.com/events/1150418303399970/",
+    "ticketUrl": ""
+  }
+]

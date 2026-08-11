@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import bandMembers from './content/band-members.json';
-import events from './content/events.json';
+import shows from './content/shows.json';
 import copyHe from './content/copy.he.json';
 import copyEn from './content/copy.en.json';
 
@@ -35,15 +35,32 @@ describe('band-members.json', () => {
   });
 });
 
-describe('events.json', () => {
-  it('every event has required fields and a valid ISO date', () => {
-    for (const e of events as any[]) {
-      expect(e.id).toBeTruthy();
-      expect(() => new Date(e.dateISO).toISOString()).not.toThrow();
-      expect(e.venueHe).toBeTruthy();
-      expect(e.venueEn).toBeTruthy();
-      expect(['past', 'upcoming']).toContain(e.status);
+describe('shows.json', () => {
+  it('every show has required fields, a valid ISO date, and a unique id', () => {
+    const ids = new Set<string>();
+    for (const s of shows as any[]) {
+      expect(s.id).toBeTruthy();
+      expect(ids.has(s.id)).toBe(false);
+      ids.add(s.id);
+      expect(() => new Date(s.dateISO).toISOString()).not.toThrow();
+      expect(s.venueHe).toBeTruthy();
+      expect(s.venueEn).toBeTruthy();
+      expect(s.cityHe).toBeTruthy();
+      expect(s.cityEn).toBeTruthy();
+      expect(['past', 'upcoming']).toContain(s.status);
+      // posterImage/ticketUrl may legitimately be empty strings (no real
+      // poster files could be extracted from Facebook, no ticketed shows
+      // found) — only type-check them, don't require truthy.
+      expect(typeof s.posterImage).toBe('string');
+      expect(typeof s.eventUrl).toBe('string');
+      expect(typeof s.ticketUrl).toBe('string');
     }
+  });
+
+  it('is sorted newest-first by dateISO', () => {
+    const dates = (shows as any[]).map((s) => s.dateISO);
+    const sorted = [...dates].sort().reverse();
+    expect(dates).toEqual(sorted);
   });
 });
 

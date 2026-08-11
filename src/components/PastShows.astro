@@ -1,0 +1,173 @@
+---
+import type { Show } from './UpcomingShows.astro';
+
+interface Props {
+  locale: 'he' | 'en';
+  heading: string;
+  viewEventCta: string;
+  shows: Show[];
+}
+const { locale, heading, viewEventCta, shows } = Astro.props;
+
+const past = shows.filter((s) => s.status === 'past');
+
+function formatDate(iso: string, locale: 'he' | 'en') {
+  return new Date(iso).toLocaleDateString(locale === 'he' ? 'he-IL' : 'en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+---
+
+<section id="past-shows" class="past has-grain">
+  <h2 class="past__heading">{heading}</h2>
+
+  <div class="past__grid" data-past-grid>
+    {past.map((s, i) => (
+      <a
+        class={`past__card past__card--${i % 3}`}
+        href={s.eventUrl || undefined}
+        target={s.eventUrl ? '_blank' : undefined}
+        rel={s.eventUrl ? 'noopener noreferrer' : undefined}
+        aria-label={`${locale === 'he' ? s.venueHe : s.venueEn} — ${formatDate(s.dateISO, locale)}${s.eventUrl ? ` — ${viewEventCta}` : ''}`}
+        data-past-card
+      >
+        {s.posterImage ? (
+          <img src={s.posterImage} alt="" loading="lazy" class="past__poster" />
+        ) : (
+          <div class="past__poster past__poster--fallback" aria-hidden="true">
+            <span class="past__fallback-venue">{locale === 'he' ? s.venueHe : s.venueEn}</span>
+          </div>
+        )}
+        <div class="past__caption">
+          <span class="past__date label">{formatDate(s.dateISO, locale)}</span>
+          <span class="past__venue">{locale === 'he' ? s.venueHe : s.venueEn}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<noscript>
+  <style is:global>
+    #past-shows .past__card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .past {
+    background: var(--color-black);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .past__heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--size-display-md);
+    text-align: center;
+    margin: 0 0 var(--space-lg);
+    opacity: 0.85;
+  }
+
+  .past__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--space-sm);
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  .past__card {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .past__card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .past__poster {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.6);
+    transition: filter 0.3s ease;
+  }
+
+  .past__card:hover .past__poster,
+  .past__card:focus-visible .past__poster {
+    filter: grayscale(0);
+  }
+
+  .past__poster--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+    text-align: center;
+    background: var(--color-charcoal);
+  }
+
+  .past__card--0 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-green) 15%, var(--color-charcoal)); }
+  .past__card--1 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-purple) 15%, var(--color-charcoal)); }
+  .past__card--2 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-red) 15%, var(--color-charcoal)); }
+
+  .past__fallback-venue {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--size-body);
+  }
+
+  .past__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: var(--space-xs);
+  }
+
+  .past__venue {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--size-body);
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = gsap.utils.toArray('[data-past-card]') as HTMLElement[];
+
+  if (!prefersReducedMotion()) {
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      stagger: 0.06,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '[data-past-grid]',
+        start: 'top 85%',
+      },
+    });
+
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  }
+</script>
