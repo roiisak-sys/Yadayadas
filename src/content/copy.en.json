@@ -38,11 +38,11 @@
   "contact": {
     "heading": "Book YADAYADAS",
     "whatsappCta": "Talk to us on WhatsApp",
-    "whatsappNumber": "000000000000",
+    "whatsappNumber": "972509841722",
     "whatsappMessage": "Hi! I'd like to book YADAYADAS for a show.",
-    "instagramUrl": "",
-    "facebookUrl": "",
-    "youtubeUrl": ""
+    "instagramUrl": "https://www.instagram.com/yadayadasil/",
+    "facebookUrl": "https://www.facebook.com/YadayadasIL/",
+    "youtubeUrl": "https://www.youtube.com/@yadayadasil"
   },
   "languageToggle": { "label": "EN", "ariaLabel": "Switch language" }
 }

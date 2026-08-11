@@ -38,11 +38,11 @@
   "contact": {
     "heading": "דברו איתנו",
     "whatsappCta": "דברו איתנו בוואטסאפ",
-    "whatsappNumber": "000000000000",
+    "whatsappNumber": "972509841722",
     "whatsappMessage": "היי! אני רוצה להזמין את YADAYADAS למופע.",
-    "instagramUrl": "",
-    "facebookUrl": "",
-    "youtubeUrl": ""
+    "instagramUrl": "https://www.instagram.com/yadayadasil/",
+    "facebookUrl": "https://www.facebook.com/YadayadasIL/",
+    "youtubeUrl": "https://www.youtube.com/@yadayadasil"
   },
   "languageToggle": { "label": "HE", "ariaLabel": "החלף שפה" }
 }
