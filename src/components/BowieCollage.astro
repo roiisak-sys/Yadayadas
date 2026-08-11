@@ -14,6 +14,11 @@ const { locale, heading, fragments, eras } = Astro.props;
 ---
 
 <section id="bowie-collage" class="collage has-grain">
+  <img
+    src="/assets/bowie/bowie-wordmark.png"
+    alt="Bowie"
+    class="collage__wordmark"
+  />
   <h2 class="collage__heading">{heading}</h2>
   <p class="collage__fragments">{fragments.join(' · ')}</p>
 
@@ -45,6 +50,13 @@ const { locale, heading, fragments, eras } = Astro.props;
   .collage {
     background: var(--color-black);
     padding: var(--space-xl) var(--space-md);
+  }
+
+  .collage__wordmark {
+    display: block;
+    width: min(50vw, 220px);
+    height: auto;
+    margin: 0 auto var(--space-md);
   }
 
   .collage__heading {
