@@ -4,12 +4,30 @@ import type { Show } from './UpcomingShows.astro';
 interface Props {
   locale: 'he' | 'en';
   heading: string;
-  viewEventCta: string;
   shows: Show[];
 }
-const { locale, heading, viewEventCta, shows } = Astro.props;
+const { locale, heading, shows } = Astro.props;
 
 const past = shows.filter((s) => s.status === 'past');
+
+// Real event posters (saved by the user from Facebook), used purely as a
+// decorative collage/carousel — deliberately not mapped 1:1 to entries in
+// `shows`. See docs/superpowers/specs/2026-08-11-content-refinements-design.md
+// for why linking was dropped.
+const posters = [
+  'poster-bar-giyora-stardust.jpg',
+  'poster-tassa.jpg',
+  'poster-bella-ciao-eggroll-tour.jpg',
+  'poster-ba-be-bar.jpg',
+  'poster-hobbit-bar.jpg',
+  'poster-babity-valentines.jpg',
+  'poster-beit-hamarzeach.jpg',
+  'poster-bella-ciao-jul2024.jpg',
+  'poster-traklin.jpg',
+  'poster-tachanat-ruach.jpg',
+  'poster-pub-hapara.jpg',
+  'poster-nocturno-76-birthday.jpg',
+];
 
 function formatDate(iso: string, locale: 'he' | 'en') {
   return new Date(iso).toLocaleDateString(locale === 'he' ? 'he-IL' : 'en-GB', {
@@ -23,35 +41,29 @@ function formatDate(iso: string, locale: 'he' | 'en') {
 <section id="past-shows" class="past has-grain">
   <h2 class="past__heading">{heading}</h2>
 
-  <div class="past__grid" data-past-grid>
-    {past.map((s, i) => (
-      <a
-        class={`past__card past__card--${i % 3}`}
-        href={s.eventUrl || undefined}
-        target={s.eventUrl ? '_blank' : undefined}
-        rel={s.eventUrl ? 'noopener noreferrer' : undefined}
-        aria-label={`${locale === 'he' ? s.venueHe : s.venueEn} — ${formatDate(s.dateISO, locale)}${s.eventUrl ? ` — ${viewEventCta}` : ''}`}
-        data-past-card
-      >
-        {s.posterImage ? (
-          <img src={s.posterImage} alt="" loading="lazy" class="past__poster" />
-        ) : (
-          <div class="past__poster past__poster--fallback" aria-hidden="true">
-            <span class="past__fallback-venue">{locale === 'he' ? s.venueHe : s.venueEn}</span>
-          </div>
-        )}
-        <div class="past__caption">
-          <span class="past__date label">{formatDate(s.dateISO, locale)}</span>
-          <span class="past__venue">{locale === 'he' ? s.venueHe : s.venueEn}</span>
-        </div>
-      </a>
+  <div class="past__collage" data-past-collage>
+    {posters.map((p, i) => (
+      <div class={`past__poster-cell past__poster-cell--${i % 4}`} data-past-poster>
+        <img src={`/assets/posters/${p}`} alt="" loading="lazy" class="past__poster-img" />
+      </div>
     ))}
   </div>
+
+  <ul class="past__list" data-past-list>
+    {past.map((s) => (
+      <li class="past__row" data-past-row>
+        <span class="past__date label">{formatDate(s.dateISO, locale)}</span>
+        <span class="past__venue">{locale === 'he' ? s.venueHe : s.venueEn}</span>
+        <span class="past__city label">{locale === 'he' ? s.cityHe : s.cityEn}</span>
+      </li>
+    ))}
+  </ul>
 </section>
 
 <noscript>
   <style is:global>
-    #past-shows .past__card {
+    #past-shows .past__poster-cell,
+    #past-shows .past__row {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -73,74 +85,120 @@ function formatDate(iso: string, locale: 'he' | 'en') {
     opacity: 0.85;
   }
 
-  .past__grid {
+  /* Collage: desktop asymmetric grid, matching the visual language already
+     established in BowieCollage/BandGallery (mixed spans, not a uniform
+     wall). Purely decorative, no captions, no links. */
+  .past__collage {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: var(--space-sm);
-    max-width: 72rem;
-    margin-inline: auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 16vh;
+    gap: var(--space-xs);
+    max-width: 64rem;
+    margin: 0 auto var(--space-xl);
   }
 
-  .past__card {
+  .past__poster-cell {
     position: relative;
-    display: block;
-    color: inherit;
-    text-decoration: none;
+    overflow: hidden;
     opacity: 0;
     transform: translateY(16px);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .past__card {
-      opacity: 1;
-      transform: none;
+  .past__poster-cell--0 { grid-row: span 2; }
+  .past__poster-cell--2 { grid-row: span 2; }
+
+  .past__poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .past__poster-cell:hover .past__poster-img {
+      filter: grayscale(0);
+      transform: scale(1.03);
     }
   }
 
-  .past__poster {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(0.6);
-    transition: filter 0.3s ease;
+  @media (prefers-reduced-motion: reduce) {
+    .past__poster-cell {
+      opacity: 1;
+      transform: none;
+    }
+    .past__poster-img {
+      transition: none;
+    }
   }
 
-  .past__card:hover .past__poster,
-  .past__card:focus-visible .past__poster {
-    filter: grayscale(0);
+  /* Mobile: collage becomes a horizontal scroll-snap carousel rather than a
+     cramped 4-column grid. */
+  @media (max-width: 699px) {
+    .past__collage {
+      display: flex;
+      grid-template-columns: unset;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: var(--space-sm);
+      margin-inline: calc(var(--space-md) * -1);
+      padding-inline: var(--space-md);
+      padding-bottom: var(--space-xs);
+    }
+
+    .past__poster-cell {
+      flex: 0 0 70vw;
+      aspect-ratio: 1 / 1;
+      scroll-snap-align: center;
+    }
+
+    .past__poster-cell--0,
+    .past__poster-cell--2 {
+      grid-row: unset;
+    }
   }
 
-  .past__poster--fallback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-sm);
-    text-align: center;
-    background: var(--color-charcoal);
-  }
-
-  .past__card--0 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-green) 15%, var(--color-charcoal)); }
-  .past__card--1 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-purple) 15%, var(--color-charcoal)); }
-  .past__card--2 .past__poster--fallback { background: color-mix(in srgb, var(--color-accent-red) 15%, var(--color-charcoal)); }
-
-  .past__fallback-venue {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--size-body);
-  }
-
-  .past__caption {
+  /* Chronological list */
+  .past__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 40rem;
+    margin-inline: auto;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    margin-top: var(--space-xs);
+  }
+
+  .past__row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--space-sm);
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid var(--color-charcoal);
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .past__row {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   .past__venue {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--size-body);
+  }
+
+  @media (max-width: 480px) {
+    .past__row {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
   }
 </style>
 
@@ -151,18 +209,36 @@ function formatDate(iso: string, locale: 'he' | 'en') {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const cards = gsap.utils.toArray('[data-past-card]') as HTMLElement[];
+  const posterCells = gsap.utils.toArray('[data-past-poster]') as HTMLElement[];
+  const rows = gsap.utils.toArray('[data-past-row]') as HTMLElement[];
 
-  if (!prefersReducedMotion()) {
-    gsap.to(cards, {
+  if (prefersReducedMotion()) {
+    [...posterCells, ...rows].forEach((el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  } else {
+    gsap.to(posterCells, {
       opacity: 1,
       y: 0,
       duration: 0.5,
-      stagger: 0.06,
+      stagger: 0.05,
       ease: 'power2.out',
       scrollTrigger: {
-        trigger: '[data-past-grid]',
+        trigger: '[data-past-collage]',
         start: 'top 85%',
+      },
+    });
+
+    gsap.to(rows, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      stagger: 0.02,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '[data-past-list]',
+        start: 'top 90%',
       },
     });
 
