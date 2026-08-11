@@ -4,10 +4,54 @@ interface Props {
   pullQuote: string;
 }
 const { paragraph, pullQuote } = Astro.props;
+
+// Lightweight inline-emphasis markup: {{N:text}} segments render with the
+// Nth tier's typographic treatment (see .bowie-story__emphasis--N below).
+// Kept as plain data in copy.json rather than JSX/HTML, matching the same
+// pattern used for the Hero descriptor's **word** markup.
+interface Part {
+  text: string;
+  tier: number;
+}
+function parseEmphasis(text: string): Part[] {
+  const regex = /\{\{(\d):([^}]+)\}\}/g;
+  const parts: Part[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ text: text.slice(lastIndex, match.index), tier: 0 });
+    }
+    parts.push({ text: match[2], tier: parseInt(match[1], 10) });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parts.push({ text: text.slice(lastIndex), tier: 0 });
+  }
+  return parts;
+}
+const paragraphParts = parseEmphasis(paragraph);
 ---
 
 <section id="bowie-story" class="bowie-story has-grain">
-  <p class="bowie-story__paragraph" data-story-line>{paragraph}</p>
+  <svg class="bowie-story__bolt" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
+  </svg>
+  <svg class="bowie-story__arcs" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <circle cx="100" cy="100" r="40" />
+    <circle cx="100" cy="100" r="70" />
+    <circle cx="100" cy="100" r="98" />
+  </svg>
+
+  <p class="bowie-story__paragraph" data-story-line>
+    {paragraphParts.map((part) =>
+      part.tier === 0 ? (
+        part.text
+      ) : (
+        <span class={`bowie-story__emphasis bowie-story__emphasis--${part.tier}`}>{part.text}</span>
+      )
+    )}
+  </p>
   <p class="bowie-story__quote label" data-story-line>{pullQuote}</p>
 </section>
 
@@ -23,26 +67,113 @@ const { paragraph, pullQuote } = Astro.props;
 
 <style>
   .bowie-story {
+    position: relative;
+    overflow: hidden;
     background: var(--color-black);
     padding: var(--space-xl) var(--space-md);
-    max-width: 36rem;
-    margin-inline: auto;
-    text-align: center;
+  }
+
+  /* Decorative only — a faint nod to Bowie's own iconography (the
+     Aladdin Sane-era lightning bolt, echoed in the site's own logo mark;
+     concentric arcs suggesting sound/identity radiating outward). Kept to
+     a single low-opacity tone so it reads as texture behind the text,
+     never competing with it. */
+  .bowie-story__bolt,
+  .bowie-story__arcs {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bowie-story__bolt {
+    top: 8%;
+    inset-inline-end: -6%;
+    width: 46vw;
+    max-width: 420px;
+    height: auto;
+    fill: var(--color-accent-orange);
+    opacity: 0.07;
+    transform: rotate(8deg);
+  }
+
+  .bowie-story__arcs {
+    bottom: -12%;
+    inset-inline-start: -10%;
+    width: 40vw;
+    max-width: 360px;
+    height: auto;
+    fill: none;
+    stroke: var(--color-off-white);
+    stroke-width: 0.5;
+    opacity: 0.08;
   }
 
   .bowie-story__paragraph {
+    position: relative;
+    z-index: 1;
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
     font-family: var(--font-body);
     font-style: italic;
     font-weight: 400;
     font-size: var(--size-display-md);
     line-height: 1.5;
-    margin: 0;
+    margin: 0 auto;
     opacity: 0;
     transform: translateY(16px);
   }
 
+  /* Five-tier emphasis, typography only (weight/scale/italic/tracking/
+     case) — no color, boxes or underlines, so the hierarchy reads as
+     editorial design rather than marketing highlighting. Read on their
+     own the five tiers trace a narrative: never just music -> crossing
+     lines -> sound / image / identity -> something new each time ->
+     the reinvention. */
+  .bowie-story__emphasis {
+    font-style: normal;
+  }
+
+  .bowie-story__emphasis--1 {
+    /* Primary — strongest, largest. */
+    font-weight: 700;
+    font-size: 1.18em;
+    letter-spacing: -0.01em;
+  }
+
+  .bowie-story__emphasis--2 {
+    /* Secondary. */
+    font-weight: 600;
+  }
+
+  .bowie-story__emphasis--3 {
+    /* Conceptual — three coordinate terms, set apart like a wall label. */
+    font-weight: 500;
+    font-size: 0.82em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .bowie-story__emphasis--4 {
+    /* Artistic / emotional — stays italic (matches the body voice) but
+       bolder and a touch larger. */
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.05em;
+  }
+
+  .bowie-story__emphasis--5 {
+    /* Final key message — the landing point. */
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+
   .bowie-story__quote {
-    margin-top: var(--space-lg);
+    position: relative;
+    z-index: 1;
+    max-width: 36rem;
+    margin: var(--space-lg) auto 0;
+    text-align: center;
     opacity: 0;
     transform: translateY(12px);
   }

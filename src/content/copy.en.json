@@ -19,7 +19,7 @@
     ]
   },
   "bowieStory": {
-    "paragraph": "Bowie was never just music. Never just the characters he built and discarded. He kept crossing lines — between sound, image, identity — and became something new each time. Our show doesn't retell his biography. It follows that same instinct: through the music, the characters, the reinvention, again and again.",
+    "paragraph": "Bowie was {{1:never just music}}. Never just the characters he built and discarded. He kept {{2:crossing lines}} — between {{3:sound, image, identity}} — and became {{4:something new each time}}. Our show doesn't retell his biography. It follows that same instinct: through the music, the characters, {{5:the reinvention}}, again and again.",
     "pullQuote": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?"
   },
   "musicStarts": { "label": "Then the music starts" },
