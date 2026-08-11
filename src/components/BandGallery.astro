@@ -1,0 +1,152 @@
+---
+interface Props {
+  locale: 'he' | 'en';
+}
+const { locale } = Astro.props;
+---
+
+<section id="band-gallery" class="gallery has-grain">
+  <div class="gallery__grid" data-gallery-grid>
+    <div class="gallery__cell gallery__cell--dominant" data-gallery-cell>
+      <img
+        src="/assets/gallery/gallery-dominant-full-band.jpg"
+        alt={locale === 'he' ? 'YADAYADAS על הבמה' : 'YADAYADAS live on stage'}
+        loading="lazy"
+        class="gallery__image"
+      />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img
+        src="/assets/gallery/gallery-roi-isak-crop.jpg"
+        alt=""
+        loading="lazy"
+        class="gallery__image"
+      />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img
+        src="/assets/gallery/gallery-itzik-galanti-crop.jpg"
+        alt=""
+        loading="lazy"
+        class="gallery__image"
+      />
+    </div>
+    <div class="gallery__cell" data-gallery-cell>
+      <img
+        src="/assets/gallery/gallery-gil-idan-crop.jpg"
+        alt=""
+        loading="lazy"
+        class="gallery__image"
+      />
+    </div>
+  </div>
+</section>
+
+<noscript>
+  <style is:global>
+    #band-gallery .gallery__cell {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .gallery {
+    background: var(--color-black);
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 24vh;
+    gap: var(--space-sm);
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+
+  .gallery__cell {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .gallery__cell--dominant {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__cell:hover .gallery__image {
+      transform: scale(1.04);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery__cell {
+      opacity: 1;
+      transform: none;
+    }
+    .gallery__image {
+      transition: none;
+    }
+  }
+
+  /* Mobile: dominant image stays full-width and tall; supporting images
+     become a 3-across strip beneath it, rather than a naive uniform stack. */
+  @media (max-width: 699px) {
+    .gallery__grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 16vh;
+    }
+    .gallery__cell--dominant {
+      grid-column: 1 / -1;
+      grid-row: span 2;
+      aspect-ratio: 4 / 3;
+      height: auto;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { prefersReducedMotion } from '../scripts/reduced-motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cells = gsap.utils.toArray('[data-gallery-cell]') as HTMLElement[];
+
+  if (prefersReducedMotion()) {
+    cells.forEach((c) => {
+      c.style.opacity = '1';
+      c.style.transform = 'none';
+    });
+  } else {
+    gsap.to(cells, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '[data-gallery-grid]',
+        start: 'top 80%',
+      },
+    });
+
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  }
+</script>

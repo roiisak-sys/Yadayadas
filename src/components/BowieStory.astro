@@ -1,23 +1,20 @@
 ---
 interface Props {
-  line1: string;
-  line2: string;
-  line3: string;
-  line4: string;
+  paragraph: string;
+  pullQuote: string;
 }
-const { line1, line2, line3, line4 } = Astro.props;
+const { paragraph, pullQuote } = Astro.props;
 ---
 
-<section id="why" class="why has-grain">
-  <p class="why__line why__line--lead" data-why-line>{line1}</p>
-  <p class="why__line" data-why-line>{line2}</p>
-  <p class="why__line why__line--emphasis" data-why-line>{line3}</p>
-  <p class="why__line" data-why-line>{line4}</p>
+<section id="bowie-story" class="bowie-story has-grain">
+  <p class="bowie-story__paragraph" data-story-line>{paragraph}</p>
+  <p class="bowie-story__quote label" data-story-line>{pullQuote}</p>
 </section>
 
 <noscript>
   <style is:global>
-    #why .why__line {
+    #bowie-story .bowie-story__paragraph,
+    #bowie-story .bowie-story__quote {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -25,37 +22,34 @@ const { line1, line2, line3, line4 } = Astro.props;
 </noscript>
 
 <style>
-  .why {
+  .bowie-story {
     background: var(--color-black);
     padding: var(--space-xl) var(--space-md);
-    max-width: 44rem;
+    max-width: 36rem;
     margin-inline: auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
     text-align: center;
   }
 
-  .why__line {
-    font-family: var(--font-display);
-    font-weight: 600;
+  .bowie-story__paragraph {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
     font-size: var(--size-display-md);
-    line-height: 1.3;
+    line-height: 1.5;
     margin: 0;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
 
-  .why__line--lead {
-    font-weight: 800;
-  }
-
-  .why__line--emphasis {
-    color: var(--color-accent-green);
+  .bowie-story__quote {
+    margin-top: var(--space-lg);
+    opacity: 0;
+    transform: translateY(12px);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .why__line {
+    .bowie-story__paragraph,
+    .bowie-story__quote {
       opacity: 1;
       transform: none;
     }
@@ -69,7 +63,7 @@ const { line1, line2, line3, line4 } = Astro.props;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const lines = gsap.utils.toArray('[data-why-line]') as HTMLElement[];
+  const lines = gsap.utils.toArray('[data-story-line]') as HTMLElement[];
 
   if (prefersReducedMotion()) {
     lines.forEach((l) => {
@@ -81,10 +75,10 @@ const { line1, line2, line3, line4 } = Astro.props;
       opacity: 1,
       y: 0,
       duration: 0.7,
-      stagger: 0.25,
+      stagger: 0.35,
       ease: 'power2.out',
       scrollTrigger: {
-        trigger: '#why',
+        trigger: '#bowie-story',
         start: 'top 75%',
       },
     });

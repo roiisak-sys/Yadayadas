@@ -4,17 +4,15 @@ import BrandMark from '../../components/BrandMark.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
 import BowieCollage from '../../components/BowieCollage.astro';
-import WhyStatement from '../../components/WhyStatement.astro';
-import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
-import Sound from '../../components/Sound.astro';
-import Story from '../../components/Story.astro';
-import EditorialQuotes from '../../components/EditorialQuotes.astro';
+import BowieStory from '../../components/BowieStory.astro';
+import MusicTransition from '../../components/MusicTransition.astro';
+import BandGallery from '../../components/BandGallery.astro';
+import BandMembers from '../../components/BandMembers.astro';
 import Events from '../../components/Events.astro';
 import type { ShowEvent } from '../../components/Events.astro';
 import FinalScene from '../../components/FinalScene.astro';
 import copy from '../../content/copy.en.json';
 import bandMembers from '../../content/band-members.json';
-import storyBeats from '../../content/story-beats.json';
 import eventsData from '../../content/events.json';
 
 const events = eventsData as ShowEvent[];
@@ -37,23 +35,19 @@ const events = eventsData as ShowEvent[];
       fragments={copy.question.fragments}
       eras={copy.bowies.eras}
     />
-    <WhyStatement
-      line1={copy.why.line1}
-      line2={copy.why.line2}
-      line3={copy.why.line3}
-      line4={copy.why.line4}
+    <BowieStory
+      paragraph={copy.bowieStory.paragraph}
+      pullQuote={copy.bowieStory.pullQuote}
     />
-    <MusicStartsAndBand
+    <MusicTransition label={copy.musicStarts.label} />
+    <BandGallery locale="en" />
+    <BandMembers
       locale="en"
-      label={copy.musicStarts.label}
       heading={copy.band.heading}
       subheading={copy.band.subheading}
       intro={copy.band.intro}
       members={bandMembers.filter((m) => m.role === 'core')}
     />
-    <Sound words={copy.sound.words} />
-    <Story locale="en" heading={copy.story.heading} beats={storyBeats} />
-    <EditorialQuotes quote={copy.quotes.primary} />
     <Events
       locale="en"
       heading={copy.events.heading}

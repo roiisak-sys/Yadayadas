@@ -12,19 +12,14 @@ interface Member {
 }
 interface Props {
   locale: 'he' | 'en';
-  label: string;
   heading: string;
   subheading: string;
   intro: string;
   members: Member[];
 }
-const { locale, label, heading, subheading, intro, members } = Astro.props;
+const { locale, heading, subheading, intro, members } = Astro.props;
 const introParagraphs = intro.split('\n\n');
 ---
-
-<section id="music-starts" class="transition has-grain">
-  <p class="label transition__label">{label}</p>
-</section>
 
 <section id="band" class="band has-grain">
   <h2 class="band__heading">{heading}</h2>
@@ -65,17 +60,6 @@ const introParagraphs = intro.split('\n\n');
 </noscript>
 
 <style>
-  .transition {
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-charcoal);
-  }
-  .transition__label {
-    font-size: var(--size-body);
-  }
-
   .band {
     background: var(--color-off-white);
     color: var(--color-black);

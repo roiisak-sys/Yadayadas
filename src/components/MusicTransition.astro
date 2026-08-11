@@ -1,0 +1,23 @@
+---
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<section id="music-starts" class="transition has-grain">
+  <p class="label transition__label">{label}</p>
+</section>
+
+<style>
+  .transition {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-charcoal);
+  }
+  .transition__label {
+    font-size: var(--size-body);
+  }
+</style>
