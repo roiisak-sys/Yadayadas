@@ -4,6 +4,7 @@ import BrandMark from '../../components/BrandMark.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
 import Hero from '../../components/Hero.astro';
 import BowieCollage from '../../components/BowieCollage.astro';
+import WhyStatement from '../../components/WhyStatement.astro';
 import MusicStartsAndBand from '../../components/MusicStartsAndBand.astro';
 import Sound from '../../components/Sound.astro';
 import Story from '../../components/Story.astro';
@@ -35,6 +36,12 @@ const events = eventsData as ShowEvent[];
       heading={copy.question.heading}
       fragments={copy.question.fragments}
       eras={copy.bowies.eras}
+    />
+    <WhyStatement
+      line1={copy.why.line1}
+      line2={copy.why.line2}
+      line3={copy.why.line3}
+      line4={copy.why.line4}
     />
     <MusicStartsAndBand
       locale="en"
