@@ -61,6 +61,16 @@ const events = eventsData as ShowEvent[];
       ticketsCta={copy.events.ticketsCta}
       events={events}
     />
-    <FinalScene line1={copy.final.line1} line2={copy.final.line2} cta={copy.final.cta} />
+    <FinalScene
+      line1={copy.final.line1}
+      line2={copy.final.line2}
+      contactHeading={copy.contact.heading}
+      whatsappCta={copy.contact.whatsappCta}
+      whatsappNumber={copy.contact.whatsappNumber}
+      whatsappMessage={copy.contact.whatsappMessage}
+      instagramUrl={copy.contact.instagramUrl}
+      facebookUrl={copy.contact.facebookUrl}
+      youtubeUrl={copy.contact.youtubeUrl}
+    />
   </main>
 </BaseLayout>
