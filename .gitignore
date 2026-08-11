@@ -8,3 +8,6 @@ public/assets/video/*.mp4
 
 .worktrees/
 .superpowers/
+
+# Local Netlify folder
+.netlify
