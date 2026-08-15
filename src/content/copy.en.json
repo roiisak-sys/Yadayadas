@@ -4,7 +4,7 @@
     "description": "YADAYADAS is a live musical and cultural journey through David Bowie's music and personas — six Israeli musicians performing his songs and telling the story behind them, in their own voice."
   },
   "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
-  "hero": { "subtitle": "YADAYADAS", "tribute": "DAVID BOWIE TRIBUTE", "descriptor": "A Live David Bowie Tribute Show" },
+  "hero": { "subtitle": "YADAYADAS", "tribute": "DAVID BOWIE TRIBUTE", "descriptor": "A live musical and cultural journey through David Bowie's Legacy" },
   "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
   "bowies": {
     "eras": [
