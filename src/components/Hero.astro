@@ -9,13 +9,18 @@ const { subtitle, tribute, descriptor } = Astro.props;
 
 <section id="hero" class="hero has-grain">
   <div class="hero__bg" aria-hidden="true">
-    <img
-      src="/assets/hero/hero-band-live.jpg"
-      alt=""
-      class="hero__bg-image"
-      data-hero-bg-image
-      fetchpriority="high"
-    />
+    <video
+      class="hero__bg-video"
+      data-hero-bg-video
+      poster="/assets/hero/hero-band-live.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="/assets/hero/hero-bg-video.mp4" type="video/mp4" />
+    </video>
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
   <h1 class="hero__logo-wrap">
@@ -35,7 +40,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     #hero .hero__logo,
     #hero .hero__tribute,
     #hero .hero__descriptor,
-    #hero .hero__bg-image {
+    #hero .hero__bg-video {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -62,7 +67,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     overflow: hidden;
   }
 
-  .hero__bg-image {
+  .hero__bg-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -138,7 +143,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     .hero__logo,
     .hero__tribute,
     .hero__descriptor,
-    .hero__bg-image {
+    .hero__bg-video {
       opacity: 1;
       transform: none;
     }
@@ -152,8 +157,25 @@ const { subtitle, tribute, descriptor } = Astro.props;
   import { gsap } from 'gsap';
   import { prefersReducedMotion } from '../scripts/reduced-motion';
 
-  if (!prefersReducedMotion()) {
-    const bgImage = document.querySelector('[data-hero-bg-image]') as HTMLElement | null;
+  const bgVideo = document.querySelector('[data-hero-bg-video]') as HTMLVideoElement | null;
+
+  if (prefersReducedMotion()) {
+    // Motion-sensitive visitors get the static poster frame, not the
+    // looping clip — pause it (the poster still renders as a still image)
+    // rather than leaving a moving background running against their
+    // stated preference.
+    bgVideo?.pause();
+  } else {
+    // autoplay/muted/loop/playsinline on the element already start
+    // playback without JS; this call just guards against browsers that
+    // silently ignore the attribute (or a prior pause from a reduced-
+    // motion toggle elsewhere) — play() on an already-playing video is a
+    // harmless no-op.
+    bgVideo?.play().catch(() => {
+      // Autoplay can still be blocked in some environments even when
+      // muted; the poster frame is a perfectly fine fallback, so there's
+      // nothing to recover here.
+    });
 
     // Use fromTo() rather than from() here: the CSS baseline for these elements is
     // opacity:0 (the site's standard hidden-until-revealed pattern), and from() treats
@@ -161,7 +183,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     // resolve to opacity:0 and leave the reveal invisible. fromTo() makes the opacity:1
     // destination explicit, matching the pattern used in Story.astro/FinalScene.astro.
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.to(bgImage, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' })
+    tl.to(bgVideo, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' })
       .fromTo('.hero__logo', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.1 }, '-=1.2')
       .fromTo('.hero__tribute', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
       .fromTo(
@@ -173,7 +195,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
 
     const supportsHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    if (supportsHoverParallax && bgImage) {
+    if (supportsHoverParallax && bgVideo) {
       const hero = document.getElementById('hero');
 
       hero?.addEventListener('mousemove', (event) => {
@@ -181,7 +203,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
         const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
         const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
 
-        gsap.to(bgImage, {
+        gsap.to(bgVideo, {
           x: relativeX * -20,
           y: relativeY * -20,
           duration: 0.8,
@@ -191,7 +213,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
       });
 
       hero?.addEventListener('mouseleave', () => {
-        gsap.to(bgImage, { x: 0, y: 0, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(bgVideo, { x: 0, y: 0, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
       });
     }
   }

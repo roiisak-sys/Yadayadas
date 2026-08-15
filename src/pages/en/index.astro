@@ -6,6 +6,7 @@ import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro';
 import Hero from '../../components/Hero.astro';
 import BowieCollage from '../../components/BowieCollage.astro';
 import BowieStory from '../../components/BowieStory.astro';
+import WatchVideo from '../../components/WatchVideo.astro';
 import MusicTransition from '../../components/MusicTransition.astro';
 import BandGallery from '../../components/BandGallery.astro';
 import BandMembers from '../../components/BandMembers.astro';
@@ -56,6 +57,7 @@ const shows = showsData as Show[];
       paragraph={copy.bowieStory.paragraph}
       pullQuote={copy.bowieStory.pullQuote}
     />
+    <WatchVideo heading={copy.watch.heading} youtubeId="fPsdsE5sYtk" />
     <UpcomingShows
       locale="en"
       heading={copy.upcomingShows.heading}
