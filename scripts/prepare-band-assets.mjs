@@ -16,8 +16,13 @@ const SOURCE_DIR = 'C:/Users/roiis/OneDrive/Pictures/band images';
 // band-members.json instrument/name (photo content matches each member's
 // role: Dedi on keys, Gil on drums, Guy on sax, Itzik on guitar, Ofer on
 // bass, Roi singing/percussion).
+//
+// UPDATE (2nd pass): replaced Roi's photo per explicit follow-up. New
+// source lives in Downloads/bowie (not the OneDrive band-images folder
+// the rest of this map is relative to), so its entry is a full path
+// instead of a bare filename - resolvePhotoSrc() below handles both.
 export const BAND_PHOTO_MAP = {
-  'ROI ISAK.jpg': 'roi-isak.jpg',
+  'C:/Users/roiis/Downloads/bowie/Gemini_Generated_Image_dqn9zcdqn9zcdqn9.jpeg': 'roi-isak.jpg',
   'guy wittenberg.jpg': 'guy-wittenberg.jpg',
   'gil idan.jpg': 'gil-idan.jpg',
   'DEDI KOVACH.jpg': 'dedi-kovetz.jpg',
@@ -29,17 +34,21 @@ const BAND_OUT_DIR = join(REPO_ROOT, 'public/assets/band');
 const HERO_OUT_DIR = join(REPO_ROOT, 'public/assets/hero');
 const LOGO_OUT_DIR = join(REPO_ROOT, 'public/assets/logo');
 
+function resolvePhotoSrc(key) {
+  return key.includes(':/') ? key : join(SOURCE_DIR, key);
+}
+
 async function processBandPhotos() {
   mkdirSync(BAND_OUT_DIR, { recursive: true });
-  for (const [srcName, destName] of Object.entries(BAND_PHOTO_MAP)) {
-    const srcPath = join(SOURCE_DIR, srcName);
+  for (const [srcKey, destName] of Object.entries(BAND_PHOTO_MAP)) {
+    const srcPath = resolvePhotoSrc(srcKey);
     const destPath = join(BAND_OUT_DIR, destName);
     await sharp(srcPath)
       .rotate()
       .resize({ width: 1400, withoutEnlargement: true })
       .jpeg({ quality: 84, mozjpeg: true })
       .toFile(destPath);
-    console.log(`band photo: ${srcName} -> assets/band/${destName}`);
+    console.log(`band photo: ${srcKey.split('/').pop()} -> assets/band/${destName}`);
   }
 }
 
