@@ -7,7 +7,6 @@ import Hero from '../../components/Hero.astro';
 import BowieCollage from '../../components/BowieCollage.astro';
 import BowieStory from '../../components/BowieStory.astro';
 import WatchVideo from '../../components/WatchVideo.astro';
-import MusicTransition from '../../components/MusicTransition.astro';
 import BandGallery from '../../components/BandGallery.astro';
 import BandMembers from '../../components/BandMembers.astro';
 import UpcomingShows from '../../components/UpcomingShows.astro';
@@ -35,7 +34,6 @@ const shows = showsData as Show[];
       tribute={copy.hero.tribute}
       descriptor={copy.hero.descriptor}
     />
-    <MusicTransition label={copy.musicStarts.label} />
     <BandGallery
       locale="he"
       heading={copy.band.heading}
