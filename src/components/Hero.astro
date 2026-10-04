@@ -1,10 +1,23 @@
 ---
+// logo-layout.json is written by scripts/prepare-stardust-logo.mjs: where the
+// (tight-cropped) logo sits inside the larger dust frame. The dust layer is
+// positioned/sized relative to the logo box from these numbers, so the two
+// layers line up exactly like the original artwork.
+import layout from '../content/logo-layout.json';
+
 interface Props {
   subtitle: string;
   tribute: string;
   descriptor: string;
 }
 const { subtitle, tribute, descriptor } = Astro.props;
+
+const dustStyle = [
+  `--dust-left:${(layout.dustLeftOfLogo * 100).toFixed(3)}%`,
+  `--dust-top:${(layout.dustTopOfLogo * 100).toFixed(3)}%`,
+  `--dust-w:${(layout.dustWidthOfLogo * 100).toFixed(3)}%`,
+  `--dust-ratio:${(1 / layout.dustAspect).toFixed(5)}`,
+].join(';');
 ---
 
 <section id="hero" class="hero has-grain">
@@ -23,14 +36,20 @@ const { subtitle, tribute, descriptor } = Astro.props;
     </video>
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
-  <h1 class="hero__logo-wrap">
-    <img
-      src="/assets/logo/stardust-logo.png"
-      alt={subtitle}
-      class="hero__logo"
-      data-hero-logo
-    />
-  </h1>
+  <div class="hero__brand" style={dustStyle}>
+    <div class="hero__dust-layer" aria-hidden="true">
+      <img class="hero__dust" src="/assets/logo/stardust-dust.webp" alt="" />
+      <canvas class="hero__sparkles" data-hero-sparkles data-logo-box={JSON.stringify(layout.logoInDust)}></canvas>
+    </div>
+    <h1 class="hero__logo-wrap">
+      <img
+        src="/assets/logo/stardust-logo.png"
+        alt={subtitle}
+        class="hero__logo"
+        data-hero-logo
+      />
+    </h1>
+  </div>
   <p class="hero__tribute" data-hero-tribute>{tribute}</p>
   <p class="hero__descriptor" data-hero-descriptor>{descriptor}</p>
 </section>
@@ -40,6 +59,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     #hero .hero__logo,
     #hero .hero__tribute,
     #hero .hero__descriptor,
+    #hero .hero__dust-layer,
     #hero .hero__bg-video {
       opacity: 1 !important;
       transform: none !important;
@@ -87,20 +107,64 @@ const { subtitle, tribute, descriptor } = Astro.props;
       radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.4) 100%);
   }
 
+  /* The brand block is the logo's box; the dust layer is positioned relative
+     to it (see --dust-* vars, generated from the artwork) and may extend past
+     it — the hero clips overflow. */
+  .hero__brand {
+    position: relative;
+    z-index: 1;
+    width: min(88vw, 640px);
+    margin: 0 0 var(--space-md);
+    direction: ltr;
+  }
+
   .hero__logo-wrap {
     position: relative;
     z-index: 1;
-    margin: 0 0 var(--space-md);
+    margin: 0;
     line-height: 0;
   }
 
-  /* Significantly larger than before (was min(70vw, 420px)) — the logo is
-     now the dominant branded element in the hero, per "who are we" being
-     the opening screen's whole job. */
   .hero__logo {
-    width: min(88vw, 640px);
+    width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* Dust + sparkles: the galaxy streak and little stars from the original
+     artwork, kept as their own layer BEHIND the lettering. */
+  .hero__dust-layer {
+    position: absolute;
+    z-index: 0;
+    left: var(--dust-left);
+    top: var(--dust-top);
+    width: var(--dust-w);
+    aspect-ratio: var(--dust-ratio);
+    pointer-events: none;
+    opacity: 0;
+    animation: dust-drift 16s ease-in-out infinite alternate;
+  }
+
+  .hero__dust {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__sparkles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes dust-drift {
+    from {
+      transform: translate3d(-0.6%, 0.4%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(0.8%, -0.6%, 0) scale(1.025);
+    }
   }
 
   /* Tier 2: the identity-clarifying line. Bold and tracked, in the same
@@ -143,9 +207,16 @@ const { subtitle, tribute, descriptor } = Astro.props;
     .hero__logo,
     .hero__tribute,
     .hero__descriptor,
+    .hero__dust-layer,
     .hero__bg-video {
       opacity: 1;
       transform: none;
+    }
+    .hero__dust-layer {
+      animation: none;
+    }
+    .hero__sparkles {
+      display: none;
     }
     .hero__descriptor {
       opacity: 0.85;
@@ -156,6 +227,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
 <script>
   import { gsap } from 'gsap';
   import { prefersReducedMotion } from '../scripts/reduced-motion';
+  import { startSparkles, type LogoBox } from '../scripts/sparkles';
 
   const bgVideo = document.querySelector('[data-hero-bg-video]') as HTMLVideoElement | null;
 
@@ -185,6 +257,7 @@ const { subtitle, tribute, descriptor } = Astro.props;
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.to(bgVideo, { opacity: 1, scale: 1.05, duration: 1.6, ease: 'power2.out' })
       .fromTo('.hero__logo', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.1 }, '-=1.2')
+      .fromTo('.hero__dust-layer', { opacity: 0 }, { opacity: 1, duration: 1.8, ease: 'power1.out' }, '-=0.7')
       .fromTo('.hero__tribute', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
       .fromTo(
         '.hero__descriptor',
@@ -192,6 +265,11 @@ const { subtitle, tribute, descriptor } = Astro.props;
         { opacity: 0.85, y: 0, duration: 0.6 },
         '-=0.3'
       );
+
+    const sparkleCanvas = document.querySelector('[data-hero-sparkles]') as HTMLCanvasElement | null;
+    if (sparkleCanvas?.dataset.logoBox) {
+      startSparkles(sparkleCanvas, JSON.parse(sparkleCanvas.dataset.logoBox) as LogoBox);
+    }
 
     const supportsHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 

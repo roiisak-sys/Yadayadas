@@ -1,0 +1,12 @@
+{
+  "dustAspect": 0.55862,
+  "dustWidthOfLogo": 1.22673,
+  "dustLeftOfLogo": -0.08376,
+  "dustTopOfLogo": -0.77493,
+  "logoInDust": {
+    "x": 0.06828,
+    "y": 0.3358,
+    "w": 0.81517,
+    "h": 0.43333
+  }
+}
