@@ -1,23 +1,26 @@
-// One-off script: split the user-supplied STARDUST wordmark into two layers:
+// One-off script: builds the STARDUST hero assets from two user-supplied files.
 //
-//   1. stardust-logo.png  — the lettering only (S T ★ R D U ⚡ T), tight crop,
-//      transparent. Used in the hero, the corner brand mark and the footer.
-//   2. stardust-dust.webp — everything else (galaxy streak, dust specks,
-//      little sparkle stars), transparent, on a larger frame. Sits BEHIND the
-//      logo in the hero and gets animated there.
+//   1. stardust-logo.png  — the FINAL logo: white distressed lettering with a
+//      thick black outline (S T star R D U bolt T). That file already has a real
+//      transparent background, so it is only cropped to its alpha bounding box.
+//      Used in the hero, the corner brand mark and the footer.
+//   2. stardust-dust.webp — the galaxy streak, dust specks and little sparkle
+//      stars, taken from the ORIGINAL white-on-black artwork (the outline logo
+//      has no dust). Transparent, on a larger frame; sits BEHIND the logo in
+//      the hero and gets animated there.
 //
-// Source: white distressed lettering on opaque black, 2000x1000.
-//
-// How the split works: threshold to a binary mask, label connected
-// components, and keep the large ones as "lettering". Measured on the source:
-// the 8 letters/star/bolt are 11k-25k px each, one bolt fragment is ~900 px,
-// and the biggest piece of dust is ~400 px — so a 800 px cut is unambiguous.
-// The kept mask is dilated a few px so anti-aliased edges and the bolt's soft
-// glow stay with the logo, and the dust layer is cleared inside that same
-// region (so distress holes in the letters show the page, not dust).
+// Dust extraction (from the original artwork, 2000x1000 white on opaque black):
+// threshold to a binary mask, label connected components, and treat the large
+// ones as the old lettering. Measured on that source: the 8 letters/star/bolt
+// are 11k-25k px each, one bolt fragment is ~900 px, and the biggest piece of
+// dust is ~400 px — so an 800 px cut is unambiguous. The old lettering region
+// (opened to drop fused specks, dilated a few px) is cleared from the dust
+// layer, because the new logo sits over that area.
 //
 // Also writes src/content/logo-layout.json (where the logo sits inside the
 // dust frame) so Hero.astro can align the layers, and a clean star favicon.
+// The dust frame keeps the same position relative to the lettering as in the
+// original artwork (scaled to the new logo's width, centred vertically).
 //
 // Usage: node scripts/prepare-stardust-logo.mjs
 import sharp from 'sharp';
@@ -27,7 +30,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..');
-const SRC = 'C:/Users/roiis/Downloads/bowie/stardust-logo-source.webp';
+const DUST_SRC = 'C:/Users/roiis/Downloads/bowie/stardust-logo-source.webp'; // original artwork (dust)
+const LOGO_SRC = 'C:/Users/roiis/Downloads/bowie/stardust-logo-outline-source.webp'; // final outlined logo (transparent)
 const OUT_DIR = join(REPO_ROOT, 'public/assets/logo');
 
 const KEY_LO = 12; // max(R,G,B) -> alpha soft key (white on black)
@@ -90,7 +94,7 @@ function erode(mask, W, H, r) {
 
 async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
-  const { data, info } = await sharp(SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await sharp(DUST_SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: W, height: H, channels: C } = info;
 
   // 1. binary mask + keyed alpha
@@ -155,28 +159,53 @@ async function main() {
   const opened = dilate(erode(keep, W, H, OPEN), W, H, OPEN);
   const zone = dilate(opened, W, H, DILATE);
 
-  // 3. logo layer: keyed alpha inside the lettering zone, white RGB
-  const logoBox = {
+  // 3. reference box of the OLD lettering (used only to place the dust frame)
+  const oldBox = {
     left: Math.max(0, bx0 - DILATE - LOGO_PAD),
     top: Math.max(0, by0 - DILATE - LOGO_PAD),
     right: Math.min(W - 1, bx1 + DILATE + LOGO_PAD),
     bottom: Math.min(H - 1, by1 + DILATE + LOGO_PAD),
   };
-  logoBox.width = logoBox.right - logoBox.left + 1;
-  logoBox.height = logoBox.bottom - logoBox.top + 1;
+  oldBox.width = oldBox.right - oldBox.left + 1;
+  oldBox.height = oldBox.bottom - oldBox.top + 1;
 
-  const logoBuf = Buffer.alloc(W * H * 4, 255);
   const dustBuf = Buffer.alloc(W * H * 4, 255);
   for (let i = 0; i < W * H; i++) {
-    logoBuf[i * 4 + 3] = zone[i] ? keyed[i] : 0;
     dustBuf[i * 4 + 3] = zone[i] ? 0 : keyed[i];
   }
 
-  await sharp(logoBuf, { raw: { width: W, height: H, channels: 4 } })
-    .extract({ left: logoBox.left, top: logoBox.top, width: logoBox.width, height: logoBox.height })
-    .png()
-    .toFile(join(OUT_DIR, 'stardust-logo.png'));
-  console.log(`logo: stardust-logo.png (${logoBox.width}x${logoBox.height})`);
+  // 3b. the final logo: crop the supplied transparent file to its alpha bbox
+  const L = await sharp(LOGO_SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let lx0 = L.info.width, ly0 = L.info.height, lx1 = 0, ly1 = 0;
+  for (let y = 0; y < L.info.height; y++) {
+    for (let x = 0; x < L.info.width; x++) {
+      if (L.data[(y * L.info.width + x) * 4 + 3] > 20) {
+        if (x < lx0) lx0 = x;
+        if (x > lx1) lx1 = x;
+        if (y < ly0) ly0 = y;
+        if (y > ly1) ly1 = y;
+      }
+    }
+  }
+  const logoCrop = {
+    left: Math.max(0, lx0 - LOGO_PAD),
+    top: Math.max(0, ly0 - LOGO_PAD),
+    width: 0,
+    height: 0,
+  };
+  logoCrop.width = Math.min(L.info.width - logoCrop.left, lx1 - lx0 + 1 + LOGO_PAD * 2);
+  logoCrop.height = Math.min(L.info.height - logoCrop.top, ly1 - ly0 + 1 + LOGO_PAD * 2);
+  await sharp(LOGO_SRC).ensureAlpha().extract(logoCrop).png().toFile(join(OUT_DIR, 'stardust-logo.png'));
+  console.log(`logo: stardust-logo.png (${logoCrop.width}x${logoCrop.height})`);
+
+  // The logo's box in dust-frame (source) coordinates: same left and width as
+  // the old lettering, height from the new aspect ratio, centred vertically.
+  const logoBox = {
+    left: oldBox.left,
+    width: oldBox.width,
+    height: (oldBox.width * logoCrop.height) / logoCrop.width,
+  };
+  logoBox.top = oldBox.top + oldBox.height / 2 - logoBox.height / 2;
 
   // 4. dust layer: crop to the dust frame, feather the cut edges, save as webp
   const frame = await sharp(dustBuf, { raw: { width: W, height: H, channels: 4 } })
