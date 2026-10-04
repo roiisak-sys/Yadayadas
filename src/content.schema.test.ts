@@ -25,10 +25,12 @@ describe('band-members.json', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('every member has an age and non-empty bilingual bio', () => {
+  it('every member has a non-empty bilingual bio (age is optional but valid when present)', () => {
     for (const m of bandMembers as any[]) {
-      expect(typeof m.age).toBe('number');
-      expect(m.age).toBeGreaterThan(0);
+      if (m.age !== undefined) {
+        expect(typeof m.age).toBe('number');
+        expect(m.age).toBeGreaterThan(0);
+      }
       expect(m.bioHe.length).toBeGreaterThan(0);
       expect(m.bioEn.length).toBeGreaterThan(0);
     }

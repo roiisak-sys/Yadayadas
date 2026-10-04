@@ -1,5 +1,11 @@
-// One-off script: process new band member photos, hero image, and logo
-// from C:\Users\roiis\OneDrive\Pictures\band images into public/assets/.
+// One-off script: process band member photos and the hero poster image into
+// public/assets/. Sources: C:\Users\roiis\OneDrive\Pictures\band images, plus
+// full-path overrides for photos supplied later from Downloads/bowie.
+//
+// NOTE: the old logo/favicon step that used to live here was removed — it
+// wrote the previous YADAYADAS logo and a bolt favicon, and re-running it
+// would clobber the STARDUST assets. Logo + favicon + dust layer are now built
+// by scripts/prepare-stardust-logo.mjs.
 //
 // Usage: node scripts/prepare-band-assets.mjs
 import sharp from 'sharp';
@@ -14,25 +20,34 @@ const SOURCE_DIR = 'C:/Users/roiis/OneDrive/Pictures/band images';
 // --- Band member portraits -------------------------------------------------
 // Filename -> destination filename. Verified by visual read against
 // band-members.json instrument/name (photo content matches each member's
-// role: Dedi on keys, Gil on drums, Guy on sax, Itzik on guitar, Ofer on
+// role: Dedi on keys, Gil on drums, Guy on sax, Ron on guitar, Ofer on
 // bass, Roi singing/percussion).
 //
-// UPDATE (2nd pass): replaced Roi's photo per explicit follow-up. New
-// source lives in Downloads/bowie (not the OneDrive band-images folder
-// the rest of this map is relative to), so its entry is a full path
-// instead of a bare filename - resolvePhotoSrc() below handles both.
+// Entries that are a full path (contain ":/") live outside the OneDrive
+// band-images folder; resolvePhotoSrc() below handles both.
+//   - Roi's photo was replaced in a follow-up.
+//   - Ron Yona replaced Itzik Galanti on guitar; his photo is a portrait
+//     (1333x2000), pre-cropped to the card's 4:5 below.
 export const BAND_PHOTO_MAP = {
   'C:/Users/roiis/Downloads/bowie/Gemini_Generated_Image_dqn9zcdqn9zcdqn9.jpeg': 'roi-isak.jpg',
   'guy wittenberg.jpg': 'guy-wittenberg.jpg',
   'gil idan.jpg': 'gil-idan.jpg',
   'DEDI KOVACH.jpg': 'dedi-kovetz.jpg',
   'ofer pal.jpg': 'ofer-pal.jpg',
-  'itsik galanti.jpg': 'itzik-galanti.jpg',
+  'C:/Users/roiis/Downloads/bowie/ron-yona.jpg': 'ron-yona.jpg',
+};
+
+// Explicit 4:5 crops (full width, `top` px from the top). The member card
+// shows photos at 4:5 with a centred object-fit: cover crop, which on this
+// 2:3 portrait would shave ~170px off the top and cut into the head — so the
+// crop is chosen here instead: head fully in frame with headroom, and the
+// photographer's watermark in the bottom corner falls outside the frame.
+const BAND_PHOTO_CROPS = {
+  'ron-yona.jpg': { top: 30 },
 };
 
 const BAND_OUT_DIR = join(REPO_ROOT, 'public/assets/band');
 const HERO_OUT_DIR = join(REPO_ROOT, 'public/assets/hero');
-const LOGO_OUT_DIR = join(REPO_ROOT, 'public/assets/logo');
 
 function resolvePhotoSrc(key) {
   return key.includes(':/') ? key : join(SOURCE_DIR, key);
@@ -43,8 +58,18 @@ async function processBandPhotos() {
   for (const [srcKey, destName] of Object.entries(BAND_PHOTO_MAP)) {
     const srcPath = resolvePhotoSrc(srcKey);
     const destPath = join(BAND_OUT_DIR, destName);
-    await sharp(srcPath)
-      .rotate()
+    let pipeline = sharp(srcPath).rotate();
+    const crop = BAND_PHOTO_CROPS[destName];
+    if (crop) {
+      const { data, info } = await pipeline.toBuffer({ resolveWithObject: true });
+      pipeline = sharp(data).extract({
+        left: 0,
+        top: crop.top,
+        width: info.width,
+        height: Math.round((info.width * 5) / 4),
+      });
+    }
+    await pipeline
       .resize({ width: 1400, withoutEnlargement: true })
       .jpeg({ quality: 84, mozjpeg: true })
       .toFile(destPath);
@@ -63,52 +88,9 @@ async function processHeroImage() {
   console.log('hero image: HERO IMAGE.JPG -> assets/hero/hero-band-live.jpg');
 }
 
-// --- Logo: remove solid-black background, output transparent PNG ----------
-// LOGO.png source has no alpha channel (verified: hasAlpha=false), just a
-// pure-black (0,0,0) background behind white/orange artwork. Luminance
-// histogram is cleanly bimodal (background at 0, artwork at 225-255), so a
-// simple max-channel alpha key with a soft edge band is sufficient — no
-// AI background-removal tool needed for this asset.
-async function processLogo() {
-  mkdirSync(LOGO_OUT_DIR, { recursive: true });
-  const srcPath = join(SOURCE_DIR, 'LOGO.png');
-  const img = sharp(srcPath).ensureAlpha();
-  const { data, info } = await img.raw().toBuffer({ resolveWithObject: true });
-
-  const LO = 12;
-  const HI = 55;
-  for (let i = 0; i < data.length; i += info.channels) {
-    const maxChannel = Math.max(data[i], data[i + 1], data[i + 2]);
-    const alpha = Math.max(0, Math.min(255, Math.round(((maxChannel - LO) / (HI - LO)) * 255)));
-    data[i + 3] = alpha;
-  }
-
-  const destPath = join(LOGO_OUT_DIR, 'yadayadas-logo.png');
-  await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
-    .png()
-    .toFile(destPath);
-  console.log('logo: LOGO.png -> assets/logo/yadayadas-logo.png (background removed)');
-
-  // Favicon: crop to the lightning bolt mark (right portion of the wordmark),
-  // which reads more clearly than the full wordmark at favicon sizes.
-  const boltCrop = {
-    left: Math.floor(info.width * 0.87),
-    top: 0,
-    width: info.width - Math.floor(info.width * 0.87),
-    height: info.height,
-  };
-  await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
-    .extract(boltCrop)
-    .resize(256, 256, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toFile(join(REPO_ROOT, 'public/favicon.png'));
-  console.log('favicon: cropped bolt -> public/favicon.png');
-}
-
 async function main() {
   await processBandPhotos();
   await processHeroImage();
-  await processLogo();
   console.log('Done.');
 }
 
