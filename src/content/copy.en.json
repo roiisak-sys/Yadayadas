@@ -55,5 +55,5 @@
     "facebookUrl": "https://www.facebook.com/YadayadasIL/",
     "youtubeUrl": "https://www.youtube.com/@yadayadasil"
   },
-  "languageToggle": { "label": "EN", "ariaLabel": "Switch language" }
+  "languageToggle": { "label": "HE", "ariaLabel": "Switch language to Hebrew" }
 }
