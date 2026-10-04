@@ -8,8 +8,8 @@
     "instrumentHe": "שירה וכלי הקשה",
     "instrumentEn": "Lead Vocals & Percussion",
     "photo": "/assets/band/roi-isak.jpg",
-    "bioHe": "רועי איסק מגיע ל-YADAYADAS עם שנים של עשייה מוזיקלית ועם חיבור עמוק לקצב ולמוזיקה ממסורות שונות. בעבר היה חבר בלהקת עלילה, הרכב מוזיקת עולם שהוציא אלבום וסייר בטורים בינלאומיים. הוא היה גם הסולן של The Rubber Band, הרכב שעשה מחווה לגדולי הפאנק. באלבום אצל איסק מ-2010 הוא השתתף כנגן כלי הקשה וקולות, עם דרבוקה, דהולה, ג'מבה ואודו. ב-YADAYADAS הוא מביא את אותה יכולת קצבית ואינטואיטיבית אל תוך המוזיקה של בואי.",
-    "bioEn": "Roi Isak brings years of musical work and a deep connection to rhythm and music from diverse traditions. He was previously a member of Alila, a world-music ensemble that released an album and toured internationally. He was also lead singer of The Rubber Band, a tribute act to the greats of punk. On the 2010 album Etzel Isak he performed percussion and vocals — darbuka, dohola, djembe, and oud. In YADAYADAS he brings that same rhythmic, intuitive sensibility into Bowie's music."
+    "bioHe": "רועי איסק מגיע לסטארדאסט עם שנים של עשייה מוזיקלית ועם חיבור עמוק לקצב ולמוזיקה ממסורות שונות. בעבר היה חבר בלהקת עלילה, הרכב מוזיקת עולם שהוציא אלבום וסייר בטורים בינלאומיים. הוא היה גם הסולן של The Rubber Band, הרכב שעשה מחווה לגדולי הפאנק. באלבום אצל איסק מ-2010 הוא השתתף כנגן כלי הקשה וקולות, עם דרבוקה, דהולה, ג'מבה ואודו. בסטארדאסט הוא מביא את אותה יכולת קצבית ואינטואיטיבית אל תוך המוזיקה של בואי.",
+    "bioEn": "Roi Isak brings years of musical work and a deep connection to rhythm and music from diverse traditions. He was previously a member of Alila, a world-music ensemble that released an album and toured internationally. He was also lead singer of The Rubber Band, a tribute act to the greats of punk. On the 2010 album Etzel Isak he performed percussion and vocals — darbuka, dohola, djembe, and oud. In Stardust he brings that same rhythmic, intuitive sensibility into Bowie's music."
   },
   {
     "id": "guy-wittenberg",
@@ -44,8 +44,8 @@
     "instrumentHe": "קלידים וקולות",
     "instrumentEn": "Keyboards & Vocals",
     "photo": "/assets/band/dedi-kovetz.jpg",
-    "bioHe": "דדי קובץ' הוא הקלידן של YADAYADAS, ומחזיק בחלק מרכזי בעיצוב הצבע והאווירה של המופע — מרקמי הסינתיסייזרים, הפסנתרים והצלילים שמלווים את העולמות השונים שבואי עבר בהם לאורך הקריירה. הוא מביא איתו גם נגיעות של ג'אז ואלקטרוניקה, שמוסיפות טעם ייחודי לפלטה הצלילית של המופע.",
-    "bioEn": "Dedi Kovach is YADAYADAS's keyboardist, holding a central role in shaping the show's color and atmosphere — the synth textures, piano lines, and sounds that carry the different worlds Bowie moved through over his career. He brings touches of jazz and electronic music into the mix, adding a distinctive flavor to the show's sound."
+    "bioHe": "דדי קובץ' הוא הקלידן של סטארדאסט, ומחזיק בחלק מרכזי בעיצוב הצבע והאווירה של המופע — מרקמי הסינתיסייזרים, הפסנתרים והצלילים שמלווים את העולמות השונים שבואי עבר בהם לאורך הקריירה. הוא מביא איתו גם נגיעות של ג'אז ואלקטרוניקה, שמוסיפות טעם ייחודי לפלטה הצלילית של המופע.",
+    "bioEn": "Dedi Kovach is Stardust's keyboardist, holding a central role in shaping the show's color and atmosphere — the synth textures, piano lines, and sounds that carry the different worlds Bowie moved through over his career. He brings touches of jazz and electronic music into the mix, adding a distinctive flavor to the show's sound."
   },
   {
     "id": "ofer-pal",
@@ -56,8 +56,8 @@
     "instrumentHe": "בס",
     "instrumentEn": "Bass",
     "photo": "/assets/band/ofer-pal.jpg",
-    "bioHe": "עופר פל הוא הבסיסט של YADAYADAS, ומהווה את העוגן שעליו נשען הגרוב של ההרכב. מעבר ל-YADAYADAS הוא מופיע עם The Paranoids, הרכב מחווה ל-Green Day, וכן עם הרכבים מקומיים נוספים.",
-    "bioEn": "Ofer Pal is YADAYADAS's bassist, the anchor the band's groove leans on. Beyond YADAYADAS, he performs with The Paranoids, a Green Day tribute act, as well as several other local bands."
+    "bioHe": "עופר פל הוא הבסיסט של סטארדאסט, ומהווה את העוגן שעליו נשען הגרוב של ההרכב. מעבר לסטארדאסט הוא מופיע עם The Paranoids, הרכב מחווה ל-Green Day, וכן עם הרכבים מקומיים נוספים.",
+    "bioEn": "Ofer Pal is Stardust's bassist, the anchor the band's groove leans on. Beyond Stardust, he performs with The Paranoids, a Green Day tribute act, as well as several other local bands."
   },
   {
     "id": "itzik-galanti",
@@ -68,7 +68,7 @@
     "instrumentHe": "גיטרות",
     "instrumentEn": "Guitars",
     "photo": "/assets/band/itzik-galanti.jpg",
-    "bioHe": "איציק גלנטי חי בשני עולמות: ביום-יום הוא עוסק בהייטק, ובמקביל המוזיקה והגיטרה מלוות אותו מילדות. הוא מנגן בגיטרה חשמלית ואקוסטית, והחיבור שלו למוזיקה התחיל כבר בילדות — הרבה לפני שהפך לעיסוק מקצועי. כיום הוא משלב את הקריירה המקצועית עם פעילות מוזיקלית, כולל הופעות עם YADAYADAS.",
-    "bioEn": "Itzik Galanti lives in two worlds: by day he works in high-tech, while music and guitar have been with him since childhood, long before either became a serious pursuit. He plays both electric and acoustic guitar, and today combines his professional career with musical activity, including performing with YADAYADAS."
+    "bioHe": "איציק גלנטי חי בשני עולמות: ביום-יום הוא עוסק בהייטק, ובמקביל המוזיקה והגיטרה מלוות אותו מילדות. הוא מנגן בגיטרה חשמלית ואקוסטית, והחיבור שלו למוזיקה התחיל כבר בילדות — הרבה לפני שהפך לעיסוק מקצועי. כיום הוא משלב את הקריירה המקצועית עם פעילות מוזיקלית, כולל הופעות עם סטארדאסט.",
+    "bioEn": "Itzik Galanti lives in two worlds: by day he works in high-tech, while music and guitar have been with him since childhood, long before either became a serious pursuit. He plays both electric and acoustic guitar, and today combines his professional career with musical activity, including performing with Stardust."
   }
 ]

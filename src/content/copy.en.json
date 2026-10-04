@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "YADAYADAS — A David Bowie Live Experience",
-    "description": "YADAYADAS is a live musical and cultural journey through David Bowie's music and personas — six Israeli musicians performing his songs and telling the story behind them, in their own voice."
+    "title": "STARDUST — David Bowie Tribute Show",
+    "description": "Stardust — a David Bowie tribute show. Six Israeli musicians, kicking live rock'n'roll with violin, sax and percussion, and the story of the man behind the songs."
   },
   "nav": { "show": "Show", "bowie": "Bowie", "music": "Music", "band": "Band", "dates": "Dates" },
-  "hero": { "subtitle": "YADAYADAS", "tribute": "DAVID BOWIE TRIBUTE", "descriptor": "A live musical and cultural journey through David Bowie's Legacy" },
+  "hero": { "subtitle": "Stardust — David Bowie Tribute", "tribute": "DAVID BOWIE TRIBUTE", "descriptor": "A live musical and cultural journey through David Bowie's Legacy" },
   "question": { "heading": "Who was David Bowie?", "fragments": ["THE CHAMELEON", "THE OUTSIDER", "THE ROCK STAR", "THE ACTOR", "THE ARTIST", "THE MAN"] },
   "bowies": {
     "eras": [
@@ -19,15 +19,15 @@
     ]
   },
   "bowieStory": {
-    "paragraph": "Bowie was {{1:never just music}}. Never just the characters he built and discarded. He kept {{2:crossing lines}} — between {{3:sound, image, identity}} — and became {{4:something new each time}}. Our show doesn't retell his biography. It follows that same instinct: through the music, the characters, {{5:the reinvention}}, again and again.",
+    "paragraph": "Bowie was {{1:never just music}}. Never just the characters he built and discarded. He kept {{2:crossing lines}} — between {{3:sound, image, identity}} — and became {{4:something new each time}}. We don't recite his biography. We follow it through the songs, and trace how his inner life shaped the music, the characters, {{5:the reinvention}}, again and again.",
     "pullQuote": "Who am I now? What happens if I become this person? When do I need to leave him behind? And who do I become next?"
   },
   "musicStarts": { "label": "Then the music starts" },
   "band": {
-    "heading": "MORE THAN A TRIBUTE.",
+    "heading": "A TRIBUTE, NOT AN IMITATION.",
     "subheading": "THE MUSIC. THE MAN. THE STORY.",
-    "introParagraph": "YADAYADAS is six Israeli musicians who found a common language in David Bowie's music — powerful live rock, built on strong vocals, guitar interplay, solos, and arrangements that hit as hard live as they do on record.",
-    "statement": "But we're not here to imitate. Through the songs, we trace the man behind them — the characters he built, the worlds he moved through, the constant reinvention that made him impossible to pin down. You won't just hear Bowie's music. You'll leave knowing why it mattered."
+    "introParagraph": "Stardust is six Israeli musicians united by a deep love for David Bowie's music. Live, kicking rock'n'roll — strong vocals, guitar interplay, solos — enriched by violin, saxophone and percussion, in arrangements that hit as hard on stage as they do on record.",
+    "statement": "We're not an imitation act. This is a real tribute, made with love for the artist, for the songs, and for the person behind them. Between songs we go deeper into his psychology and his singular life story, and into how each chapter of his life found its way into the music. After four years on stage and a deep dive into his work, we want you to leave not just having heard Bowie, but understanding him — and hearing the songs differently."
   },
   "watch": {
     "heading": "WATCH THE SHOW"
@@ -42,15 +42,15 @@
   "pastShows": {
     "heading": "PAST SHOWS"
   },
-  "final": { "line1": "DAVID BOWIE WAS NEVER JUST ONE PERSON.", "line2": "NEITHER ARE WE.", "cta": "SEE YADAYADAS LIVE" },
+  "final": { "line1": "DAVID BOWIE WAS NEVER JUST ONE PERSON.", "line2": "NEITHER ARE WE.", "cta": "SEE STARDUST LIVE" },
   "contact": {
-    "heading": "Book YADAYADAS",
+    "heading": "Book STARDUST",
     "whatsappCta": "Talk to us on WhatsApp",
     "whatsappNumber": "972509841722",
-    "whatsappMessage": "Hi! I'd like to book YADAYADAS for a show.",
+    "whatsappMessage": "Hi! I'd like to book Stardust (David Bowie Tribute) for a show.",
     "callCta": "Call us",
     "phoneDisplay": "+972 50-984-1722",
-    "copyright": "© 2026 YADAYADAS. All rights reserved.",
+    "copyright": "© 2026 STARDUST. All rights reserved.",
     "instagramUrl": "https://www.instagram.com/yadayadasil/",
     "facebookUrl": "https://www.facebook.com/YadayadasIL/",
     "youtubeUrl": "https://www.youtube.com/@yadayadasil"

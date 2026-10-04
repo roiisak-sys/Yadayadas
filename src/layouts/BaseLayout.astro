@@ -14,7 +14,7 @@ interface Props {
 
 const { locale, title, description } = Astro.props;
 const dir = locale === 'he' ? 'rtl' : 'ltr';
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://yadayadas.example').toString();
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://yadayadasmusic.com').toString();
 ---
 
 <!doctype html>
