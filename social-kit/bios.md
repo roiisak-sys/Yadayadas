@@ -6,8 +6,8 @@ Handle: **stardustbowie** (chosen).
 - Instagram `@stardustbowie`: **taken** by an unrelated fan account (386 followers). Fallback options that looked free: `stardustbowie.il` or `stardustbowie_il`.
 Display name (same on every platform): **STARDUST - David Bowie Tribute**
 
-Contact used below: WhatsApp / phone +972 50-984-1722 · site https://yadayadasmusic.com
-(Link: `https://yadayadasmusic.com/he/` for Hebrew pages, `/en/` for English.)
+Contact used below: WhatsApp / phone +972 50-984-1722 · site https://stardustbowie.com
+(Link: `https://stardustbowie.com/he/` for Hebrew pages, `/en/` for English.)
 
 Character limits: Instagram name 64, Instagram bio 150, Facebook short description 255, YouTube description 1000.
 
@@ -34,7 +34,7 @@ Book us 👇
 
 **Transition line (add for ~4 weeks, English):** `Formerly YADAYADAS`
 
-Link in bio: https://yadayadasmusic.com/he/
+Link in bio: https://stardustbowie.com/he/
 Category: Music / Musician/Band.
 Action buttons (professional account): Contact → WhatsApp link https://wa.me/972509841722
 
@@ -62,7 +62,7 @@ STARDUST – a David Bowie tribute show. Live, kicking rock'n'roll with violin, 
 
 מחווה, לא חיקוי. ארבע שנים על הבמה, ועומק שלא תמצאו במופע מחווה רגיל.
 
-להזמנת המופע: 050-9841722 | https://yadayadasmusic.com/he/
+להזמנת המופע: 050-9841722 | https://stardustbowie.com/he/
 (לשעבר YADAYADAS)
 ```
 
@@ -74,7 +74,7 @@ Live, kicking rock'n'roll – strong vocals, guitar interplay, solos – enriche
 
 A tribute, not an imitation. Four years on stage, and a depth you won't find in a typical tribute show.
 
-Booking: +972 50-984-1722 | https://yadayadasmusic.com/en/
+Booking: +972 50-984-1722 | https://stardustbowie.com/en/
 (Formerly YADAYADAS)
 ```
 
@@ -98,7 +98,7 @@ Six musicians. Live, kicking rock'n'roll with violin, saxophone and percussion �
 
 Booking / להזמנות: +972 50-984-1722
 WhatsApp: https://wa.me/972509841722
-Website: https://yadayadasmusic.com
+Website: https://stardustbowie.com
 
 (Formerly YADAYADAS)
 ```
