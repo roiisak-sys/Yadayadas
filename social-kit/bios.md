@@ -1,6 +1,9 @@
 # STARDUST – social profile text
 
-Handle everywhere (if free): **stardustbowieil**
+Handle: **stardustbowie** (chosen).
+- YouTube `@stardustbowie`: looked free.
+- Facebook `stardustbowie`: could not be confirmed either way, so try it in the app.
+- Instagram `@stardustbowie`: **taken** by an unrelated fan account (386 followers). Fallback options that looked free: `stardustbowie.il` or `stardustbowie_il`.
 Display name (same on every platform): **STARDUST - David Bowie Tribute**
 
 Contact used below: WhatsApp / phone +972 50-984-1722 · site https://yadayadasmusic.com
