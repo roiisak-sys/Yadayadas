@@ -1,7 +1,7 @@
 # STARDUST – social profile text
 
 Handle everywhere (if free): **stardustbowieil**
-Display name: **Stardust – David Bowie Tribute** (Hebrew pages: **סטארדאסט – מחווה לדיוויד בואי**)
+Display name (same on every platform): **STARDUST - David Bowie Tribute**
 
 Contact used below: WhatsApp / phone +972 50-984-1722 · site https://yadayadasmusic.com
 (Link: `https://yadayadasmusic.com/he/` for Hebrew pages, `/en/` for English.)
@@ -13,7 +13,7 @@ Character limits: Instagram name 64, Instagram bio 150, Facebook short descripti
 ## Instagram
 
 **Name field (searchable, max 64):**
-`Stardust סטארדאסט | David Bowie Tribute`
+`STARDUST - David Bowie Tribute`
 
 **Bio – Hebrew (max 150):**
 ```
@@ -39,8 +39,7 @@ Action buttons (professional account): Contact → WhatsApp link https://wa.me/9
 
 ## Facebook Page
 
-**Page name:** `Stardust – David Bowie Tribute`
-(Hebrew alternative: `סטארדאסט – מחווה לדיוויד בואי`; Facebook shows one name, so pick the one your audience searches.)
+**Page name:** `STARDUST - David Bowie Tribute`
 
 **Short description (max 255) – Hebrew:**
 ```
@@ -83,7 +82,7 @@ Profile picture: `profile-logo-1080.png` · Cover: `facebook-cover-1640x624.png`
 
 ## YouTube
 
-**Channel name:** `Stardust – David Bowie Tribute`
+**Channel name:** `STARDUST - David Bowie Tribute`
 **Handle:** `@stardustbowieil`
 
 **Description (max 1000):**
