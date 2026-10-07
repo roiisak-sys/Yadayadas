@@ -49,3 +49,34 @@ describe('accessibility structure — /en/', () => {
     expect(matches).toHaveLength(1);
   });
 });
+
+describe('root page — the bare domain serves English directly', () => {
+  const html = () => readFileSync(join(DIST, 'index.html'), 'utf-8');
+
+  it('is the real English site, not a redirect stub', () => {
+    expect(html()).toMatch(/<html[^>]*lang="en"[^>]*dir="ltr"/);
+    expect(html()).toContain('<main');
+    expect(html()).not.toMatch(/http-equiv="refresh"/i);
+  });
+
+  it('canonicalises English to the bare domain and links the Hebrew alternate', () => {
+    expect(html()).toContain('rel="canonical" href="https://stardustbowie.com/"');
+    expect(html()).toContain('hreflang="he" href="https://stardustbowie.com/he/"');
+  });
+
+  it('has the same canonical on /en/ so the two are not duplicate pages', () => {
+    const en = readFileSync(join(DIST, 'en', 'index.html'), 'utf-8');
+    expect(en).toContain('rel="canonical" href="https://stardustbowie.com/"');
+  });
+});
+
+describe('social links point at the renamed accounts', () => {
+  const html = () => readFileSync(join(DIST, 'index.html'), 'utf-8');
+
+  it('links Instagram and Facebook to stardustbowie.il', () => {
+    expect(html()).toContain('instagram.com/stardustbowie.il/');
+    expect(html()).toContain('facebook.com/stardustbowie.il/');
+    expect(html()).not.toContain('instagram.com/yadayadasil');
+    expect(html()).not.toContain('facebook.com/YadayadasIL');
+  });
+});

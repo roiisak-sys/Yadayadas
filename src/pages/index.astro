@@ -1,3 +1,8 @@
 ---
-return Astro.redirect('/he/');
+// The bare domain serves the English site directly (no redirect, so no
+// "redirecting…" flash). /en/ renders the same page; its canonical URL points
+// here (see BaseLayout) so search engines treat the root as the English page.
+import EnglishPage from './en/index.astro';
 ---
+
+<EnglishPage />

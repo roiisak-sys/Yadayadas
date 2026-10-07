@@ -14,7 +14,12 @@ interface Props {
 
 const { locale, title, description } = Astro.props;
 const dir = locale === 'he' ? 'rtl' : 'ltr';
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://stardustbowie.com').toString();
+const site = Astro.site ?? new URL('https://stardustbowie.com');
+// English is served at the bare domain (and also at /en/, which canonicalises
+// to it); Hebrew lives at /he/.
+const canonical = new URL(locale === 'en' ? '/' : Astro.url.pathname, site).toString();
+const englishUrl = new URL('/', site).toString();
+const hebrewUrl = new URL('/he/', site).toString();
 ---
 
 <!doctype html>
@@ -25,6 +30,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://stardustbow
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={englishUrl} />
+    <link rel="alternate" hreflang="he" href={hebrewUrl} />
+    <link rel="alternate" hreflang="x-default" href={englishUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

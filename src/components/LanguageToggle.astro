@@ -42,8 +42,8 @@ const { locale, label, ariaLabel } = Astro.props;
 
     const currentLocale = btn.getAttribute('data-locale');
     const targetLocale = currentLocale === 'he' ? 'en' : 'he';
-    const path = window.location.pathname.replace(`/${currentLocale}/`, `/${targetLocale}/`);
-    window.location.href = path;
+    // English lives at the bare domain, Hebrew at /he/.
+    window.location.href = targetLocale === 'en' ? '/' : '/he/';
   });
 
   window.addEventListener('load', () => {
